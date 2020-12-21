@@ -5,7 +5,7 @@ import os
 import cherrypy
 from app import application
 
-# Hallo
+# Hallo, this is the nico branch
 # --------------------------------------
 def main():
     # --------------------------------------
