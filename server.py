@@ -5,7 +5,6 @@ import os
 import cherrypy
 from app import application
 
-# Hallo
 # --------------------------------------
 def main():
     # --------------------------------------
