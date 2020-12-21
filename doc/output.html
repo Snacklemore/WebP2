@@ -1,0 +1,82 @@
+<p><strong>DOCUMENTATION</strong></p>
+<p><em>Aufbau der Webanwendung</em></p>
+<pre class="."><code>├── app
+│   ├── __init__.py
+│   ├── application.py
+│   ├── database.py
+│   ├── dataid.py
+│   └── view.py
+├── content
+│   ├── webteams.css
+│   └── webteams.js
+├── data
+│   ├── maxid.json
+│   └── webteams.json
+├── server.py
+└── templates
+    ├── form.tpl
+    ├── list.tpl
+    └── list2.tpl</code></pre>
+<p>Im Ordner app befinden sich alle für den Server interessanten Python-Skripte. Die Datei &quot;<strong>init</strong>.py&quot; sorgt dafür, dass der Ordner als Modul erkannt wird.</p>
+<ul>
+<li><p>application.py ist der Entrypoint für cherryPy. Die Routen der Webanwendung stehen hier als Funktionen zu verfügung. Eine als Route definierte Funktion wird mit dem <span class="citation" data-cites="Cherrypy.expose">@Cherrypy.expose</span> Decorator versehen. Liefert HTML-Code der im Browser angezeigt wird.</p></li>
+<li><p>database.py stellt ein Interface bereit um Daten zu speichern, hier Python Dictionnaries. Abgespeichert werden die Daten im JSON Format im data-Ordner.</p></li>
+<li><p>dataid.py speichert den höchsten Index, und stellt sicher das ein Index auf nur einen Datensatz verweist.</p></li>
+<li><p>view.py generiert den HTML-Code aus den Templates, welche sich im template-Ordner befinden. So kann der HTML dynamisch verändert werden.</p></li>
+</ul>
+<p>Im Ordner content befinden sich die Javascript- und CSS-Datei.</p>
+<ul>
+<li>webteams.css Stylesheet, eingebunden in alle templates.</li>
+<li>webteams.js Javascritp für die Bestätigung des löschens eines Eintrages</li>
+</ul>
+<p>Der Ordner data hält die gespeicherten Daten. database.py speichert die JSON Dateien an dieser Stelle. Die Datei server.py ist der Haupteinstiegspunkt für den Server ( die Stelle wo der Server gestartet wird). <br/></p>
+<table>
+<thead>
+<tr class="header">
+<th>HTTP-Method</th>
+<th>URL</th>
+<th>Server-Response</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GET</td>
+<td>localhost:8080</td>
+<td>html</td>
+</tr>
+<tr class="even">
+<td>GET</td>
+<td>localhost:8080/add</td>
+<td>HTML</td>
+</tr>
+<tr class="odd">
+<td>POST</td>
+<td>localhost:8080/save</td>
+<td>HTML</td>
+</tr>
+<tr class="even">
+<td>GET</td>
+<td>localhost:8080/delete/</td>
+<td>HTML</td>
+</tr>
+<tr class="odd">
+<td>GET</td>
+<td>localhost:8080/edit</td>
+<td>HTML</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<figure>
+<img src="index.png" alt="Request auf Index" /><figcaption>Request auf Index</figcaption>
+</figure>
+<p>Vom Browser gehen 3 Anfragen an den Server. Diese &quot;Requests&quot; sind vom Typ GET. Geliefert wird HTML Code in welchen dann die CSS und .js Datei eingebunden werden.</p>
+<figure>
+<img src="indexdetail.png" alt="Request Detail" /><figcaption>Request Detail</figcaption>
+</figure>
+<p>Standartdaten sind im Screenshot zu sehen, die Methode ist vom Typ GET.</p>
+<p><img src="webfrom.png" alt="Request auf Save" /> Vom Browser gehen erneut 3 Anfragen an den Server. Diesmal, aufgrund der Form im HTML Code vom TYP POST. <strong>save?listenform=tabelle</strong> ergibt als Antwort HTML-Code.</p>
+<figure>
+<img src="WebFormDetail.png" alt="Request Detail" /><figcaption>Request Detail</figcaption>
+</figure>
+<p>Da der Request vom Typ POST ist ( durch das Formular im template) werden hier auch Daten übertragen. Diese werden als Wertepaare zum Server geschickt.</p>

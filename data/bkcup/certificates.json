@@ -1,0 +1,32 @@
+{
+   "1": [
+      "Network",
+      "Net",
+      "Test3",
+	[
+		
+		["John","Doe","1"],
+		["Jane","Doe","2"]		
+	
+
+	]
+      
+   ],
+   "2": [
+      "Datenbanken",
+      "DB",
+      "Test4",
+	[]
+      
+   ],
+   "3": [
+      "Office",
+      "Test",
+      "Drucker",
+	[
+		["John","Doe", "1"]		
+	
+	]
+
+   ]
+}
