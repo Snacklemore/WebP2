@@ -7,7 +7,7 @@ class Database:
 
     # Constructor
 
-    def __int__(self, database_file, data_id_file):
+    def __init__(self, database_file, data_id_file):
         self.data_id_file = data_id_file
         self.database_file = database_file
         self.data_o = {}
@@ -46,6 +46,12 @@ class Database:
             if id_spl in self.data_o:
                 return copy.deepcopy(self.data_o[id_spl])
 
+    def create_px(self, data_opl):
+        id_s = self.create_data_id()
+        self.data_o[id_s] = data_opl
+        self.save_data_o()
+        return id_s
+
     def update_px(self, id_spl, data_opl):
         if id_spl in self.data_o:
             self.data_o[id_spl] = data_opl
@@ -81,22 +87,86 @@ class Database:
     def delete_employee(self, id_spl):
         pass
 
-    def delete_training(self):
+    def delete_training(self, id_spl):
         pass
+
+# Employee Class
 
 class Employee(Database):
 
-    def __int__(self, database_file="employee", data_id_file="MaxIDemployee"):
-        super().__int__(database_file, data_id_file)
+    def __init__(self, database_file="employee.json", data_id_file="MaxIDemployee.json"):
+        super().__init__(database_file, data_id_file)
 
     def get_default_px(self):
-        pass
+        return ['', '', '', '']
 
     def delete_employee(self, id_spl):
         return self.delete_px(id_spl)
 
-    def delete_training(self):
-        pass
+# Trainings Class
+
+class Training(Database):
+
+    def __init__(self, database_file="trainings.json", data_id_file="MaxIDtrainings.json"):
+        super().__init__(database_file, data_id_file)
+
+    def get_default_px(self):
+        return ['', '', '', '', '', '']
+
+    def delete_training(self, id_spl):
+        return self.delete_px(id_spl)
+
+class Certificates(Database):
+
+    def __init__(self, database_file="certificates.json", data_id_file="MaxIDcerts.json"):
+        super().__init__(database_file, data_id_file)
+
+    def delete_px(self, id_spl):
+        passed = False
+        # For every certificate in the database
+        for certificate in self.data_o:
+            # for every employee in a certificate
+            for employee in self.data_o[certificate][-1]:
+                # If employee in database matches given employee remove it
+                if employee is id_spl:
+                    certificate[-1].remove(employee)
+                    passed = True
+                    # Break to loop over the next certificate
+                    break
+
+        return passed
+
+    def delete_employee(self, id_spl):
+        self.delete_px(id_spl)
+
+    def delete_training(self, id_spl):
+        # For every certificate in the database
+        for certificate in self.data_o:
+            # If Trainings ID matches given ID then set it to
+            if self.data_o[certificate][2] is id_spl[4]:
+                # -1 stands for Training no longer exists
+                # Certificate is not deleted because someone could already own it even tho the training was deleted
+                self.data_o[certificate][2] = "-1"
+
+    def delete_certificate(self, id_spl):
+        return self.delete_px(id_spl)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
