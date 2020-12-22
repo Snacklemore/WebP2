@@ -227,10 +227,12 @@ class Employee_training(Database):
                 return self.delete_px(training)
         return False
 
+class Employee_participation(Database):
+    def __init__(self, database_file="employeetraining.json", data_id_file=""):
+        super().__init__(database_file, data_id_file)
 
-
-
-
+    # Die Klasse sollte eigentlich die Employee klasse sein
+    # Weil die Datenbanken gleich sind bzw die hier die employee Klasse erweitert
 
 
 
