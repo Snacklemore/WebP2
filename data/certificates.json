@@ -4,29 +4,22 @@
       "Net",
       "3",
 	[
-		
 		["John","Doe","1"],
-		["Jane","Doe","2"]		
-	
-
+		["Jane","Doe","2"]
 	]
-      
    ],
    "2": [
       "Datenbanken",
       "DB",
       "4",
 	[]
-      
    ],
    "3": [
       "Office",
       "Test",
       "6",
 	[
-		["John","Doe", "1"]		
-	
+		["John","Doe", "1"]
 	]
-
    ]
 }

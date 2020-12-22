@@ -2,6 +2,7 @@
 import cherrypy
 from .database import Database_cl
 from .view import View_cl
+from .databaseapi import *
 
 # test test
 # ----------------------------------------------------------
@@ -12,9 +13,11 @@ class Application_cl(object):
     def __init__(self):
         # -------------------------------------------------------
         # seperatie db_o objects to store employees and trainings
-        self.db_employee = Database_cl("employee")
+        #self.db_employee = Database_cl("employee")
+        self.db_employee = Employee()
         # change add,edit,and other route functions to handle seperate trainings db
-        self.db_trainings = Database_cl("trainings")
+        #self.db_trainings = Database_cl("trainings")
+        self.db_trainings = Training()
         self.db_trainingrelations = Database_cl("trainingRelations")
         self.db_employeeparticipation = Database_cl("employeeParticipations")
         self.db_certs = Database_cl("certs")
@@ -242,7 +245,7 @@ class Application_cl(object):
         if id_spl != None:
             data_o = self.db_employee.read_px(id_spl)
         else:
-            data_o = self.db_employee.getDefault_px()
+            data_o = self.db_employee.get_default_px()
         return self.view_o.createForm_px(id_spl=id_spl, data_opl=data_o, listform=listform)
 
     @cherrypy.expose

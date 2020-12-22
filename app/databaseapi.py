@@ -121,7 +121,7 @@ class Certificates(Database):
     def __init__(self, database_file="certificates.json", data_id_file="MaxIDcerts.json"):
         super().__init__(database_file, data_id_file)
 
-    def delete_px(self, id_spl):
+    def delete_employee(self, id_spl):
         passed = False
         # For every certificate in the database
         for certificate in self.data_o:
@@ -135,9 +135,6 @@ class Certificates(Database):
                     break
 
         return passed
-
-    def delete_employee(self, id_spl):
-        self.delete_px(id_spl)
 
     def delete_training(self, id_spl):
         # For every certificate in the database
