@@ -66,13 +66,14 @@
                <td>
                   <a href="/edittrainings/${key_s}?index=Pflege_Mitarbeiterdaten">bearbeiten</a>
                   <a href="/deletetrainings/${key_s}?index=Pflege_Mitarbeiterdaten" class="clDelete">Löschen</a>
+                  <a href="/showdetailtrainings/${key_s}">Ansicht</a>
                </td>
             </tr>
             % endfor
          </table>
          <div>
             <a href="/addtrainings">erfassen</a>
-            <a href="?index=Pflege_Mitarbeiterdaten">Ansicht ändern</a>
+
          </div>
       </article>
    </section>
