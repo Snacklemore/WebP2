@@ -30,7 +30,7 @@ class Database:
         try:
             with codecs.open(os.path.join('data', self.data_id_file), 'r', 'utf-8')as file:
                 self.maxId_i = json.load(file)
-        except (FileNotFoundError, PermissionError):
+        except (FileNotFoundError, PermissionError, TypeError):
             self.maxId_i = 0
             self.save_max_id()
 
@@ -75,7 +75,7 @@ class Database:
         try:
             with codecs.open(os.path.join("data", self.database_file), 'r', "utf-8") as file:
                 self.data_o = json.load(file)
-        except (FileNotFoundError, PermissionError):
+        except (FileNotFoundError, PermissionError, TypeError):
             self.data_o = {}
             self.save_data_o()
 
@@ -116,6 +116,8 @@ class Training(Database):
     def delete_training(self, id_spl):
         return self.delete_px(id_spl)
 
+# Certificates Class
+
 class Certificates(Database):
 
     def __init__(self, database_file="certificates.json", data_id_file="MaxIDcerts.json"):
@@ -134,13 +136,12 @@ class Certificates(Database):
                     # Break to loop over the next certificate
                     break
 
-
         return passed
 
     def delete_training(self, id_spl):
         # For every certificate in the database
         for certificate in self.data_o:
-            # If Trainings ID matches given ID then set it to
+            # If Trainings ID matches given ID
             if self.data_o[certificate][2] is id_spl[4]:
                 # -1 stands for Training no longer exists
                 # Certificate is not deleted because someone could already own it even tho the training was deleted
@@ -149,16 +150,68 @@ class Certificates(Database):
     def delete_certificate(self, id_spl):
         return self.delete_px(id_spl)
 
+# Qualification Class
 
+class Qualifications(Database):
 
+    def __init__(self, database_file="qualifications.json", data_id_file="qualiMaxID.json"):
+        super().__init__(database_file, data_id_file)
 
+    def delete_employee(self, id_spl):
+        passed = False
+        # For every qualification in the database
+        for qualification in self.data_o:
+            # for every employee in a qualification
+            for employee in self.data_o[qualification][-1]:
+                # If employee in database matches given employee remove it
+                if employee is id_spl:
+                    qualification[-1].remove(employee)
+                    passed = True
+                    # Break to loop over the next qualification
+                    break
 
+        return passed
 
+    def delete_training(self, id_spl):
+        # For every qualification in the database
+        for qualification in self.data_o:
+            # If Trainings ID matches given ID
+            if self.data_o[qualification][2] is id_spl[4]:
+                # -1 stands for Training no longer exists
+                # qualification is not deleted because someone could already own it even tho the training was deleted
+                self.data_o[qualification][2] = "-1"
 
+    def delete_qualification(self, id_spl):
+        return self.delete_px(id_spl)
 
+# Employee_training Class
 
+class Employee_training(Database):
+    def __init__(self, database_file="employeetraining.json", data_id_file=""):
+        super().__init__(database_file, data_id_file)
 
+    def delete_employee(self, id_spl):
+        passed = False
+        # For every training in the database
+        for training in self.data_o:
+            # for every employee in a training
+            for employee in self.data_o[training][-1]:
+                # If employee in database matches given employee remove it
+                if employee is id_spl:
+                    training[-1].remove(employee)
+                    passed = True
+                    # Break to loop over the next training
+                    break
 
+        return passed
+
+    def delete_training(self, id_spl):
+        # For every qualification in the database
+        for training in self.data_o:
+            # If Trainings ID matches given ID then delete it
+            if self.data_o[training][4] is id_spl[4]:
+                # -1 stands for Training no longer exists
+                #self.data_o[training]
 
 
 
