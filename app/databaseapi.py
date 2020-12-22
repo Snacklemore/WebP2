@@ -134,6 +134,7 @@ class Certificates(Database):
                     # Break to loop over the next certificate
                     break
 
+
         return passed
 
     def delete_training(self, id_spl):
