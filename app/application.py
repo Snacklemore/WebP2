@@ -285,6 +285,30 @@ class Application_cl(object):
         data_p = employee
         return self.view_o.createDetailPflegeMitarbeiter(data_o, data_c, data_p)
 
+    @cherrypy.expose
+    def showdetailtrainings(self, id_spl):
+
+        training = self.db_trainingrelations.read_px(id_spl)
+        teilnehmer = training[len(training) - 1]
+
+        quali = self.db_qualifications.read_px()
+        qualifizierungen = []
+        for key_s in quali:
+            if quali[key_s][2] == id_spl:
+                qualifizierungen.append(quali[key_s][0])
+
+        certs = self.db_certs.read_px()
+        certsoftraining = []
+        for key_s in certs:
+            if certs[key_s][2] == id_spl:
+                certsoftraining.append(certs[key_s][0])
+
+        data_c = certsoftraining
+        data_o = training
+        data_p = teilnehmer
+        data_b = qualifizierungen
+        return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_c, data_p, data_b)
+
 
 
 

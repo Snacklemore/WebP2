@@ -48,6 +48,12 @@ class View_cl(object):
         template_o = self.lookup_o.get_template('Pflege_Mitarbeiter_Detail.tpl')
         markup_s = template_o.render(data_o=data_o, data_c=data_c, data_p=data_p)
         return markup_s
+
+    def createDetailPflegeWeiterbildungen(self, data_o, data_p, data_c, data_b):
+        template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Detail.tpl')
+        markup_s = template_o.render(data_o=data_o, data_p=data_p, data_c = data_c, data_b = data_b)
+        return markup_s
+
     # -------------------------------------------------------
     def readFile_p(self, fileName_spl):
         # -------------------------------------------------------
