@@ -205,13 +205,27 @@ class Employee_training(Database):
 
         return passed
 
+    """
+    EXPERIMENTAL FUNCTION:
+    id_spl: THIS IS ASSUMED TO BE ON ENTIRE ENTRY OF trainings.json
+    eg:
+    [
+      "Test3",
+      "2020-01-01",
+      "2020-01-01",
+      "Test3",
+      "10",
+      "1"
+   ]
+    """
     def delete_training(self, id_spl):
         # For every qualification in the database
         for training in self.data_o:
-            # If Trainings ID matches given ID then delete it
-            if self.data_o[training][4] is id_spl[4]:
-                # -1 stands for Training no longer exists
-                #self.data_o[training]
+            # If Training matches given Training then delete it
+            # [:-1] excludes the last entry in this case the employees
+            if self.data_o[training][:-1] == id_spl:
+                return self.delete_px(training)
+        return False
 
 
 
