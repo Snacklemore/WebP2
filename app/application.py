@@ -303,6 +303,7 @@ class Application_cl(object):
             if certs[key_s][2] == id_spl:
                 certsoftraining.append(certs[key_s][0])
 
+
         data_c = certsoftraining
         data_o = training
         data_p = teilnehmer

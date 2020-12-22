@@ -51,7 +51,7 @@ class View_cl(object):
 
     def createDetailPflegeWeiterbildungen(self, data_o, data_p, data_c, data_b):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Detail.tpl')
-        markup_s = template_o.render(data_o=data_o, data_p=data_p, data_c=data_c, data_b=data_b)
+        markup_s = template_o.render(data_o=data_o, data_p=data_p, data_c = data_c, data_b = data_b)
         return markup_s
 
     # -------------------------------------------------------
