@@ -78,9 +78,49 @@ class Database:
     def get_default_px(self):
         pass
 
-    def delete_employee(self):
+    def delete_employee(self, id_spl):
         pass
 
     def delete_training(self):
         pass
+
+class Employee(Database):
+
+    def __int__(self, database_file="employee", data_id_file="MaxIDemployee"):
+        super().__int__(database_file, data_id_file)
+
+    def get_default_px(self):
+        pass
+
+    def delete_employee(self, id_spl):
+        return self.delete_px(id_spl)
+
+    def delete_training(self):
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

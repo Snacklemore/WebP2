@@ -60,7 +60,7 @@ class Database_cl(object):
     def delete_px(self, id_spl):
         # -------------------------------------------------------
         status_b = False
-        if self.data_o.pop(id_spl, None) != None:
+        if self.data_o.pop(id_spl, None) is not None:
             self.saveData_p()
             status_b = True
         return status_b

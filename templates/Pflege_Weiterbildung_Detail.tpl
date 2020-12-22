@@ -44,13 +44,13 @@
       <article>
          <h1>Weiterbildung:</h1>
          <h4>Bezeichnung</h4>
-         <p>${data_0[0]}</p>
+         <p>${data_o[0]}</p>
          <h4>Von</h4>
-         <p>${data_0[1]}</p>
+         <p>${data_o[1]}</p>
          <h4>Bis</h4>
-         <p>${data_0[2]}</p>
+         <p>${data_o[2]}</p>
          <h4>Beschreibung</h4>
-         <p>${data_0[3]}</p>
+         <p>${data_o[3]}</p>
          <table>
             <h1>Teilnehmer</h1>
             % for x in data_p:
@@ -81,7 +81,7 @@
                </td>
             </tr>
             <tr>
-               <td>${x[0]}</td>
+               <td>${x}</td>
             </tr>
             % endfor
          </table>
@@ -94,7 +94,7 @@
                </td>
             </tr>
             <tr>
-               <td>${x[0]}</td>
+               <td>${x}</td>
             </tr>
             % endfor
          </table>

@@ -307,11 +307,7 @@ class Application_cl(object):
         data_o = training
         data_p = teilnehmer
         data_b = qualifizierungen
-        return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_c, data_p, data_b)
-
-
-
-
+        return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_p, data_c, data_b)
 
     def createDetail(self, id_spl):
         # here we need to read all trainings from this employee(with the ID)
