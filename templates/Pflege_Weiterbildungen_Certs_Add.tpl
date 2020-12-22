@@ -5,7 +5,6 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="\hauptansicht.css"/>
-   <script type="text/javascript" src="/webteams.js"></script>
 </head>
 <body>
    <header>
@@ -43,38 +42,41 @@
          <hr>
       </nav>
       <article>
-         <h1>Weiterbildungen</h1>
-         <table>
-            <tr>
-               <th>Bezeichnung</th>
-               <th>Von</th>
-               <th>Bis</th>
-               <th>Beschreibung</th>
-               <th>maximale Teilnehmerzahl</th>
-               <th>minimale Teilnehmerzahl</th>
-            </tr>
-            % for key_s in data_o:
-            <tr>
-               <td>${data_o[key_s][0]}</td>
-               <td>${data_o[key_s][1]}</td>
-               <td>${data_o[key_s][2]}</td>
-               <td>${data_o[key_s][3]}</td>
-               <td>${data_o[key_s][4]}</td>
-               <td>${data_o[key_s][5]}</td>
-               <td>
-               <td>
-               <td>
-                  <a href="/edittrainings/${key_s}?index=Pflege_Mitarbeiterdaten">bearbeiten</a>
-                  <a href="/deletetrainings/${key_s}?index=Pflege_Mitarbeiterdaten" class="clDelete">Löschen</a>
-		  <a href="/managequalicerts/${key_s}">Zert./Qual. verwalten</a>
-               </td>
-            </tr>
-            % endfor
-         </table>
-         <div>
-            <a href="/addtrainings">erfassen</a>
-            <a href="?index=Pflege_Mitarbeiterdaten">Ansicht ändern</a>
-         </div>
+         <form id="idWTForm" action="/savecert" method="POST">
+           
+	    
+	<h1>Zertifikat hinzufügen</h1>	
+		
+		 	
+            <div>
+               <label for="bezeichnungc_spa">Bezeichnung</label>
+               <input type="text"
+                  value=" "
+                  id="bezeichnungc_spa"
+                  name="bezeichnungc_spa" required />
+            </div>
+            <div>
+               <label for="beschreibung_spa">Beschreibung</label>
+               <input type="text"
+                  value=" "
+                  id="beschreibung_spa"
+                  name="beschreibung_spa" required />
+            </div>
+	    <div>
+               <label for="berechtigung_spa">Berechtigt zu</label>
+               <input type="text"
+                  value=" "
+                  id="berechtigung_spa"
+                  name="berechtigung_spa" required />
+            </div>
+	
+	
+
+		<div>
+               <input type="submit" value="Speichern"/>
+            </div>	
+	
+         </form>
       </article>
    </section>
 </body>

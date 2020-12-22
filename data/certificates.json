@@ -3,30 +3,45 @@
       "Network",
       "Net",
       "3",
-	[
-		
-		["John","Doe","1"],
-		["Jane","Doe","2"]		
-	
-
-	]
-      
+      "Netzwerk administration",
+      [
+         [
+            "John",
+            "Doe",
+            "1"
+         ],
+         [
+            "Jane",
+            "Doe",
+            "2"
+         ]
+      ]
    ],
    "2": [
       "Datenbanken",
       "DB",
       "4",
-	[]
-      
+      "Datenbank zugriff",
+      []
    ],
    "3": [
       "Office",
       "Test",
       "6",
-	[
-		["John","Doe", "1"]		
-	
-	]
-
+      "Verwaltungsaufgaben",
+      [
+         [
+            "John",
+            "Doe",
+            "1"
+         ]
+      ]
+   ],
+   "6": [
+      " test",
+      "testn",
+	"1",
+      "testing",
+	[]
    ]
 }

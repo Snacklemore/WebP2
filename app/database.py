@@ -133,7 +133,7 @@ class Database_cl(object):
             with codecs.open(os.path.join('data', 'employeeparticipation.json'), 'w', 'utf-8') as fp_o:
                 json.dump(self.data_o, fp_o, indent=3)
         elif self.dbtype == "certs":
-            with codecs.open(os.path.join('data', 'certification.json'), 'w', 'utf-8') as fp_o:
+            with codecs.open(os.path.join('data', 'certificates.json'), 'w', 'utf-8') as fp_o:
                 json.dump(self.data_o, fp_o, indent=3)
         elif self.dbtype == "quali":
             with codecs.open(os.path.join('data', 'qualifications.json'), 'w', 'utf-8') as fp_o:
