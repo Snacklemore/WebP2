@@ -22,6 +22,11 @@ class View_cl(object):
         markup_s = template_o.render(data_c=data_certs, data_q=data_qual, t_id=t_id)
         return markup_s
     # -------------------------------------------------------
+    def createFormAddQual(self, t_id):
+        template_o = self.lookup_o.get_template('Pflege_Weiterbildungen_Qual_Add.tpl')
+        markup_s = template_o.render(t_id=t_id)
+        return markup_s
+
     def createFormAddCert(self, t_id):
         template_p = self.lookup_o.get_template('Pflege_Weiterbildungen_Certs_Add.tpl')
         markup_s = template_p.render(t_id=t_id)
