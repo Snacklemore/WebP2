@@ -194,8 +194,8 @@ class Application_cl(object):
         # return self.createContent_p(listform)
 
     @cherrypy.expose
-    def savecert(self, bezeichnungc_spa, beschreibung_spa, berechtigung_spa  ):
-        data_a = [bezeichnungc_spa, beschreibung_spa, berechtigung_spa]
+    def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa  ):
+        data_a = [bezeichnungc_spa, beschreibung_spa, t_id, berechtigung_spa]
         # id of corresponding training is missing!!
         emptylist = []
         data_a.append(emptylist)
@@ -204,9 +204,9 @@ class Application_cl(object):
 
 
     @cherrypy.expose
-    def addCert(self):
+    def addCert(self, t_id):
         # load form for adding cert
-        return self.view_o.createFormAddCert()
+        return self.view_o.createFormAddCert(t_id)
 
     @cherrypy.expose
     def managequalicerts(self, id_spa):
@@ -235,8 +235,8 @@ class Application_cl(object):
         else:
             for x in quallist:
                 x.remove(x[len(x)-1])
-
-        return self.view_o.createPflegeWeiterbildungVerwaltung(certlist, quallist)
+        t_id = id_spa
+        return self.view_o.createPflegeWeiterbildungVerwaltung(certlist, quallist, t_id)
 
 
 

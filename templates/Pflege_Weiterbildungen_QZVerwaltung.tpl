@@ -44,7 +44,7 @@
       <article>
          <form id="idWTForm" action="/savequacerts" method="POST">
            
-	    
+	    <input type="hidden" value="${t_id}" id="t_id" name="t_id" />
 <h1>Zertifikate</h1>	
 	% for x in data_c:	
 		 <input type="hidden" value="${x[2]}" id="id_certs" name="id_certs" />	
@@ -70,7 +70,7 @@
                   name="berechtigung_spa" required />
             </div>
 	% endfor
-	<a href="/addCert">Zert. erfassen</a>
+	<a href="/addCert/${t_id}">Zert. erfassen</a>
 <h1>Qualifikationen</h1>
 	<tr></tr>
 	% for x in data_q:
@@ -95,7 +95,7 @@
 		<div>
                <input type="submit" value="Speichern"/>
             </div>	
-	<a href="/addQual">Qual. erfassen</a>
+	<a href="/addQual/${t_id}">Qual. erfassen</a>
          </form>
       </article>
    </section>

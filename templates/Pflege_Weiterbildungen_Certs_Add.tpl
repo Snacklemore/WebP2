@@ -44,7 +44,7 @@
       <article>
          <form id="idWTForm" action="/savecert" method="POST">
            
-	    
+	    <input type="hidden" value="${t_id}" id="t_id" name="t_id" />
 	<h1>Zertifikat hinzufügen</h1>	
 		
 		 	
