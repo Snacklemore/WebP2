@@ -24,6 +24,7 @@ class Application_cl(object):
         self.db_qualifications = Database_cl("quali")
         testdata = self.db_qualifications.read_px()
         self.view_o = View_cl()
+
     @cherrypy.expose
     def Weiterbildungen(self, **params):
         form = params.get("nothing", "tabelle")
@@ -137,7 +138,7 @@ class Application_cl(object):
     def add(self, **params):
         # -------------------------------------------------------
         form = params.get("nothing", "tabelle")
-        #deliver htmlform to add employee
+        # deliver htmlform to add employee
         return self.createForm_p(listform=form)
 
     @cherrypy.expose
@@ -157,7 +158,7 @@ class Application_cl(object):
         training = self.db_trainingrelations.read_px(id_t)
         # get list of participants( if there is no list we dont get a list)
         # so check if participants is list
-        participants = training[len(training)-1]
+        participants = training[len(training) - 1]
         if isinstance(participants, list):
             # data present
 
@@ -168,7 +169,6 @@ class Application_cl(object):
             data_o = training
             data_p = []
             return self.view_o.createDetailTrainings(data_o, data_p)
-
 
     @cherrypy.expose
     # -------------------------------------------------------
@@ -194,7 +194,65 @@ class Application_cl(object):
             self.db_employee.create_px(data_a)
         listform = params.get("listform", "tabelle")
         raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
-        #return self.createContent_p(listform)
+        # return self.createContent_p(listform)
+
+    @cherrypy.expose
+    def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa):
+        data_a = [bezeichnungc_spa, beschreibung_spa, t_id, berechtigung_spa]
+        # id of corresponding training is missing!!
+        emptylist = []
+        data_a.append(emptylist)
+        self.db_certs.create_px(data_a)
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def savequal(self, t_id, bezeichnungq_spa, beschreibung_spa):
+        data_a = [bezeichnungq_spa, beschreibung_spa, t_id]
+        emptylist = []
+        data_a.append(emptylist)
+        self.db_qualifications.create_px(data_a)
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def addQual(self, t_id, ):
+        return self.view_o.createFormAddQual(t_id)
+
+    @cherrypy.expose
+    def addCert(self, t_id):
+        # load form for adding cert
+        return self.view_o.createFormAddCert(t_id)
+
+    @cherrypy.expose
+    def managequalicerts(self, id_spa):
+        # id_spa is id of training we look at, get certs and quali of that training
+        # search certs for training
+        certs = self.db_certs.read_px()
+        certlist = []
+        quallist = []
+        for key_s in certs:
+            if certs[key_s][2] == id_spa:
+                certlist.append(certs[key_s])
+                certlist[len(certlist)-1][2] = key_s
+        qual = self.db_qualifications.read_px()
+        for key_m in qual:
+            if qual[key_m][2] == id_spa:
+                quallist.append(qual[key_m])
+                quallist[len(quallist)-1][2] = key_m
+
+        if not certlist:
+            certlist
+        else:
+            for y in certlist:
+                y.remove(y[len(y) - 1])
+        if not quallist:
+            quallist
+        else:
+            for x in quallist:
+                x.remove(x[len(x)-1])
+        t_id = id_spa
+        return self.view_o.createPflegeWeiterbildungVerwaltung(certlist, quallist, t_id)
+
+
 
     @cherrypy.expose
     # -------------------------------------------------------
@@ -249,7 +307,8 @@ class Application_cl(object):
         return self.view_o.createForm_px(id_spl=id_spl, data_opl=data_o, listform=listform)
 
     @cherrypy.expose
-    def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, **params):
+    def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa,
+                     minteilnehmer_spa, **params):
         # -------------------------------------------------------
         id_s = id_spa
         data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
@@ -279,14 +338,15 @@ class Application_cl(object):
         certs = self.db_certs.read_px()
         certsofemployee = []
         for key_s in certs:
-            for x in certs[key_s][3]:# x[0] is the name of employee, x[2] id
-                 if x[2] == id_spl:
-                     certsofemployee.append(certs[key_s][0])
+            for x in certs[key_s][3]:  # x[0] is the name of employee, x[2] id
+                if x[2] == id_spl:
+                    certsofemployee.append(certs[key_s][0])
 
         data_o = employeeparticipations
         data_c = certsofemployee
         data_p = employee
         return self.view_o.createDetailPflegeMitarbeiter(data_o, data_c, data_p)
+
 
     @cherrypy.expose
     def showdetailtrainings(self, id_spl):
@@ -312,7 +372,8 @@ class Application_cl(object):
         data_b = qualifizierungen
         return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_p, data_c, data_b)
 
-    def createDetail(self, id_spl):
+      
+     def createDetail(self, id_spl):
         # here we need to read all trainings from this employee(with the ID)
 
         # reading employee data

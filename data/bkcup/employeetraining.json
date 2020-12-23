@@ -6,7 +6,7 @@
       "Test2",
       "5",
       "1",
-       []
+      []
    ],
    "2": [
       "Test2",
@@ -25,21 +25,18 @@
       "10",
       "1",
       [
-
-
-	[
-	    "John",
-	    "Anderson",
-	    "angemeldet",
-	    "4"
-	 ],
+         [
+            "John",
+            "Anderson",
+            "angemeldet",
+            "4"
+         ],
          [
             "Jane",
             "Doe",
-	    "erfolgreich beendet",
+            "erfolgreich beendet",
             "2"
          ]
-	 
       ]
    ],
    "4": [
@@ -53,7 +50,7 @@
          [
             "John",
             "Doe",
-	    "beendet",
+            "beendet",
             "1"
          ]
       ]
@@ -66,19 +63,18 @@
       "5",
       "1",
       [
-	 [
-	     "John",
-	     "Doe",
-	     "angemeldet",
-	     "1"	
-	 ],
-	 [
-	    "John",
-	    "Anderson",
-	    "angemeldet",
-	    "4"
-	 ]
-	
+         [
+            "John",
+            "Doe",
+            "angemeldet",
+            "1"
+         ],
+         [
+            "John",
+            "Anderson",
+            "angemeldet",
+            "4"
+         ]
       ]
    ],
    "6": [
@@ -88,13 +84,6 @@
       "Drucken halt",
       "5",
       "1",
-      [
-         [
-            "John",
-            "Doe",
-	    "angemeldet",
-            "1"
-         ]
-      ]
+      []
    ]
 }
