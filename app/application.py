@@ -266,7 +266,7 @@ class Application_cl(object):
         if id_spl != None:
             data_o = self.db_trainings.read_px(id_spl)
         else:
-            data_o = self.db_trainings.getDefault_px()
+            data_o = self.db_trainings.get_default_px()
         return self.view_o.createForm_trainings(id_spl=id_spl, data_opl=data_o, listform=listform)
 
     @cherrypy.expose
