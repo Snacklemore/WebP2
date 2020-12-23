@@ -9,7 +9,7 @@ from . import dataid
 
 
 # ----------------------------------------------------------
-# commit to leon
+
 # queries needed: Query for employee, returning trainings
 # queries needed: Query
 class Database_cl(object):
