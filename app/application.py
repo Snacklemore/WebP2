@@ -252,7 +252,7 @@ class Application_cl(object):
     def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, **params):
         # -------------------------------------------------------
         id_s = id_spa
-        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa]
+        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
         if id_s != "None":
             self.db_trainings.update_px(id_s, data_a)
         else:
