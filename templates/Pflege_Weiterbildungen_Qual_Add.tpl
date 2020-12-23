@@ -43,24 +43,25 @@
       </nav>
       <article>
          <form id="idWTForm" action="/savequal" method="POST">
+	<input type="hidden" value="${t_id}" id="t_id" name="t_id" />
           
 <h1>Qualifikationen</h1>
 	<tr></tr>
 	
-	          <input type="hidden" value="${x[2]}" id="id_qual" name="id_qual" />
+	         
             <div>
                <label for="bezeichnungq_spa">Bezeichnung</label>
                <input type="text"
-                  value="${x[0]}"
+                  value=" "
                   id="bezeichnungq_spa"
                   name="bezeichnungq_spa" required />
             </div>
             <div>
-               <label for="beschreibungq_spa">Beschreibung</label>
+               <label for="beschreibung_spa">Beschreibung</label>
                <input type="text"
-                  value="${x[1]}"
-                  id="beschreibungq_spa"
-                  name="beschreibungq_spa" required />
+                  value=" "
+                  id="beschreibung_spa"
+                  name="beschreibung_spa" required />
             </div>    
             
 		<div>

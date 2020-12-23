@@ -194,7 +194,7 @@ class Application_cl(object):
         # return self.createContent_p(listform)
 
     @cherrypy.expose
-    def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa  ):
+    def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa):
         data_a = [bezeichnungc_spa, beschreibung_spa, t_id, berechtigung_spa]
         # id of corresponding training is missing!!
         emptylist = []
@@ -202,6 +202,17 @@ class Application_cl(object):
         self.db_certs.create_px(data_a)
         raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
 
+    @cherrypy.expose
+    def savequal(self, t_id, bezeichnungq_spa, beschreibung_spa):
+        data_a = [bezeichnungq_spa, beschreibung_spa, t_id]
+        emptylist = []
+        data_a.append(emptylist)
+        self.db_qualifications.create_px(data_a)
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def addQual(self, t_id, ):
+        return self.view_o.createFormAddQual(t_id)
 
     @cherrypy.expose
     def addCert(self, t_id):
