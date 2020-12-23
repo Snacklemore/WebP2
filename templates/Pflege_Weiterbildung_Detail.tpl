@@ -5,7 +5,6 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="\hauptansicht.css"/>
-   <script type="text/javascript" src="/webteams.js"></script>
 </head>
 <body>
    <header>
@@ -23,7 +22,6 @@
          <dl>
          <dt><a href="/?index=Startseite">Startseite</a></dt>
          <dl>
-            <hr>
             <dt><a href="/?index=Pflege_Mitarbeiterdaten">Pflege Mitarbeiterdaten</a></dt>
             <dt><a href="/?index=Pflege_Weiterbildungen">Pflege Weiterbildungen</a></dt>
          </dl>
@@ -41,46 +39,66 @@
             <dd><a href ="/Zertifikate">- Zertifikate</a></dd>
          </dl>
          <hr>
+         </dl>
       </nav>
       <article>
-         <h1>Weiterbildungen</h1>
+         <h1>Weiterbildung:</h1>
+         <h4>Bezeichnung</h4>
+         <p>${data_o[0]}</p>
+         <h4>Von</h4>
+         <p>${data_o[1]}</p>
+         <h4>Bis</h4>
+         <p>${data_o[2]}</p>
+         <h4>Beschreibung</h4>
+         <p>${data_o[3]}</p>
          <table>
+            <h1>Teilnehmer</h1>
+            % for x in data_p:
             <tr>
-               <th>Bezeichnung</th>
-               <th>Von</th>
-               <th>Bis</th>
-               <th>Beschreibung</th>
-               <th>maximale Teilnehmerzahl</th>
-               <th>minimale Teilnehmerzahl</th>
-            </tr>
-            % for key_s in data_o:
-            <tr>
-               <td>${data_o[key_s][0]}</td>
-               <td>${data_o[key_s][1]}</td>
-               <td>${data_o[key_s][2]}</td>
-               <td>${data_o[key_s][3]}</td>
-               <td>${data_o[key_s][4]}</td>
-               <td>${data_o[key_s][5]}</td>
                <td>
-               <td>
-               <td>
-                  <a href="/edittrainings/${key_s}?index=Pflege_Mitarbeiterdaten">bearbeiten</a>
-                  <a href="/deletetrainings/${key_s}?index=Pflege_Mitarbeiterdaten" class="clDelete">Löschen</a>
-
-                  <a href="/showdetailtrainings/${key_s}">Ansicht</a>
-
-		  <a href="/managequalicerts/${key_s}">Zert./Qual. verwalten</a>
-
+                  <h4>Vorname</h4>
                </td>
+               <td>
+                  <h4>Nachname</h4>
+               </td>
+               <td>
+                  <h4>Status</h4>
+               </td>
+            </tr>
+            <tr>
+               <td>${x[0]}</td>
+               <td>${x[1]}</td>
+               <td>${x[2]}</td>
             </tr>
             % endfor
          </table>
-         <div>
-            <a href="/addtrainings">erfassen</a>
-
-         </div>
+         <table>
+            <h1>Qualifikationen</h1>
+            % for x in data_b:
+            <tr>
+               <td>
+                  <h4>Qualifikation</h4>
+               </td>
+            </tr>
+            <tr>
+               <td>${x}</td>
+            </tr>
+            % endfor
+         </table>
+         <table>
+            <h1>Zertifikate</h1>
+            % for x in data_c:
+            <tr>
+               <td>
+                  <h4>Zertifikat</h4>
+               </td>
+            </tr>
+            <tr>
+               <td>${x}</td>
+            </tr>
+            % endfor
+         </table>
       </article>
    </section>
 </body>
 </html>
-

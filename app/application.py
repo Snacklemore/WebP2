@@ -2,8 +2,9 @@
 import cherrypy
 from .database import Database_cl
 from .view import View_cl
+from .databaseapi import *
 
-
+# test test
 # ----------------------------------------------------------
 class Application_cl(object):
     # ----------------------------------------------------------
@@ -12,9 +13,11 @@ class Application_cl(object):
     def __init__(self):
         # -------------------------------------------------------
         # seperatie db_o objects to store employees and trainings
-        self.db_employee = Database_cl("employee")
+        #self.db_employee = Database_cl("employee")
+        self.db_employee = Employee()
         # change add,edit,and other route functions to handle seperate trainings db
-        self.db_trainings = Database_cl("trainings")
+        #self.db_trainings = Database_cl("trainings")
+        self.db_trainings = Training()
         self.db_trainingrelations = Database_cl("trainingRelations")
         self.db_employeeparticipation = Database_cl("employeeParticipations")
         self.db_certs = Database_cl("certs")
@@ -300,7 +303,7 @@ class Application_cl(object):
         if id_spl != None:
             data_o = self.db_employee.read_px(id_spl)
         else:
-            data_o = self.db_employee.getDefault_px()
+            data_o = self.db_employee.get_default_px()
         return self.view_o.createForm_px(id_spl=id_spl, data_opl=data_o, listform=listform)
 
     @cherrypy.expose
@@ -308,7 +311,7 @@ class Application_cl(object):
                      minteilnehmer_spa, **params):
         # -------------------------------------------------------
         id_s = id_spa
-        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa]
+        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
         if id_s != "None":
             self.db_trainings.update_px(id_s, data_a)
         else:
@@ -322,7 +325,7 @@ class Application_cl(object):
         if id_spl != None:
             data_o = self.db_trainings.read_px(id_spl)
         else:
-            data_o = self.db_trainings.getDefault_px()
+            data_o = self.db_trainings.get_default_px()
         return self.view_o.createForm_trainings(id_spl=id_spl, data_opl=data_o, listform=listform)
 
     @cherrypy.expose
@@ -344,7 +347,33 @@ class Application_cl(object):
         data_p = employee
         return self.view_o.createDetailPflegeMitarbeiter(data_o, data_c, data_p)
 
-    def createDetail(self, id_spl):
+
+    @cherrypy.expose
+    def showdetailtrainings(self, id_spl):
+
+        training = self.db_trainingrelations.read_px(id_spl)
+        teilnehmer = training[len(training) - 1]
+
+        quali = self.db_qualifications.read_px()
+        qualifizierungen = []
+        for key_s in quali:
+            if quali[key_s][2] == id_spl:
+                qualifizierungen.append(quali[key_s][0])
+
+        certs = self.db_certs.read_px()
+        certsoftraining = []
+        for key_s in certs:
+            if certs[key_s][2] == id_spl:
+                certsoftraining.append(certs[key_s][0])
+
+        data_c = certsoftraining
+        data_o = training
+        data_p = teilnehmer
+        data_b = qualifizierungen
+        return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_p, data_c, data_b)
+
+      
+     def createDetail(self, id_spl):
         # here we need to read all trainings from this employee(with the ID)
 
         # reading employee data
