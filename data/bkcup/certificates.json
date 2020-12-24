@@ -2,7 +2,8 @@
    "1": [
       "Network",
       "Net",
-      "Test3",
+      "3",
+	"Netzwerk administration",
 	[
 		
 		["John","Doe","1"],
@@ -15,18 +16,21 @@
    "2": [
       "Datenbanken",
       "DB",
-      "Test4",
+      "4",
+	"Datenbank zugriff",
 	[]
       
    ],
    "3": [
       "Office",
       "Test",
-      "Drucker",
+      "6",
+	"Verwaltungsaufgaben",
 	[
 		["John","Doe", "1"]		
 	
 	]
 
    ]
+
 }
