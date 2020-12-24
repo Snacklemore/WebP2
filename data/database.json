@@ -1,7 +1,7 @@
 {
    "Mitarbeiter": {
-      "Max-ID": "28",
-      "Count": "11",
+      "Max-ID": "29",
+      "Count": "12",
       "List": {
          "1": [
             "Leon",
@@ -106,12 +106,27 @@
             [],
             [],
             []
+         ],
+         "29": [
+            "Markus",
+            "R\u00fchl",
+            "NewYorkChamp",
+            "Rentner",
+            [
+               "22"
+            ],
+            [
+               "4"
+            ],
+            [
+               "6"
+            ]
          ]
       }
    },
    "Weiterbildungen": {
-      "Max-ID": "21",
-      "Count": "13",
+      "Max-ID": "22",
+      "Count": "14",
       "List": {
          "0": [
             "Weiterbildung Bezeichnung",
@@ -120,7 +135,7 @@
             "Weiterbildung Beschreibung",
             "Maximale Teilnehmerzahl",
             "Minimale Teilnehmerzahl",
-            "2",
+            "4",
             [
                "Qualifikations ID"
             ],
@@ -143,21 +158,39 @@
             []
          ],
          "21": [
-            "C++ classes",
-            "20-04-2021",
-            "31-04-2021",
-            "Einfuehrung in classes in C++",
-            "1",
-            "50",
+            "Python class",
+            "20-05-2000",
+            "20-06-2000",
+            "Einfuehrung in Python",
+            "2",
+            "100",
             "",
             [],
             []
+         ],
+         "22": [
+            "Bodybuilding",
+            "20-10-2000",
+            "25-02-2010",
+            "Bist ne legende wenn de das schaffst",
+            "1",
+            "1",
+            "6",
+            [
+               "4"
+            ],
+            [
+               [
+                  "29",
+                  "Erfolgreich beendet"
+               ]
+            ]
          ]
       }
    },
    "Qualifikation": {
-      "Max-ID": "3",
-      "Count": "1",
+      "Max-ID": "4",
+      "Count": "2",
       "List": {
          "0": [
             "Bezeichnung Qualifikation",
@@ -165,12 +198,19 @@
             [
                "Mitarbeiter ID"
             ]
+         ],
+         "4": [
+            "Bodybuilder",
+            "Hat jahrelang schwer und falsch trainiert",
+            [
+               "29"
+            ]
          ]
       }
    },
    "Zertifikat": {
-      "Max-ID": "3",
-      "Count": "3",
+      "Max-ID": "6",
+      "Count": "5",
       "List": {
          "0": [
             "Zertifikat Bezeichnung",
@@ -185,9 +225,15 @@
             []
          ],
          "3": [
-            "C# Zertifikat",
-            "1 Jahr lang C# gelernt",
-            []
+            "C++ Zertifikat",
+            "2 Jahr lang C++ gelerent"
+         ],
+         "6": [
+            "asd",
+            "asd",
+            [
+               "29"
+            ]
          ]
       }
    }

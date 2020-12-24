@@ -2,6 +2,7 @@ import json
 import codecs
 import os
 import copy
+import string
 
 class Database:
 
@@ -147,7 +148,7 @@ class Database:
 
     '''# Employee Training methods #'''
 
-    # Adds a training to one employee
+    # Adds a training to one employee and checks if it was successful finished
     def add_training_to_employee(self, employee_id, training_id, employee_participation_status):
         try:
             employee = self.get_list("Mitarbeiter", entry_id=employee_id)
@@ -157,6 +158,13 @@ class Database:
             new_entry = [employee_id, employee_participation_status]
             training[-1].append(new_entry)
 
+            # Check if participation status is successful
+            # If so add qualification and certificate to employee
+            if employee_participation_status.lower() == "erfolgreich beendet":
+                for qualification_id in training[-2]:
+                    self.add_qualification_to_employee(qualification_id, employee_id)
+                if training[-3] is not None:
+                    self.add_certificate_to_employee(training[-3], employee_id)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -228,11 +236,14 @@ class Database:
         else:
             return True
 
-    # TODO This function only edits the training properties not the references to other objects
+    # This function should only be used to change title, description, dates and max-min employees of training
+    # To change employees, qualifications and certificates regarded to this training use functions in
+    # Employee Training methods, Qualification Training methods, Certificates Training methods
     def edit_training(self, training_id, changed_training):
         try:
             training_list = self.get_list("Weiterbildungen")
-            training_list[training_id] = changed_training
+            for i in range(0, 6):
+                training_list[training_id][i] = changed_training[i]
             self.write_json_file()
 
         except (KeyError, ValueError):
@@ -353,7 +364,9 @@ class Database:
     def edit_qualification(self, qualification_id, changed_qualification):
         try:
             qualification_list = self.get_list("Qualifikation")
-            qualification_list[qualification_id] = changed_qualification
+            # Only change first two entries of array this way relations stay untouched
+            for i in range(0, 2):
+                qualification_list[qualification_id][i] = changed_qualification[i]
             self.write_json_file()
         except (KeyError, ValueError):
             return False
@@ -382,6 +395,19 @@ class Database:
             if certificate_id == training[-3]:
                 training[-3] = None
             self.write_json_file()
+        except (KeyError, ValueError):
+            return False
+        else:
+            return True
+
+    # This method is called by delete_certificate | Also not sure if we need this method
+    def remove_certificate_from_all_trainings(self, certificate_id):
+        try:
+            training_list = self.get_list("Weiterbildungen")
+            for training in training_list:
+                if certificate_id is training_list[training][-3]:
+                    training_list[training][-3] = None
+
         except (KeyError, ValueError):
             return False
         else:
@@ -441,23 +467,44 @@ class Database:
         else:
             return True
 
+    # Deletes certificate itself and removes it from all trainings
     def delete_certificate(self, certificate_id):
-        pass
+        try:
+            certificate_list = self.get_list("Zertifikat")
+            certificate_list.pop(certificate_id)
+            self.change_count("Zertifikat", -1)
+            self.remove_certificate_from_all_trainings(certificate_id)
+            self.write_json_file()
+        except (KeyError, ValueError):
+            return False
+        else:
+            return True
 
     # This function should only be used to change description and title of certificate
     # To change employees regarded to this qualification use functions in 'certificate employee methods'
     def edit_certificate(self, certificate_id, changed_certificate):
-        pass
-
-
-
-    # TODO Funktion zum hinzufügen von certs zu employees
-    # TODO Methoden zum zuweisen von zertifikaten zu trainings
-    # TODO Wenn Mitarbeiter Status bei Training Erfolgreich Teilgenommen ist dann füg automatisch Qualifikation/Zertifikat zu Mitarbeiter hinzu
+        try:
+            certificate_list = self.get_list("Zertifikat")
+            # Only change first two entries of array this way relations stay untouched
+            for i in range(0, 2):
+                certificate_list[certificate_id][i] = changed_certificate[i]
+            self.write_json_file()
+        except (KeyError, ValueError):
+            return False
+        else:
+            return True
 
 a = Database("s")
 
-#b = a.add_employee(["Prinz", "Herbert", "Master", "Prinz"])
+'''# Testing stuff #'''
+
+#b = a.add_employee(["Markus", "Rühl", "NewYorkChamp", "Rentner"])
+#b = a.add_qualification(["Bodybuilder", "Hat jahrelang schwer und falsch trainiert"])
+#b = a.add_certificate(["Zertifizierte Legende", "Einfach thunfisch"])
+#b = a.add_training(["Bodybuilding", "20-10-2000", "25-02-2010", "Bist ne legende wenn de das schaffst", "1", "1"])
+#b = a.add_qualification_to_training("4", "22")
+#b = a.add_certificate_to_training("6", "22")
+#b = a.add_training_to_employee("29", "22", "Erfolgreich beendet")
 #c = a.edit_employee("12", ["Felix", "Koch", "Master", "Prinz", [], [], []])
 #d = a.delete_employee("13")
 #d = a.add_training(["C++ classes", "20-04-2021", "31-04-2021", "Einfuehrung in classes in C++", "1", "50"])
@@ -475,12 +522,15 @@ a = Database("s")
 #d = a.remove_employee_from_qualification("2", "1")
 #d = a.add_qualification_to_employee("2", "1")
 #d = a.delete_qualification("3")
-#d = a.add_certificate(["C# Zertifikat", "1 Jahr lang C# gelernt"])
-#d = a.add_certificate_to_training("2", "0")
+#d = a.add_certificate(["C Zertifikat", "1 Jahr lang C gelernt"])
+#d = a.add_certificate_to_training("5", "20")
 #a.add_certificate_to_training("2", "20")
 #d = a.remove_certificate_from_training("2", "20")
-#print(d)
-
-# TODO remove_employee_from_certificate und add testen
-
-
+#d = a.add_certificate_to_employee("2", "19")
+#d = a.remove_employee_from_certificate("2", "19")
+#d = a.remove_employee_from_certificate("19", "1")
+#d = a.delete_certificate("5")
+#d = a.edit_certificate("3", ["C++ Zertifikat", "2 Jahr lang C++ gelerent"])
+#b = a.edit_certificate("6", ["asd", "asd"])
+#b = a.edit_training("21", ["Python class", "20-05-2000", "20-06-2000", "Einfuehrung in Python", "2", "100", "200"])
+#print(b)
