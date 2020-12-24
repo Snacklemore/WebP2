@@ -1,0 +1,194 @@
+{
+   "Mitarbeiter": {
+      "Max-ID": "28",
+      "Count": "11",
+      "List": {
+         "1": [
+            "Leon",
+            "Weinmann",
+            "Abitur",
+            "Student",
+            [
+               "Das sind Weiterbildungen Keys",
+               "1"
+            ],
+            [
+               "2"
+            ],
+            []
+         ],
+         "19": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "20": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "21": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "22": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "23": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "24": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "25": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "26": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "27": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ],
+         "28": [
+            "Prinz",
+            "Herbert",
+            "Master",
+            "Prinz",
+            [],
+            [],
+            []
+         ]
+      }
+   },
+   "Weiterbildungen": {
+      "Max-ID": "21",
+      "Count": "13",
+      "List": {
+         "0": [
+            "Weiterbildung Bezeichnung",
+            "20-04-2020",
+            "25-04-2020",
+            "Weiterbildung Beschreibung",
+            "Maximale Teilnehmerzahl",
+            "Minimale Teilnehmerzahl",
+            "2",
+            [
+               "Qualifikations ID"
+            ],
+            [
+               [
+                  "Mitarbeiter ID",
+                  "Status von Mitarbeiter mit der ID"
+               ]
+            ]
+         ],
+         "20": [
+            "C++ classes",
+            "20-04-2021",
+            "31-04-2021",
+            "Einfuehrung in classes in C++",
+            "1",
+            "50",
+            null,
+            [],
+            []
+         ],
+         "21": [
+            "C++ classes",
+            "20-04-2021",
+            "31-04-2021",
+            "Einfuehrung in classes in C++",
+            "1",
+            "50",
+            "",
+            [],
+            []
+         ]
+      }
+   },
+   "Qualifikation": {
+      "Max-ID": "3",
+      "Count": "1",
+      "List": {
+         "0": [
+            "Bezeichnung Qualifikation",
+            "Beschreibung Qualifikation",
+            [
+               "Mitarbeiter ID"
+            ]
+         ]
+      }
+   },
+   "Zertifikat": {
+      "Max-ID": "3",
+      "Count": "3",
+      "List": {
+         "0": [
+            "Zertifikat Bezeichnung",
+            "Zertifikat Beschreibung",
+            [
+               "Besitzer ID"
+            ]
+         ],
+         "2": [
+            "C# Zertifikat",
+            "1 Jahr lang C# gelernt",
+            []
+         ],
+         "3": [
+            "C# Zertifikat",
+            "1 Jahr lang C# gelernt",
+            []
+         ]
+      }
+   }
+}
