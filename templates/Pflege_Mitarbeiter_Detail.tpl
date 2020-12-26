@@ -1,3 +1,5 @@
+
+
 ##coding: utf-8
 <!DOCTYPE html>
 <head>
@@ -44,19 +46,19 @@
       <article>
          <h1>Mitarbeiter:</h1>
          <h4>Name</h4>
-         <p>${data_p[0]}</p>
+         <p>${data_o[0]}</p>
          <h4>Vorname</h4>
-         <p>${data_p[1]}</p>
+         <p>${data_o[1]}</p>
          <h4>Akademischer Grad</h4>
-         <p>${data_p[2]}</p>
+         <p>${data_o[2]}</p>
          <h4>Beschaeftigung</h4>
-         <p>${data_p[3]}</p>
+         <p>${data_o[3]}</p>
          <table>
-            <h1> Teilnahmen</h1>
-            % for x in data_o:
+            <h1>Teilnahmen an Weiterbildungen</h1>
+            % for x in data_o[4]:
             <tr>
                <td>
-                  <h4>Weiterbildung</h4>
+                  <h4>Bezeichnung</h4>
                </td>
                <td>
                   <h4>Status</h4>
@@ -64,20 +66,41 @@
             </tr>
             <tr>
                <td>${x[0]}</td>
-               <td>${x[2]}</td>
+               <td>${x[6]}</td>
+            </tr>
+            % endfor
+         </table>
+         <table>
+            <h1>Qualifikationen</h1>
+            % for x in data_o[5]:
+            <tr>
+               <td>
+                  <h4>Bezeichnung</h4>
+               </td>
+               <td>
+                  <h4>Beschreibung</h4>
+               </td>
+            </tr>
+            <tr>
+               <td>${x[0]}</td>
+               <td>${x[1]}</td>
             </tr>
             % endfor
          </table>
          <table>
             <h1> Zertifikate</h1>
-            % for x in data_c:
+            % for x in data_o[6]:
             <tr>
                <td>
-                  <h4>Weiterbildung</h4>
+                  <h4>Bezeichnung</h4>
+               </td>
+               <td>
+                  <h4>Beschreibung</h4>
                </td>
             </tr>
             <tr>
-               <td>${x}</td>
+               <td>${x[0]}</td>
+               <td>${x[1]}</td>
             </tr>
             % endfor
          </table>

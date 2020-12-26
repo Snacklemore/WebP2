@@ -1,108 +1,24 @@
 {
    "Mitarbeiter": {
-      "Max-ID": "29",
-      "Count": "12",
+      "Max-ID": "32",
+      "Count": "5",
       "List": {
          "1": [
-            "Leon",
             "Weinmann",
-            "Abitur",
+            "Leon",
+            "Master",
             "Student",
-            [
-               "Das sind Weiterbildungen Keys",
-               "1"
-            ],
+            [],
             [
                "2"
             ],
             []
          ],
          "19": [
-            "Prinz",
+            "Gr\u00f6nemeier",
             "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "20": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "21": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "22": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "23": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "24": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "25": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "26": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "27": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
-            [],
-            [],
-            []
-         ],
-         "28": [
-            "Prinz",
-            "Herbert",
-            "Master",
-            "Prinz",
+            "Hauptschule",
+            "S\u00e4nger",
             [],
             [],
             []
@@ -113,7 +29,10 @@
             "NewYorkChamp",
             "Rentner",
             [
-               "22"
+               [
+                  "22",
+                  "Erfolgreich beendet"
+               ]
             ],
             [
                "4"
@@ -121,12 +40,31 @@
             [
                "6"
             ]
+         ],
+         "30": [
+            "Markus",
+            "R\u00fchl",
+            "NewYorkChamp",
+            "Rentner",
+            [],
+            [],
+            []
+         ],
+         "31": [
+            "Hoffmann",
+            "Hans",
+            "Hauptschule",
+            "dumm",
+            [],
+            [],
+            []
          ]
       }
    },
    "Weiterbildungen": {
-      "Max-ID": "22",
-      "Count": "14",
+      "Max-ID": "23",
+      "Count": "4",
+      "Participation_count": "1",
       "List": {
          "0": [
             "Weiterbildung Bezeichnung",
@@ -157,17 +95,6 @@
             [],
             []
          ],
-         "21": [
-            "Python class",
-            "20-05-2000",
-            "20-06-2000",
-            "Einfuehrung in Python",
-            "2",
-            "100",
-            "",
-            [],
-            []
-         ],
          "22": [
             "Bodybuilding",
             "20-10-2000",
@@ -185,6 +112,17 @@
                   "Erfolgreich beendet"
                ]
             ]
+         ],
+         "23": [
+            "Drogen Herstellen",
+            "2020-12-02",
+            "2020-12-16",
+            "Ganz viel Geld mit Drogen machen",
+            "1",
+            "5",
+            null,
+            [],
+            []
          ]
       }
    },
@@ -197,6 +135,13 @@
             "Beschreibung Qualifikation",
             [
                "Mitarbeiter ID"
+            ]
+         ],
+         "2": [
+            "Bodybuilder",
+            "Hat jahrelang schwer und falsch trainiert",
+            [
+               "29"
             ]
          ],
          "4": [
@@ -226,7 +171,8 @@
          ],
          "3": [
             "C++ Zertifikat",
-            "2 Jahr lang C++ gelerent"
+            "2 Jahr lang C++ gelerent",
+            []
          ],
          "6": [
             "asd",
@@ -234,6 +180,11 @@
             [
                "29"
             ]
+         ],
+         "4": [
+            "C++ Zertifikat",
+            "2 Jahr lang C++ gelerent",
+            []
          ]
       }
    }

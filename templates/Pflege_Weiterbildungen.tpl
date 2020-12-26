@@ -62,21 +62,16 @@
                <td>${data_o[key_s][4]}</td>
                <td>${data_o[key_s][5]}</td>
                <td>
-               <td>
-               <td>
-                  <a href="/edittrainings/${key_s}?index=Pflege_Mitarbeiterdaten">bearbeiten</a>
-                  <a href="/deletetrainings/${key_s}?index=Pflege_Mitarbeiterdaten" class="clDelete">Löschen</a>
-
-                  <a href="/showdetailtrainings/${key_s}">Ansicht</a>
-
-		  <a href="/managequalicerts/${key_s}">Zert./Qual. verwalten</a>
-
+                  <a href="/edit_training/${key_s}">bearbeiten</a>
+                  <a href="/delete_training/${key_s}" class="clDelete">Löschen</a>
+                  <a href="/show_detail_training/${key_s}">Ansicht</a>
+		            <a href="/managequalicerts/${key_s}">Zert./Qual. verwalten</a>
                </td>
             </tr>
             % endfor
          </table>
          <div>
-            <a href="/addtrainings">erfassen</a>
+            <a href="/add_training">erfassen</a>
 
          </div>
       </article>

@@ -57,15 +57,15 @@
                <td>${data_o[key_s][2]}</td>
                <td>${data_o[key_s][3]}</td>
                <td>
-                  <a href="/edit/${key_s}?listform=${listform}">bearbeiten</a>
-                  <a href="/delete/${key_s}?listform=${listform}" class="clDelete">Löschen</a>
-                  <a href="/showdetailpflegeemploy/${key_s}" >Anzeigen</a>
+                  <a href="/edit_employee/${key_s}">bearbeiten</a>
+                  <a href="/delete_employee/${key_s}" class="clDelete">Löschen</a>
+                  <a href="/show_detail_employee/${key_s}" >Anzeigen</a>
                </td>
             </tr>
             % endfor
          </table>
          <div>
-            <a href="/add">erfassen</a>
+            <a href="/add_employee">erfassen</a>
          </div>
       </article>
    </section>

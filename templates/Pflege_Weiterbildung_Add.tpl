@@ -42,49 +42,49 @@
          <hr>
       </nav>
       <article>
-         <form id="idWTForm" action="/savetraining" method="POST">
-            <input type="hidden" value="${key_s}" id="id_spa" name="id_spa" />
+         <form id="idWTForm" action="/save_training" method="POST">
+            <input type="hidden" value="${key_s}" id="training_id" name="training_id" />
             <div>
-               <label for="bezeichnung_spa">Bezeichnung</label>
+               <label for="title">Bezeichnung</label>
                <input type="text"
                   value="${data_o[0]}"
-                  id="bezeichnung_spa"
-                  name="bezeichnung_spa" required />
+                  id="title"
+                  name="title" required />
             </div>
             <div>
-               <label for="Von_spa">Von</label>
+               <label for="date_begin">Von</label>
                <input type="date"
                   value="${data_o[1]}"
-                  id="Von_spa"
-                  name="Von_spa" required />
+                  id="date_begin"
+                  name="date_begin" required />
             </div>
             <div>
-               <label for="Bis_spa">Bis Grad</label>
+               <label for="date_end">Bis Grad</label>
                <input type="date"
                   value="${data_o[2]}"
-                  id="Bis_spa"
-                  name="Bis_spa" required />
+                  id="date_end"
+                  name="date_end" required />
             </div>
             <div>
-               <label for="beschreibung_spa">Beschreibung</label>
+               <label for="description">Beschreibung</label>
                <input type="text"
                   value="${data_o[3]}"
-                  id="beschreibung_spa"
-                  name="beschreibung_spa" required />
+                  id="description"
+                  name="description" required />
             </div>
             <div>
-               <label for="maxteilnehmer_spa">Max. Teilnehmer</label>
+               <label for="max_attendees">Max. Teilnehmer</label>
                <input type="number"
                   value="${data_o[4]}"
-                  id="maxteilnehmer_spa"
-                  name="maxteilnehmer_spa" required />
+                  id="max_attendees"
+                  name="max_attendees" required />
             </div>
             <div>
-               <label for="minteilnehmer_spa">Min. Teilnehmer</label>
+               <label for="min_attendees">Min. Teilnehmer</label>
                <input type="number"
                   value="${data_o[5]}"
-                  id="minteilnehmer_spa"
-                  name="minteilnehmer_spa" required />
+                  id="min_attendees"
+                  name="min_attendees" required />
             </div>
             <div>
                <input type="submit" value="Speichern"/>

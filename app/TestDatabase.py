@@ -69,7 +69,11 @@ class Database:
         # Notice that data is a REFERENCE to the dictionary
         return data
 
-    def get_list(self, dict_name, entry_id=None):
+    # Public method to be accessed from outside the class | Notice it returns a value copy not reference
+    # Reason -> database should only be changed from methods inside the class
+    # relations: If True relations are returned as well | False: no relations are returned
+    # relations_true_value: If True returns the value behind an id | if false returns the id -> is ignored if relations is set False
+    def get_list(self, dict_name, entry_id=None, relations=False, relations_true_value=True):
         # Get list_name dictionary entry
         data = self.main_data.get(dict_name)
         if data:
@@ -80,9 +84,88 @@ class Database:
 
         # Raise an exception if function fails -> easier to filter out errors in calling functions
         if data is None:
-            return None
-        # Notice that data is a REFERENCE to the dictionary
-        return copy.deepcopy(data)
+            #return None
+            raise KeyError
+
+        # copy by value
+        data = copy.deepcopy(data)
+
+        # if no relations should be returned
+        if relations is False:
+
+            if dict_name is self.employee:
+                # If one entry
+                if entry_id is not None:
+                    data = data[0:4]
+                # If all entries
+                else:
+                    for employee in data:
+                        data[employee] = data[employee][0:4]
+
+            elif dict_name is self.training:
+                if entry_id is not None:
+                    data = data[0:6]
+                else:
+                    for training in data:
+                        data[training] = data[training][0:6]
+
+            elif dict_name is self.qualification:
+                if entry_id is not None:
+                    data = data[0:2]
+                else:
+                    for qualification in data:
+                        data[qualification] = data[qualification][0:2]
+
+            elif dict_name is self.certificate:
+                if entry_id is not None:
+                    data = data[0:2]
+                else:
+                    for certificate in data:
+                        data[certificate] = data[certificate][0:2]
+
+            else:
+                raise KeyError
+                #return None
+
+        # If relations should be returned
+        else:
+            if relations_true_value is True:
+
+                if dict_name is self.employee:
+                    for counter, training in enumerate(data[4]):
+                        data[4][counter] = self.get_list(self.training, entry_id=training[0])
+                        # Add the participation Status at the end
+                        data[4][counter].append(training[1])
+
+                    for counter, qualification_id in enumerate(data[5]):
+                        data[5][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                    for counter, certificate_id in enumerate(data[6]):
+                        data[6][counter] = self.get_list(self.certificate, entry_id=certificate_id)
+
+                elif dict_name is self.training:
+                    if data[6] is not None:
+                        data[6] = self.get_list(self.certificate, entry_id=data[6])
+
+                    for counter, qualification_id in enumerate(data[7]):
+                        data[7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                    for counter, employee in enumerate(data[8]):
+                        data[8][counter] = self.get_list(self.employee, entry_id=employee[0])
+                        data[8][counter].append(employee[1])
+
+                elif dict_name is self.qualification:
+                    pass
+
+                elif dict_name is self.certificate:
+                    pass
+
+                else:
+                    raise KeyError
+                    #return None
+
+        # Notice that a copy by value is returned
+        return data
 
     # Increases max_id by one and returns new value
     def raise_max_id(self, dict_name):
@@ -137,8 +220,8 @@ class Database:
             employee = copy.deepcopy(self.__get_list(self.employee, entry_id=employee_id))
 
             # Delete employee from training
-            for training_id in employee[4]:
-                self.delete_employee_from_training(employee_id, training_id)
+            for training in employee[4]:
+                self.delete_employee_from_training(employee_id, training[0])
 
             # Delete employee from qualifications
             for qualification_id in employee[5]:
@@ -172,17 +255,23 @@ class Database:
         else:
             return True
 
+    def get_empty_employee_array(self):
+        array = []
+        for i in range(0, 4):
+            array.append('')
+        return array
+
     '''# Employee Training methods #'''
 
     # Adds a training to one employee and checks if it was successful finished
     def add_training_to_employee(self, employee_id, training_id, employee_participation_status):
         try:
             employee = self.__get_list(self.employee, entry_id=employee_id)
-            employee[4].append(training_id)
+            #employee[4].append(training_id)
+            employee[4].append([training_id, employee_participation_status])
 
             training = self.__get_list(self.training, entry_id=training_id)
-            new_entry = [employee_id, employee_participation_status]
-            training[-1].append(new_entry)
+            training[-1].append([employee_id, employee_participation_status])
 
             # Check if participation status is successful
             # If so add qualification and certificate to employee
@@ -191,6 +280,9 @@ class Database:
                     self.add_qualification_to_employee(qualification_id, employee_id)
                 if training[-3] is not None:
                     self.add_certificate_to_employee(training[-3], employee_id)
+
+            # Add 1 to participation count
+            self.change_participation_count(1)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -202,13 +294,20 @@ class Database:
     def delete_employee_from_training(self, employee_id, training_id):
         try:
             employee_list = self.__get_list(self.employee, entry_id=employee_id)
-            employee_list[4].remove(training_id)
+            for training in employee_list[4]:
+                if training_id in training:
+                    employee_list[4].remove(training)
+                    break
+            #employee_list[4].remove(training_id)
 
             training_list = self.__get_list(self.training, entry_id=training_id)
             for employee in training_list[-1]:
                 if employee_id in employee:
                     training_list[-1].remove(employee)
                     break
+
+            # Subtract 1 from participation count
+            self.change_participation_count(-1)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -221,13 +320,36 @@ class Database:
         try:
             employee_list = self.__get_list(self.employee)
             for entry in employee_list:
-                # If id is in training array | employee_list[entry][4] = training array
-                if training_id in employee_list[entry][4]:
-                    employee_list[entry][4].remove(training_id)
-        except KeyError:
+                for training in employee_list[entry][4]:
+                    if training_id in training:
+                        self.change_participation_count(-1)
+                        employee_list[entry][4].remove(training)
+
+        except (KeyError, ValueError):
             return False
         else:
             return True
+
+    # Changes the participation count in training or returns the current value if amount is 0
+    def change_participation_count(self, amount=0):
+        try:
+            training = self.main_data.get(self.training)
+            count = training.get("Participation_count")
+            count = int(count) + amount
+            training["Participation_count"] = str(count)
+            return str(count)
+        except (KeyError, ValueError):
+            return None
+
+    def get_employee_participation_status(self, employee_id, training_id):
+        try:
+            training = self.__get_list(self.training, entry_id=training_id)
+            for employee in training[-1]:
+                if employee[0] == employee_id:
+                    return employee[1]
+
+        except (KeyError, ValueError):
+            return None
 
     '''# General training methods #'''
 
@@ -276,6 +398,12 @@ class Database:
             return False
         else:
             return True
+
+    def get_empty_training_array(self):
+        array = []
+        for i in range(0, 6):
+            array.append('')
+        return array
 
     ''' # Qualification Training methods # '''
 
@@ -533,7 +661,7 @@ if __name__ == '__main__':
     #b = a.add_training(["Bodybuilding", "20-10-2000", "25-02-2010", "Bist ne legende wenn de das schaffst", "1", "1"])
     #b = a.add_qualification_to_training("4", "22")
     #b = a.add_certificate_to_training("6", "22")
-    #b = a.add_training_to_employee("29", "22", "Erfolgreich beendet")
+    #b = a.add_training_to_employee("30", "20", "angemeldet")
     #c = a.edit_employee("12", ["Felix", "Koch", "Master", "Prinz", [], [], []])
     #d = a.delete_employee("13")
     #d = a.add_training(["C++ classes", "20-04-2021", "31-04-2021", "Einfuehrung in classes in C++", "1", "50"])
@@ -541,7 +669,7 @@ if __name__ == '__main__':
     #d = a.add_training_to_employee("4", "0","Erfolgreich Teilgenommen")
     #d = a.add_training_to_employee("4", "20", "Angemeldet")
     #os.system("PAUSE")
-    #d = a.delete_employee_from_training("7", "0")
+    #b = a.delete_employee_from_training("30", "20")
     #a.delete_training("19")
     #a.delete_employee("4")
     #d = a.add_qualification(["Klemptner", "Hat Klemptner Ausbildung gemacht"])
@@ -562,4 +690,7 @@ if __name__ == '__main__':
     #d = a.edit_certificate("3", ["C++ Zertifikat", "2 Jahr lang C++ gelerent"])
     #b = a.edit_certificate("6", ["asd", "asd"])
     #b = a.edit_training("21", ["Python class", "20-05-2000", "20-06-2000", "Einfuehrung in Python", "2", "100", "200"])
-    #print(b)
+    #b = a.get_list(a.certificate, relations=True)
+    #b = a.get_employee_participation_status("29", "22")
+    b = a.remove_certificate_from_all_trainings("4")
+    print(b)

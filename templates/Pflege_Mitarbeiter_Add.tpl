@@ -42,35 +42,35 @@
          <hr>
       </nav>
       <article>
-         <form id="idWTForm" action="/save" method="POST">
-            <input type="hidden" value="${key_s}" id="id_spa" name="id_spa" />
+         <form id="idWTForm" action="/save_employee" method="POST">
+            <input type="hidden" value="${key_s}" id="employee_id" name="employee_id" />
             <div>
-               <label for="name_spa">Name</label>
+               <label for="second_name">Name</label>
                <input type="text"
                   value="${data_o[0]}"
-                  id="name_spa"
-                  name="name_spa" required />
+                  id="second_name"
+                  name="second_name" required />
             </div>
             <div>
-               <label for="vorname_spa">Vorname</label>
+               <label for="first_name">Vorname</label>
                <input type="text"
                   value="${data_o[1]}"
-                  id="vorname_spa"
-                  name="vorname_spa" required />
+                  id="first_name"
+                  name="first_name" required />
             </div>
             <div>
-               <label for="akademic_spa">akademischer Grad</label>
+               <label for="academic_degree">akademischer Grad</label>
                <input type="text"
                   value="${data_o[2]}"
-                  id="akademic_spa"
-                  name="akademic_spa" required />
+                  id="academic_degree"
+                  name="academic_degree" required />
             </div>
             <div>
-               <label for="tatigkeit_spa">Tätigkeit</label>
+               <label for="occupation">Tätigkeit</label>
                <input type="text"
                   value="${data_o[3]}"
-                  id="tatigkeit_spa"
-                  name="tatigkeit_spa" required />
+                  id="occupation"
+                  name="occupation" required />
             </div>
             <div>
                <input type="submit" value="Speichern"/>

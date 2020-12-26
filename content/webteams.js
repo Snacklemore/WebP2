@@ -4,7 +4,7 @@ function confirmDelete_p (event_opl) {
       // Klick auf Link zum Löschen
 
       // Ihre Ergänzung
-	var confirming = confirm("Eintrag gelöscht");
+	var confirming = confirm("Eintrag löschen?");
 	if (confirming == false)
        {event_opl.preventDefault();   }
 	}

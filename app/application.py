@@ -2,7 +2,7 @@
 import cherrypy
 from .database import Database_cl
 from .view import View_cl
-from .databaseapi import *
+from .TestDatabase import Database
 
 # test test
 # ----------------------------------------------------------
@@ -13,11 +13,12 @@ class Application_cl(object):
     def __init__(self):
         # -------------------------------------------------------
         # seperatie db_o objects to store employees and trainings
-        #self.db_employee = Database_cl("employee")
-        self.db_employee = Employee()
+        self.database = Database("placeholder", "Mitarbeiter", "Weiterbildungen", "Qualifikation", "Zertifikat")
+        self.db_employee = Database_cl("employee")
+        #self.db_employee = Employee()
         # change add,edit,and other route functions to handle seperate trainings db
-        #self.db_trainings = Database_cl("trainings")
-        self.db_trainings = Training()
+        self.db_trainings = Database_cl("trainings")
+        #self.db_trainings = Training()
         self.db_trainingrelations = Database_cl("trainingRelations")
         self.db_employeeparticipation = Database_cl("employeeParticipations")
         self.db_certs = Database_cl("certs")
@@ -134,19 +135,6 @@ class Application_cl(object):
         return self.createContent_p(form)
 
     @cherrypy.expose
-    # -------------------------------------------------------
-    def add(self, **params):
-        # -------------------------------------------------------
-        form = params.get("nothing", "tabelle")
-        # deliver htmlform to add employee
-        return self.createForm_p(listform=form)
-
-    @cherrypy.expose
-    def addtrainings(self, **params):
-        form = params.get("nothing", "tabelle")
-        return self.createForm_trainings(listform=form)
-
-    @cherrypy.expose
     def showtrainingsdetail(self, id_spl, **params):
         form = params.get("index", "tabelle")
 
@@ -170,31 +158,12 @@ class Application_cl(object):
             data_p = []
             return self.view_o.createDetailTrainings(data_o, data_p)
 
-    @cherrypy.expose
+    #@cherrypy.expose
     # -------------------------------------------------------
     def edit(self, id_spl, **params):
         # -------------------------------------------------------
         listform = params.get("listform", "tabelle")
         return self.createForm_p(id_spl=id_spl, listform=listform)
-
-    @cherrypy.expose
-    def edittrainings(self, id_spl, **params):
-        listform = params.get("listform", "tabelle")
-        return self.createForm_trainings(id_spl=id_spl, listform=listform)
-
-    @cherrypy.expose
-    # -------------------------------------------------------
-    def save(self, id_spa, name_spa, vorname_spa, akademic_spa, tatigkeit_spa, **params):
-        # -------------------------------------------------------
-        id_s = id_spa
-        data_a = [name_spa, vorname_spa, akademic_spa, tatigkeit_spa]
-        if id_s != "None":
-            self.db_employee.update_px(id_s, data_a)
-        else:
-            self.db_employee.create_px(data_a)
-        listform = params.get("listform", "tabelle")
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
-        # return self.createContent_p(listform)
 
     @cherrypy.expose
     def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa):
@@ -267,28 +236,9 @@ class Application_cl(object):
     default.exposed = True
 
     @cherrypy.expose
-    # -------------------------------------------------------
-    def delete(self, id_spl, **params):
-        # -------------------------------------------------------
-        listform = params.get("listform", "tabelle")
-        if self.db_employee.delete_px(id_spl):
-            raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
-        else:
-            raise cherrypy.HTTPError(500, "Existiert nicht")
-
-    # -------------------------------------------------------
-    @cherrypy.expose
     def canceltraining(self, training, employee):
         if self.db_trainingrelations.delete_employee_px(training, employee):
             raise cherrypy.HTTPRedirect("/?index=Sichtweise_Weiterbildungen")
-        else:
-            raise cherrypy.HTTPError(500, "Existiert nicht")
-
-    @cherrypy.expose
-    def deletetrainings(self, id_spl, **params):
-        listform = params.get("listform", "tabelle")
-        if self.db_trainings.delete_px(id_spl):
-            raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
         else:
             raise cherrypy.HTTPError(500, "Existiert nicht")
 
@@ -297,30 +247,6 @@ class Application_cl(object):
         data_o = self.db_employee.read_px()
         return self.view_o.createList_px(data_o, listform)
 
-    # -------------------------------------------------------
-    def createForm_p(self, listform, id_spl=None):
-        # -------------------------------------------------------
-        if id_spl != None:
-            data_o = self.db_employee.read_px(id_spl)
-        else:
-            data_o = self.db_employee.get_default_px()
-        return self.view_o.createForm_px(id_spl=id_spl, data_opl=data_o, listform=listform)
-
-    @cherrypy.expose
-    def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa,
-                     minteilnehmer_spa, **params):
-        # -------------------------------------------------------
-        id_s = id_spa
-        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
-        if id_s != "None":
-            self.db_trainings.update_px(id_s, data_a)
-        else:
-            self.db_trainings.create_px(data_a)
-            self.db_trainingrelations.create_px(data_a)
-        listform = params.get("listform", "tabelle")
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
-        # return self.createContent_p(listform)
-
     def createForm_trainings(self, listform, id_spl=None):
         if id_spl != None:
             data_o = self.db_trainings.read_px(id_spl)
@@ -328,7 +254,7 @@ class Application_cl(object):
             data_o = self.db_trainings.get_default_px()
         return self.view_o.createForm_trainings(id_spl=id_spl, data_opl=data_o, listform=listform)
 
-    @cherrypy.expose
+    @cherrypy.expose # TODO
     def showdetailpflegeemploy(self, id_spl):
         # get participations of employee
         participations = self.db_employeeparticipation.read_px(id_spl)
@@ -350,7 +276,6 @@ class Application_cl(object):
 
     @cherrypy.expose
     def showdetailtrainings(self, id_spl):
-
         training = self.db_trainingrelations.read_px(id_spl)
         teilnehmer = training[len(training) - 1]
 
@@ -373,7 +298,7 @@ class Application_cl(object):
         return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_p, data_c, data_b)
 
       
-     def createDetail(self, id_spl):
+    def createDetail(self, id_spl):
         # here we need to read all trainings from this employee(with the ID)
 
         # reading employee data
@@ -427,19 +352,161 @@ class Application_cl(object):
         data_p = num
         return self.view_o.createStartseite(data_e, data_t, data_p)
 
+    ''' # NEW FUNCTIONS # '''
+
+    # Startseite
+
+
+    def startseite(self):
+        employee_count = self.database.change_count(self.database.employee)
+        training_count = self.database.change_count(self.database.training)
+        participation_count = self.database.change_participation_count()
+        return self.view_o.createStartseite(employee_count, training_count, participation_count)
+
+    ''' # Pflege Mitarbeiterdaten# '''
+
+    def pflege_mitarbeiterdaten(self):
+        employees = self.database.get_list(self.database.employee)
+        return self.view_o.createContent_px(employees, "Pflege_Mitarbeiterdaten")
+
+    @cherrypy.expose
+    def show_detail_employee(self, employee_id):
+        try:
+            employee = self.database.get_list(self.database.employee, entry_id=employee_id, relations=True)
+            return self.view_o.createDetailPflegeMitarbeiter(employee)
+        except (KeyError, ValueError) as error:
+            print(error)
+
+    @cherrypy.expose
+    def edit_employee(self, employee_id):
+        try:
+            employee = self.database.get_list(self.database.employee, entry_id=employee_id)
+            return self.view_o.create_form_employee(employee_id, employee)
+        except (KeyError, ValueError) as error:
+            pass
+
+    @cherrypy.expose
+    def add_employee(self):
+        empty_employee_array = self.database.get_empty_employee_array()
+        if empty_employee_array is not None:
+            return self.view_o.create_form_employee(None, empty_employee_array)
+        else:
+            pass
+
+    @cherrypy.expose
+    def save_employee(self, employee_id, second_name, first_name, academic_degree, occupation):
+        employee_data = [first_name, second_name, academic_degree, occupation]
+        if employee_id == 'None':
+            self.database.add_employee(employee_data)
+        else:
+            self.database.edit_employee(employee_id, employee_data)
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
+
+    # TODO javascript fenster kommt nicht
+    @cherrypy.expose
+    def delete_employee(self, employee_id):
+        if self.database.delete_employee(employee_id) is True:
+            raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
+        else:
+            pass
+
+    ''' # Pflege Weiterbildungen # '''
+
+    def plege_weiterbildung(self):
+        training = self.database.get_list(self.database.training)
+        return self.view_o.createContent_px(training, "Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def edit_training(self, training_id):
+        try:
+            training = self.database.get_list(self.database.training, entry_id=training_id)
+            return self.view_o.create_form_training(training_id, training)
+        except (KeyError, ValueError) as error:
+            pass
+
+    @cherrypy.expose
+    def add_training(self):
+        empty_training_array = self.database.get_empty_training_array()
+        if empty_training_array is not None:
+            return self.view_o.create_form_training(None, empty_training_array)
+        else:
+            pass
+
+    @cherrypy.expose
+    def save_training(self, training_id, title, date_begin, date_end, description, max_attendees, min_attendees):
+        training_data = [title, date_begin, date_end, description, max_attendees, min_attendees]
+        if training_id == 'None':
+            self.database.add_training(training_data)
+        else:
+            self.database.edit_training(training_id, training_data)
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def delete_training(self, training_id):
+        if self.database.delete_training(training_id) is True:
+            raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        else:
+            pass
+
+    @cherrypy.expose
+    def show_detail_training(self, training_id):
+        try:
+            training = self.database.get_list(self.database.training, entry_id=training_id, relations=True, relations_true_value=True)
+            return self.view_o.createDetailPflegeWeiterbildungen(training)
+
+        except (KeyError, ValueError)as error:
+            print(error)
+
+
+    def show_detail_demployee(self, entry_id):
+        try:
+            employee = self.database.get_list(self.database.employee, entry_id=entry_id, relations=True,
+                                              relations_true_value=True)
+            return self.view_o.createDetailPflegeMitarbeiter(employee)
+        except (KeyError, ValueError) as error:
+            print(error)
+
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
-            data_o = self.db_trainings.read_px()
+            return self.plege_weiterbildung()
         elif form == "Pflege_Mitarbeiterdaten":
-            data_o = self.db_employee.read_px()
+            return self.pflege_mitarbeiterdaten()
         elif form == "Sichtweise_Mitarbeiter":
             data_o = self.db_employee.read_px()
         elif form == "Sichtweise_Weiterbildungen":
             data_o = self.db_trainings.read_px()
         elif form == "Startseite":
-            return self.createStartSeite()
+            return self.startseite()
         else:
             data_o = self.db_employee.getDefault_px()
 
         return self.view_o.createContent_px(data_o, form)
 # EOF
+
+# TODO Weiterbildung  Quali und Zertifikat zuweisen
+# TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt
+
+    @cherrypy.expose
+    def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa,
+                     minteilnehmer_spa, **params):
+        # -------------------------------------------------------
+        id_s = id_spa
+        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
+        if id_s != "None":
+            self.db_trainings.update_px(id_s, data_a)
+        else:
+            self.db_trainings.create_px(data_a)
+            self.db_trainingrelations.create_px(data_a)
+        listform = params.get("listform", "tabelle")
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        # return self.createContent_p(listform)
+
+
+
+
+
+
+
+
+
+

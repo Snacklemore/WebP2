@@ -45,23 +45,20 @@
          <h1>Startseite</h1>
          <table>
             <div>
-               <th> Anzahl Mitarbeiter</th>
                <tr>
-                  <th>Anzahl</th>
+                  <th>Anzahl Mitarbeiter</th>
                   <th>${data_e}</th>
                </tr>
             </div>
             <div>
-               <th> Anzahl Weiterbildungen</th>
                <tr>
-                  <th>Anzahl</th>
+                  <th>Anzahl Weiterbildungen</th>
                   <th>${data_t}</th>
                </tr>
             </div>
             <div>
-               <th> Anzahl Teilnahmen</th>
                <tr>
-                  <th>Anzahl</th>
+                  <th>Anzahl Teilnahmen</th>
                   <th>${data_p}</th>
                </tr>
             </div>

@@ -42,9 +42,9 @@ class View_cl(object):
             markup_s = template_o.render(data_o=data_opl, listform="liste")
         return markup_s
 
-    def createForm_trainings(self, id_spl, data_opl, listform):
+    def create_form_training(self, training_id, training_data):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Add.tpl')
-        markup_s = template_o.render(data_o=data_opl, key_s=id_spl, listform=listform)
+        markup_s = template_o.render(data_o=training_data, key_s=training_id, listform='Pflege_Weiterbildung_Add')
         return markup_s
 
     def createAusertungCerts(self, data_o):
@@ -52,20 +52,19 @@ class View_cl(object):
         markup_s = template_o.render(data_o=data_o)
         return markup_s
 
-    # -------------------------------------------------------
-    def createForm_px(self, id_spl, data_opl, listform):
-        # -------------------------------------------------------
-        template_o = self.lookup_o.get_template('Pflege_Mitarbeiter_Add.tpl')
-        markup_s = template_o.render(data_o=data_opl, key_s=id_spl, listform=listform)
-        return markup_s
-    def createDetailPflegeMitarbeiter(self, data_o, data_c, data_p):
-        template_o = self.lookup_o.get_template('Pflege_Mitarbeiter_Detail.tpl')
-        markup_s = template_o.render(data_o=data_o, data_c=data_c, data_p=data_p)
+    def create_form_employee(self, employee_id, employee_data):
+        template_o = self.lookup_o.get_template("Pflege_Mitarbeiter_Add.tpl")
+        markup_s = template_o.render(data_o=employee_data, key_s=employee_id, listform="Pflege_Mitarbeiter")
         return markup_s
 
-    def createDetailPflegeWeiterbildungen(self, data_o, data_p, data_c, data_b):
+    def createDetailPflegeMitarbeiter(self, data_o):
+        template_o = self.lookup_o.get_template('Pflege_Mitarbeiter_Detail.tpl')
+        markup_s = template_o.render(data_o=data_o)
+        return markup_s
+
+    def createDetailPflegeWeiterbildungen(self, data_o):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Detail.tpl')
-        markup_s = template_o.render(data_o=data_o, data_p=data_p, data_c=data_c, data_b=data_b)
+        markup_s = template_o.render(data_o=data_o)
         return markup_s
 
     # -------------------------------------------------------

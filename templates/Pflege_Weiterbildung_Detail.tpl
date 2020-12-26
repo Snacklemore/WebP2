@@ -53,7 +53,7 @@
          <p>${data_o[3]}</p>
          <table>
             <h1>Teilnehmer</h1>
-            % for x in data_p:
+            % for x in data_o[8]:
             <tr>
                <td>
                   <h4>Vorname</h4>
@@ -68,35 +68,41 @@
             <tr>
                <td>${x[0]}</td>
                <td>${x[1]}</td>
-               <td>${x[2]}</td>
+               <td>${x[4]}</td>
             </tr>
             % endfor
          </table>
          <table>
             <h1>Qualifikationen</h1>
-            % for x in data_b:
+            % for x in data_o[7]:
             <tr>
                <td>
-                  <h4>Qualifikation</h4>
+                  <h4>Bezeichnung</h4>
+               </td>
+               <td>
+                  <h4>Beschreibung</h4>
                </td>
             </tr>
             <tr>
-               <td>${x}</td>
+               <td>${x[0]}</td>
+               <td>${x[1]}</td>
             </tr>
             % endfor
          </table>
          <table>
             <h1>Zertifikate</h1>
-            % for x in data_c:
             <tr>
                <td>
-                  <h4>Zertifikat</h4>
+                  <h4>Bezeichnung</h4>
+               </td>
+               <td>
+                  <h4>Beschreibung</h4>
                </td>
             </tr>
             <tr>
-               <td>${x}</td>
+               <td>${data_o[6][0]}</td>
+               <td>${data_o[6][1]}</td>
             </tr>
-            % endfor
          </table>
       </article>
    </section>
