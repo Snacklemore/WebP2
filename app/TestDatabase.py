@@ -416,6 +416,9 @@ class Database:
             array.append('')
         return array
 
+    def get_participation_status_array(self):
+        return ["angemeldet", "nimmt teil", "storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
+
     ''' # Qualification Training methods # '''
 
     def add_qualification_to_training(self, qualification_id, training_id):
