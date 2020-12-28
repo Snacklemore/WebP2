@@ -589,10 +589,13 @@ class Application_cl(object):
 
         # Filter out successful participants
         for training in training_list:
-            for employee in training[1][-1]:
-                if employee[-1] != "erfolgreich beendet":
-                    training[1][-1].remove(employee)
+            training[1][-1] = list(filter(lambda x:x[4] == "erfolgreich beendet", training[1][-1]))
 
+
+
+        #for employee in training[1][-1]:
+           # if employee[-1] != "erfolgreich beendet":
+                #training[1][-1].remove(employee)
         return self.view_o.create_form_auswertung_weiterbildung(training_list),
 
     ''' # Auswertung Zertifiakte # '''
