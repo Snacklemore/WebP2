@@ -42,28 +42,30 @@
          <hr>
       </nav>
       <article>
-         <h1>Zertifikate</h1>
-         % for key_s in data_o:
+         <h2>Auswertung Zertifikate</h2>
+         % for x in certificate:
          <table>
             <tr>
-               <th>Name</th>
-               <th>Kurzbeschreibung</th>
+               <th>Bezeichnung</th>
+               <th>Beschreibung</th>
+               <th>Berechtig zu</th>
             </tr>
-            <td>${data_o[key_s][0]}</td>
-            <td>${data_o[key_s][1]}</td>
-            <h1>Zertifikat</h1>
             <tr>
-               <th>Vorname</th>
-               <th>Name</th>
+               <td>${x[1][0]}</td>
+               <td>${x[1][1]}</td>
+               <td>${x[1][2]}</td>
             </tr>
-            % for x in data_o[key_s][3]:
-            <table>
-               <td> ${x[0]}</td>
-               <td> ${x[1]}</td>
+            <td></td>
                <tr>
-                  % endfor
+                  <th>Mitarbeiter</th>
+                  <th>Vorname</th>
+               </tr>   
+               % for i in x[1][3]:
+               <tr>
+                  <td>${i[0]}</td>
+                  <td>${i[1]}</td>
                </tr>
-            </table>
+               % endfor
             % endfor
          </table>
       </article>

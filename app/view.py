@@ -85,15 +85,21 @@ class View_cl(object):
         markup_s = template_o.render(data_o=data_o, data_p=data_p)
         return markup_s
 
-    def create_form_auswertung_mitarbeiter(self, data_o):
+    def create_form_auswertung_mitarbeiter(self, employee):
         template_o = self.lookup_o.get_template('Mitarbeiter.tpl')
-        markup_s = template_o.render(employee=data_o)
+        markup_s = template_o.render(employee=employee)
         return markup_s
 
-    def createAuswertungWeiterbildung(self, data_o):
+    def create_form_auswertung_weiterbildung(self, training):
         template_o = self.lookup_o.get_template('Weiterbildungen.tpl')
-        markup_s = template_o.render(data_o=data_o)
+        markup_s = template_o.render(training=training)
         return markup_s
+
+    def create_form_auswertung_zertifikat(self, certificate):
+        template_o = self.lookup_o.get_template('Zertifikate.tpl')
+        markup_s = template_o.render(certificate=certificate)
+        return markup_s
+
     def createStartseite(self,data_e, data_t, data_p):
         template_o = self.lookup_o.get_template('Startseite.tpl')
         markup_s = template_o.render(data_e=data_e, data_t=data_t, data_p=data_p)

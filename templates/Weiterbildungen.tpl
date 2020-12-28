@@ -42,26 +42,36 @@
          <hr>
       </nav>
       <article>
-         <h1>Auswertung Weiterbildungen</h1>
-         % for key_s in data_o:
+         <h2>Auswertung Weiterbildungen</h2>
+         % for x in training:
          <table>
             <tr>
+               <th>Bezeichnung</th>
+               <th>Von</th>
+               <th>Bis</th>
+               <th>Beschreibung</th>
             </tr>
-            <h1>Bezeichnung</h1>
-            <td>${data_o[key_s][0]}</td>
-            <table>
-               <h1>Teilnehmer</h1>
+            <tr>
+               <td>${x[1][0]}</td>
+               <td>${x[1][1]}</td>
+               <td>${x[1][2]}</td>
+               <td>${x[1][3]}</td>            
+            </tr>
+            <td></td>
                <tr>
+                  <th>Mitarbeiter</th>
                   <th>Vorname</th>
-                  <th>Name</th>
-               </tr>
-               % for x in data_o[key_s][6]:
+                  <th>akademische Grade</th>
+                  <th>Status</th>
+               </tr>   
+               % for i in x[1][8]:
                <tr>
-                  <td>${x[0]}</td>
-                  <td>${x[1]}</td>
-                  % endfor
+                  <td>${i[0]}</td>
+                  <td>${i[1]}</td>
+                  <td>${i[2]}</td>
+                  <td>${i[4]}</td>
                </tr>
-            </table>
+               % endfor
             % endfor
          </table>
       </article>

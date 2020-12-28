@@ -579,6 +579,34 @@ class Application_cl(object):
 
         return self.view_o.create_form_auswertung_mitarbeiter(employee_list)
 
+    ''' # Auswertung Weiterbildungen # '''
+
+    @cherrypy.expose
+    def Weiterbildungen(self):
+        training_list = self.database.get_list(self.database.training, relations=True, relations_true_value=True)
+
+        training_list = sorted(training_list.items(), key=lambda x:x[1][0])
+
+        # Filter out successful participants
+        for training in training_list:
+            for employee in training[1][-1]:
+                if employee[-1] != "erfolgreich beendet":
+                    training[1][-1].remove(employee)
+
+        return self.view_o.create_form_auswertung_weiterbildung(training_list),
+
+    ''' # Auswertung Zertifiakte # '''
+
+    @cherrypy.expose
+    def Zertifikate(self):
+        certificate_list = self.database.get_list(self.database.certificate, relations=True, relations_true_value=True)
+
+        certificate_list = sorted(certificate_list.items(), key=lambda x:x[1][0])
+
+
+
+        return self.view_o.create_form_auswertung_zertifikat(certificate_list)
+
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
             return self.plege_weiterbildung()
