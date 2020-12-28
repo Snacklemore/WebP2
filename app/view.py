@@ -1,27 +1,14 @@
-# coding: utf-8
-
 import codecs
 import os.path
-import string
 
-from mako.template import Template
 from mako.lookup import TemplateLookup
 
 
-# ----------------------------------------------------------
 class View_cl(object):
-    # ----------------------------------------------------------
 
-    # -------------------------------------------------------
     def __init__(self):
-        # -------------------------------------------------------
         self.lookup_o = TemplateLookup('./templates')
 
-    def createPflegeWeiterbildungVerwaltung(self, data_certs, data_qual, t_id):
-        template_o = self.lookup_o.get_template('Pflege_Weiterbildungen_QZVerwaltung.tpl')
-        markup_s = template_o.render(data_c=data_certs, data_q=data_qual, t_id=t_id)
-        return markup_s
-    # -------------------------------------------------------
     def create_form_add_qualification(self, training_id):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Qualification_Add.tpl')
         markup_s = template_o.render(t_id=training_id, listform="Pflege_Weiterbildungen_QZVerwaltung")
@@ -32,24 +19,9 @@ class View_cl(object):
         markup_s = template_p.render(t_id=training_id, listform="Pflege_Weiterbildungen_QZVerwaltung")
         return markup_s
 
-    def createList_px(self, data_opl, listform):
-        # -------------------------------------------------------
-        if listform == "tabelle":
-            template_o = self.lookup_o.get_template('list.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform="tabelle")
-        else:
-            template_o = self.lookup_o.get_template('list2.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform="liste")
-        return markup_s
-
     def create_form_training(self, training_id, training_data):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Add.tpl')
         markup_s = template_o.render(data_o=training_data, key_s=training_id, listform='Pflege_Weiterbildung')
-        return markup_s
-
-    def createAusertungCerts(self, data_o):
-        template_o = self.lookup_o.get_template('Zertifikate.tpl')
-        markup_s = template_o.render(data_o=data_o)
         return markup_s
 
     def create_form_employee(self, employee_id, employee_data):
@@ -62,27 +34,14 @@ class View_cl(object):
         markup_s = template_o.render(data_o=qualifications, data_t=certificates, t_id=training_id, listform="Pflege_Weiterbildung")
         return markup_s
 
-    def createDetailPflegeMitarbeiter(self, data_o):
+    def create_detail_pflege_mitarbeiter(self, data_o):
         template_o = self.lookup_o.get_template('Pflege_Mitarbeiter_Detail.tpl')
         markup_s = template_o.render(data_o=data_o)
         return markup_s
 
-    def createDetailPflegeWeiterbildungen(self, data_o):
+    def create_detail_pflege_weiterbildungen(self, data_o):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Detail.tpl')
         markup_s = template_o.render(data_o=data_o)
-        return markup_s
-
-    # -------------------------------------------------------
-    def readFile_p(self, fileName_spl):
-        # -------------------------------------------------------
-        content_s = ''
-        with codecs.open(os.path.join('templates', fileName_spl), 'r', 'utf-8') as fp_o:
-            content_s = fp_o.read()
-        return content_s
-
-    def createDetailTrainings(self, data_o, data_p):
-        template_o = self.lookup_o.get_template('Sichtweise_Weiterbildungen_Detail.tpl')
-        markup_s = template_o.render(data_o=data_o, data_p=data_p)
         return markup_s
 
     def create_form_auswertung_mitarbeiter(self, employee):
@@ -100,7 +59,7 @@ class View_cl(object):
         markup_s = template_o.render(certificate=certificate)
         return markup_s
 
-    def createStartseite(self,data_e, data_t, data_p):
+    def create_startseite(self,data_e, data_t, data_p):
         template_o = self.lookup_o.get_template('Startseite.tpl')
         markup_s = template_o.render(data_e=data_e, data_t=data_t, data_p=data_p)
         return markup_s
@@ -150,5 +109,3 @@ class View_cl(object):
             template_o = self.lookup_o.get_template('Startseite.tpl')
             markup_s = template_o.render(data_o=data_opl, listform=form)
         return markup_s
-
-# EOF
