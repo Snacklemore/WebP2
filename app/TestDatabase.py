@@ -398,12 +398,13 @@ class Database:
     # It also reduces participation count by 1
     def delete_employee_from_training(self, employee_id, training_id):
         try:
+            has_not_finished_training = False
             finished_training_states = self.get_participation_status_array(finished=True)
-            finished_training = False
             employee_list = self.__get_list(self.employee, entry_id=employee_id)
             for training in employee_list[4]:
                 if training_id in training:
                     if training[1].lower() not in finished_training_states:
+                        has_not_finished_training = True
                         training[1] = "storniert"
 
             training_list = self.__get_list(self.training, entry_id=training_id)
@@ -412,7 +413,9 @@ class Database:
                     employee[-1] = "storniert"
 
             # Subtract 1 from participation count
-            self.change_participation_count(-1)
+            if has_not_finished_training is True:
+                self.change_participation_count(-1)
+                pass
 
             self.write_json_file()
         except (KeyError, ValueError):
