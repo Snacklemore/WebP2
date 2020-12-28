@@ -284,7 +284,7 @@ class Application_cl(object):
         participation_count = self.database.change_participation_count()
         return self.view_o.createStartseite(employee_count, training_count, participation_count)
 
-    ''' # Pflege Mitarbeiterdaten# '''
+    ''' # Pflege Mitarbeiterdaten # '''
 
     def pflege_mitarbeiterdaten(self):
         employees = self.database.get_list(self.database.employee)
@@ -504,7 +504,14 @@ class Application_cl(object):
 
     @cherrypy.expose
     def add_employee_to_training(self, employee_id, training_id):
-        pass
+        return self.view_o.create_form_add_employee_to_training(employee_id, training_id, self.database.get_participation_status_array())
+
+    @cherrypy.expose
+    def save_employee_to_training(self, employee_id, training_id, participation_status):
+        if self.database.add_training_to_employee(employee_id, training_id, participation_status):
+            raise cherrypy.HTTPRedirect("/inspect_employee_detail/" + employee_id)
+        else:
+            pass
 
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
@@ -521,6 +528,10 @@ class Application_cl(object):
             data_o = self.db_employee.getDefault_px()
 
         return self.view_o.createContent_px(data_o, form)
+
+
+# TODO Mitarbeiter Training teilnahme
+
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt
 

@@ -32,13 +32,27 @@
                [
                   "22",
                   "storniert"
+               ],
+               [
+                  "0",
+                  "storniert"
+               ],
+               [
+                  "23",
+                  "erfolgreich beendet"
+               ],
+               [
+                  "20",
+                  "abgebrochen"
                ]
             ],
             [
-               "4"
+               "4",
+               "6"
             ],
             [
-               "6"
+               "6",
+               "9"
             ]
          ],
          "30": [
@@ -46,7 +60,12 @@
             "R\u00fchl",
             "NewYorkChamp",
             "Rentner",
-            [],
+            [
+               [
+                  "22",
+                  "angemeldet"
+               ]
+            ],
             [],
             []
          ],
@@ -55,16 +74,33 @@
             "Hans",
             "Hauptschule",
             "dumm",
-            [],
-            [],
-            []
+            [
+               [
+                  "20",
+                  "storniert"
+               ],
+               [
+                  "0",
+                  "erfolgreich beendet"
+               ],
+               [
+                  "22",
+                  "nicht erfolgreich beendet"
+               ]
+            ],
+            [
+               "Qualifikations ID"
+            ],
+            [
+               "4"
+            ]
          ]
       }
    },
    "Weiterbildungen": {
       "Max-ID": "24",
       "Count": "5",
-      "Participation_count": "-4",
+      "Participation_count": "-3",
       "List": {
          "0": [
             "Weiterbildung Bezeichnung",
@@ -107,7 +143,16 @@
                "4",
                "5"
             ],
-            []
+            [
+               [
+                  "31",
+                  "nicht erfolgreich beendet"
+               ],
+               [
+                  "30",
+                  "angemeldet"
+               ]
+            ]
          ],
          "23": [
             "Drogen Herstellen",
@@ -170,7 +215,9 @@
          "6": [
             "D",
             "K",
-            []
+            [
+               "29"
+            ]
          ],
          "7": [
             " Kann Bio Chemie",
@@ -215,7 +262,9 @@
             "C++ Zertifikat",
             "2 Jahr lang C++ gelerent",
             "Kann C++",
-            []
+            [
+               "31"
+            ]
          ],
          "8": [
             " Zertifikat_Title",
@@ -227,7 +276,9 @@
             " a",
             "asd",
             " a",
-            []
+            [
+               "29"
+            ]
          ],
          "10": [
             " Biochemiker",

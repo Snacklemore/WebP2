@@ -98,7 +98,7 @@
                <td>${x[1]}</td>
                <td>${x[2]}</td>
                <td>
-                  Training teilnehmen
+                  <a href="/add_employee_to_training/${data_o[7]}/${x[6]}">anmelden</a>
                </td>
             </tr>
             % endfor
