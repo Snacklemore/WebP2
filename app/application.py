@@ -562,11 +562,22 @@ class Application_cl(object):
 
     @cherrypy.expose
     def Mitarbeiter(self):
-        # TODO alphabetische Mitarbeiter Liste mit chronologischen Teilnahmen an trainings
-        employee = self.database.get_list(self.database.employee, relations=True, relations_true_value=True)
+        employee_list = self.database.get_list(self.database.employee, relations=True, relations_true_value=True)
 
+        # Sort the dictionary by its first value(last name) -> note sorted returns a tuple
+        # x = ('1', ['Hoffmann', 'Hans', ...]])
+        #     x[0]  x[1][0]      x[1][1].....
+        employee_list = sorted(employee_list.items(), key=lambda x:x[1][0])
 
-        pass
+        for employee in employee_list:
+            # employee[1][4] = training list eg:
+            # ['C++', '2020-11-30', '2020-12-24', 'C++ Anfaenger Kurs', '3000', '20', 'erfolgreich beendet'],
+            # ['Python', '2020-12-10', '2020-12-25', 'Python Anfaenger Kurs', '20', '2', 'nimmt teil']
+            #  x[0]         x[1]            x[2]...
+
+            employee[1][4] = sorted(employee[1][4], key=lambda x:x[1])
+
+        return self.view_o.create_form_auswertung_mitarbeiter(employee_list)
 
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":

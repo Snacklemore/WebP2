@@ -85,10 +85,11 @@ class View_cl(object):
         markup_s = template_o.render(data_o=data_o, data_p=data_p)
         return markup_s
 
-    def createFormauswertungMitarbeiter(self, data_o):
+    def create_form_auswertung_mitarbeiter(self, data_o):
         template_o = self.lookup_o.get_template('Mitarbeiter.tpl')
-        markup_s = template_o.render(data_o=data_o)
+        markup_s = template_o.render(employee=data_o)
         return markup_s
+
     def createAuswertungWeiterbildung(self, data_o):
         template_o = self.lookup_o.get_template('Weiterbildungen.tpl')
         markup_s = template_o.render(data_o=data_o)

@@ -42,7 +42,7 @@
          <hr>
       </nav>
       <article>
-         <h1>Test</h1>
+         <h2>Mitarbeiterdaten</h2>
          <table>
             <tr>
                <th>Name</th>
