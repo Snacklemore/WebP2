@@ -513,6 +513,51 @@ class Application_cl(object):
         else:
             pass
 
+    ''' # Sichtweise Weiterbildungen # '''
+
+    def sichtweise_weiterbildungen(self):
+        training = self.database.get_list(self.database.training)
+        return self.view_o.createContent_px(training, "Sichtweise_Weiterbildungen")
+
+    @cherrypy.expose
+    def inspect_training_detail(self, training_id):
+        training = self.database.get_list(self.database.training, entry_id=training_id, relations=True, relations_true_value=False)
+
+        # Lists for employees who have/not finished the training
+        finished_employees = []
+        not_finished_employees = []
+
+        # List with all the finished states of a training
+        finished_participation_status = self.database.get_participation_status_array(finished=True)
+
+        for employee in training[-1]:
+            entry = self.database.get_list(self.database.employee, entry_id=employee[0])
+
+            # Add status and id to the entry
+            entry.append(employee[-1])
+            entry.append(employee[0])
+
+            # If employee has finished the training
+            if employee[-1] in finished_participation_status:
+                finished_employees.append(entry)
+
+            else:
+                not_finished_employees.append(entry)
+
+        # Get no relations list and add training id
+        training = self.database.get_list(self.database.training, entry_id=training_id)
+        training.append(training_id)
+
+        return self.view_o.create_from_participation_training_detail(training, finished_employees, not_finished_employees)
+
+    # This function was used previously but is redefined here for different redirect
+    @cherrypy.expose
+    def cancel_employee_training_sichtweise_weiterbildung(self, employee_id, training_id):
+        if self.database.delete_employee_from_training(employee_id, training_id):
+            raise cherrypy.HTTPRedirect("/inspect_training_detail/" + training_id)
+        else:
+            pass
+
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
             return self.plege_weiterbildung()
@@ -521,7 +566,7 @@ class Application_cl(object):
         elif form == "Sichtweise_Mitarbeiter":
             return self.sichtweise_mitarbeiter()
         elif form == "Sichtweise_Weiterbildungen":
-            data_o = self.db_trainings.read_px()
+            return self.sichtweise_weiterbildungen()
         elif form == "Startseite":
             return self.startseite()
         else:
@@ -530,7 +575,7 @@ class Application_cl(object):
         return self.view_o.createContent_px(data_o, form)
 
 
-# TODO Mitarbeiter Training teilnahme
+# TODO Sichtweise Weiterbildung detail
 
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt

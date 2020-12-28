@@ -44,18 +44,39 @@
       <article>
          <h1>Weiterbildung:</h1>
          <h4>Bezeichnung:</h4>
-         <p>${data_o[0]}</p>
+         <p>${training[0]}</p>
          <h4>Von</h4>
-         <p>${data_o[1]}</p>
+         <p>${training[1]}</p>
          <h4>Bis</h4>
-         <p>${data_o[2]}</p>
+         <p>${training[2]}</p>
          <h4>Max. Teilnehmer</h4>
-         <p>${data_o[4]}</p>
+         <p>${training[4]}</p>
          <h4>Min. Teilnehmer</h4>
-         <p>${data_o[5]}</p>
+         <p>${training[5]}</p>
          <table>
-            <h1> Teilnehmer:</h1>
-            % for x in data_p:
+            <h1>Beendete Teilnahmen:</h1>
+            % for x in finished_employees:
+            <tr>
+               <td>
+                  <h4>Name</h4>
+               </td>
+               <td>
+                  <h4>Vorname</h4>
+               </td>
+               <td>
+                  <h4>Abschluss</h4>
+               </td>
+            </tr>
+            <tr>
+               <td>${x[0]}</td>
+               <td>${x[1]}</td>
+               <td>${x[4]}</td>
+            </tr>
+            % endfor
+         </table>
+         <table>
+            <h1>Laufende Teilnahmen:</h1>
+            % for x in not_finished_employees:
             <tr>
                <td>
                   <h4>Name</h4>
@@ -70,13 +91,15 @@
             <tr>
                <td>${x[0]}</td>
                <td>${x[1]}</td>
+               <td>${x[4]}</td>
                <td>
-                  <a href="/canceltraining/${data_o[0]}/${x[3]}">Teilnahme abbrechen</a>
+                  <a href="/cancel_employee_training_sichtweise_weiterbildung/${x[5]}/${training[6]}">Teilnahme abbrechen</a>
                </td>
-            </tr>
-            % endfor
+            </tr> 
+            % endfor           
          </table>
       </article>
    </section>
 </body>
 </html>
+

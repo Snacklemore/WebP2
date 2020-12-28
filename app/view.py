@@ -108,6 +108,11 @@ class View_cl(object):
         markup_s = template_o.render(data_o=employee_id, data_t=training_id, data_p=participation_status)
         return markup_s
 
+    def create_from_participation_training_detail(self, training_id, finished_employees, not_finished_employees):
+        template_o = self.lookup_o.get_template('Sichtweise_Weiterbildungen_Detail.tpl')
+        markup_s = template_o.render(training=training_id, finished_employees=finished_employees, not_finished_employees=not_finished_employees)
+        return markup_s
+
     def createContent_px(self, data_opl, form):
         if form == "Startseite":
             template_o = self.lookup_o.get_template('Startseite.tpl')

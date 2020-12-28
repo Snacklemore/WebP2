@@ -295,27 +295,23 @@ class Database:
         else:
             return True
 
-    # Deletes an employee from training but keeps the training in the employee to maintain the status
+    # Deletes an employee from training by setting participation status to storniert
+    # but keeps the entry in employee and training for later reference
+    # It also reduces participation count by 1
     def delete_employee_from_training(self, employee_id, training_id):
         try:
-            finished_training_states = ["storniert", "erfolgreich beendet", "nicht erfolgreich beendet", "abgebrochen"]
+            finished_training_states = self.get_participation_status_array(finished=True)
             finished_training = False
             employee_list = self.__get_list(self.employee, entry_id=employee_id)
             for training in employee_list[4]:
                 if training_id in training:
-                    #employee_list[4].remove(training)
-                    for state in finished_training_states:
-                        if training[1].lower() == state:
-                            finished_training = True
-                    if finished_training is not True:
+                    if training[1].lower() not in finished_training_states:
                         training[1] = "storniert"
-                    break
 
             training_list = self.__get_list(self.training, entry_id=training_id)
             for employee in training_list[-1]:
                 if employee_id in employee:
-                    training_list[-1].remove(employee)
-                    break
+                    employee[-1] = "storniert"
 
             # Subtract 1 from participation count
             self.change_participation_count(-1)
@@ -416,7 +412,9 @@ class Database:
             array.append('')
         return array
 
-    def get_participation_status_array(self):
+    def get_participation_status_array(self, finished=False):
+        if finished is True:
+            return ["storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
         return ["angemeldet", "nimmt teil", "storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
 
     ''' # Qualification Training methods # '''
@@ -679,12 +677,12 @@ if __name__ == '__main__':
     #b = a.add_training_to_employee("30", "20", "angemeldet")
     #c = a.edit_employee("12", ["Felix", "Koch", "Master", "Prinz", [], [], []])
     #d = a.delete_employee("13")
-    #d = a.add_training(["C++ classes", "20-04-2021", "31-04-2021", "Einfuehrung in classes in C++", "1", "50"])
+    #d = a.add_training(["C++ classes", "20-04-2021", "31-04-2021", "Einfuehrung in classes in C++", "50", "1"])
     #d = a.delete_training("4")
-    #d = a.add_training_to_employee("4", "0","Erfolgreich Teilgenommen")
+    #b = a.add_training_to_employee("33", "23","angemeldet")
     #d = a.add_training_to_employee("4", "20", "Angemeldet")
     #os.system("PAUSE")
-    #b = a.delete_employee_from_training("30", "20")
+    #b = a.delete_employee_from_training("33", "23")
     #a.delete_training("19")
     #a.delete_employee("4")
     #d = a.add_qualification(["Klemptner", "Hat Klemptner Ausbildung gemacht"])
