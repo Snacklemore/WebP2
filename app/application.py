@@ -135,12 +135,6 @@ class Application_cl(object):
         return self.createContent_p(form)
 
     @cherrypy.expose
-    def showtrainingsdetail(self, id_spl, **params):
-        form = params.get("index", "tabelle")
-
-        return self.createDetail(id_spl)
-
-    @cherrypy.expose
     def showdetailt(self, id_t, **params):
         # get the training we need details for
         training = self.db_trainingrelations.read_px(id_t)
@@ -164,32 +158,6 @@ class Application_cl(object):
         # -------------------------------------------------------
         listform = params.get("listform", "tabelle")
         return self.createForm_p(id_spl=id_spl, listform=listform)
-
-    @cherrypy.expose
-    def savecert(self, t_id, bezeichnungc_spa, beschreibung_spa, berechtigung_spa):
-        data_a = [bezeichnungc_spa, beschreibung_spa, t_id, berechtigung_spa]
-        # id of corresponding training is missing!!
-        emptylist = []
-        data_a.append(emptylist)
-        self.db_certs.create_px(data_a)
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
-
-    @cherrypy.expose
-    def savequal(self, t_id, bezeichnungq_spa, beschreibung_spa):
-        data_a = [bezeichnungq_spa, beschreibung_spa, t_id]
-        emptylist = []
-        data_a.append(emptylist)
-        self.db_qualifications.create_px(data_a)
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
-
-    @cherrypy.expose
-    def addQual(self, t_id, ):
-        return self.view_o.createFormAddQual(t_id)
-
-    @cherrypy.expose
-    def addCert(self, t_id):
-        # load form for adding cert
-        return self.view_o.createFormAddCert(t_id)
 
     @cherrypy.expose
     def managequalicerts(self, id_spa):
@@ -234,13 +202,6 @@ class Application_cl(object):
         raise cherrypy.HTTPError(404, msg_s)
 
     default.exposed = True
-
-    @cherrypy.expose
-    def canceltraining(self, training, employee):
-        if self.db_trainingrelations.delete_employee_px(training, employee):
-            raise cherrypy.HTTPRedirect("/?index=Sichtweise_Weiterbildungen")
-        else:
-            raise cherrypy.HTTPError(500, "Existiert nicht")
 
     def createList_p(self, listform):
         # -------------------------------------------------------
@@ -296,46 +257,6 @@ class Application_cl(object):
         data_p = teilnehmer
         data_b = qualifizierungen
         return self.view_o.createDetailPflegeWeiterbildungen(data_o, data_p, data_c, data_b)
-
-      
-    def createDetail(self, id_spl):
-        # here we need to read all trainings from this employee(with the ID)
-
-        # reading employee data
-        data_o = self.db_employee.read_px(id_spl)
-        data_o.append(id_spl)
-
-        # reading training data for that employee
-        data_p = self.db_trainingrelations.data_o
-
-        # get name of employee
-        name = data_o[0]
-        sure_name = data_o[1]
-
-        # arrays
-        applied_trainings = []
-        non_applied_trainings = []
-
-        # for each training in database
-        for training in data_p.values():
-            # participants are set located in the last entry of each training
-            participants = training[-1]
-
-            participated_in_training = False
-
-            # Check for every person whether he or she participated in the training
-            for person in participants:
-                if sure_name in person and name in person:
-                    participated_in_training = True
-                    break
-
-            # Check the boolean and act accordingly
-            if participated_in_training:
-                applied_trainings.append(training)
-            else:
-                non_applied_trainings.append(training)
-
-        return self.view_o.createDetail(data_o, applied_trainings, non_applied_trainings)
 
     def createStartSeite(self):
         # get maxID of employee
@@ -457,14 +378,133 @@ class Application_cl(object):
         except (KeyError, ValueError)as error:
             print(error)
 
-
-    def show_detail_demployee(self, entry_id):
+    @cherrypy.expose
+    def manage_qualification_and_certificates(self, training_id):
         try:
-            employee = self.database.get_list(self.database.employee, entry_id=entry_id, relations=True,
-                                              relations_true_value=True)
-            return self.view_o.createDetailPflegeMitarbeiter(employee)
-        except (KeyError, ValueError) as error:
+            training = self.database.get_list(self.database.training, entry_id=training_id, relations=True, relations_true_value=False)
+
+            certificate = []
+
+            if training[6] is not None:
+                certificate.append(self.database.get_list(self.database.certificate, entry_id=training[6]))
+                certificate[0].append(training[6])
+
+            qualification = []
+
+            for counter, qualification_id in enumerate(training[7]):
+                 qualification.append(self.database.get_list(self.database.qualification, entry_id=qualification_id))
+                 qualification[counter].append(qualification_id)
+
+
+            return self.view_o.create_pflege_weiterbildung_qz_verwaltung(training_id, qualification, certificate)
+
+        except (KeyError, ValueError)as error:
             print(error)
+
+    @cherrypy.expose
+    def add_qualification(self, training_id):
+        return self.view_o.create_form_add_qualification(training_id)
+
+    @cherrypy.expose
+    def add_certificate(self, training_id):
+        return self.view_o.create_form_add_certificate(training_id)
+
+    # Take custom amount of arguments
+    @cherrypy.expose
+    def save_qualification_and_certificate(self, **kwargs):
+        qualification_ids = kwargs.get("id_qualification")
+        title = kwargs.get("qualification_title")
+        description = kwargs.get("qualification_description")
+
+        if qualification_ids and title and description:
+            for counter, id_ in enumerate(qualification_ids):
+                self.database.edit_qualification(id_, [title[counter], description[counter]])
+
+        certificate_id = kwargs.get("certificate_id")
+        title = kwargs.get("certificate_title")
+        description = kwargs.get("certificate_description")
+        entitled_to = kwargs.get("certifiacte_entitled_to")
+
+        if certificate_id and title and description and entitled_to:
+            self.database.edit_certificate(certificate_id, [title, description, entitled_to])
+
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def save_qualification(self, training_id, title, description):
+        qualification = [title, description]
+
+        qualification_id = self.database.add_qualification(qualification)
+        if qualification_id is not False:
+            self.database.add_qualification_to_training(qualification_id, training_id)
+
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    @cherrypy.expose
+    def save_certificate(self, training_id, title, description, entitled_to):
+        certificate = [title, description, entitled_to]
+
+        certificate_id = self.database.add_certificate(certificate)
+        if certificate_id is not False:
+            self.database.add_certificate_to_training(certificate_id, training_id)
+
+        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+
+    ''' # Teilnahme # '''
+
+    ''' # Sichtweise Mitarbeiter #'''
+
+    def sichtweise_mitarbeiter(self):
+        employee = self.database.get_list(self.database.employee)
+        return self.view_o.createContent_px(employee, "Sichtweise_Mitarbeiter")
+
+    @cherrypy.expose
+    def inspect_employee_detail(self, employee_id):
+        try:
+            employee = self.database.get_list(self.database.employee, entry_id=employee_id, relations=True, relations_true_value=False)
+
+            participated_training = []
+            participated_training_ids = []
+            not_participated_training = []
+
+            for counter, training in enumerate(employee[4]):
+                participated_training.append(self.database.get_list(self.database.training, entry_id=training[0]))
+
+                # Add the participation status and the training id
+                participated_training[counter].append(training[1])
+                participated_training[counter].append(training[0])
+
+                # Add participated training id array for comparison later
+                participated_training_ids.append(training[0])
+
+            # Filter out non participated trainings
+            trainings_list = self.database.get_list(self.database.training)
+
+            for training_id in trainings_list:
+                if training_id not in participated_training_ids:
+                    entry = trainings_list[training_id][0:6]
+                    entry.append(training_id)
+                    not_participated_training.append(entry)
+
+
+
+            # Add employee id to the of the employee array
+            employee.append(employee_id)
+            return self.view_o.create_detail_employee(employee, participated_training, not_participated_training)
+
+        except(KeyError, ValueError):
+            pass
+
+    @cherrypy.expose
+    def cancel_employee_training(self, employee_id, training_id):
+        if self.database.delete_employee_from_training(employee_id, training_id):
+            raise cherrypy.HTTPRedirect("/inspect_employee_detail/" + employee_id)
+        else:
+            pass
+
+    @cherrypy.expose
+    def add_employee_to_training(self, employee_id, training_id):
+        pass
 
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
@@ -472,7 +512,7 @@ class Application_cl(object):
         elif form == "Pflege_Mitarbeiterdaten":
             return self.pflege_mitarbeiterdaten()
         elif form == "Sichtweise_Mitarbeiter":
-            data_o = self.db_employee.read_px()
+            return self.sichtweise_mitarbeiter()
         elif form == "Sichtweise_Weiterbildungen":
             data_o = self.db_trainings.read_px()
         elif form == "Startseite":
@@ -481,27 +521,8 @@ class Application_cl(object):
             data_o = self.db_employee.getDefault_px()
 
         return self.view_o.createContent_px(data_o, form)
-# EOF
-
-# TODO Weiterbildung  Quali und Zertifikat zuweisen
+# TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt
-
-    @cherrypy.expose
-    def savetraining(self, id_spa, bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa,
-                     minteilnehmer_spa, **params):
-        # -------------------------------------------------------
-        id_s = id_spa
-        data_a = [bezeichnung_spa, Von_spa, Bis_spa, beschreibung_spa, maxteilnehmer_spa, minteilnehmer_spa, []]
-        if id_s != "None":
-            self.db_trainings.update_px(id_s, data_a)
-        else:
-            self.db_trainings.create_px(data_a)
-            self.db_trainingrelations.create_px(data_a)
-        listform = params.get("listform", "tabelle")
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
-        # return self.createContent_p(listform)
-
-
 
 
 

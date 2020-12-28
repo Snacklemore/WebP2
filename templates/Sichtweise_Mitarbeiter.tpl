@@ -57,7 +57,7 @@
                <td>${data_o[key_s][2]}</td>
                <td>${data_o[key_s][3]}</td>
                <td>
-                  <a href="/showtrainingsdetail/${key_s}">Auswahl</a>
+                  <a href="/inspect_employee_detail/${key_s}">Auswahl</a>
                </td>
             </tr>
             % endfor

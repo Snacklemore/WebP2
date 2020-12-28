@@ -65,7 +65,7 @@
                   <a href="/edit_training/${key_s}">bearbeiten</a>
                   <a href="/delete_training/${key_s}" class="clDelete">Löschen</a>
                   <a href="/show_detail_training/${key_s}">Ansicht</a>
-		            <a href="/managequalicerts/${key_s}">Zert./Qual. verwalten</a>
+		            <a href="/manage_qualification_and_certificates/${key_s}">Zert./Qual. verwalten</a>
                </td>
             </tr>
             % endfor

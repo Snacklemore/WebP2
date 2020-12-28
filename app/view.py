@@ -22,14 +22,14 @@ class View_cl(object):
         markup_s = template_o.render(data_c=data_certs, data_q=data_qual, t_id=t_id)
         return markup_s
     # -------------------------------------------------------
-    def createFormAddQual(self, t_id):
-        template_o = self.lookup_o.get_template('Pflege_Weiterbildungen_Qual_Add.tpl')
-        markup_s = template_o.render(t_id=t_id)
+    def create_form_add_qualification(self, training_id):
+        template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Qualification_Add.tpl')
+        markup_s = template_o.render(t_id=training_id, listform="Pflege_Weiterbildungen_QZVerwaltung")
         return markup_s
 
-    def createFormAddCert(self, t_id):
-        template_p = self.lookup_o.get_template('Pflege_Weiterbildungen_Certs_Add.tpl')
-        markup_s = template_p.render(t_id=t_id)
+    def create_form_add_certificate(self, training_id):
+        template_p = self.lookup_o.get_template('Pflege_Weiterbildungen_Certificate_Add.tpl')
+        markup_s = template_p.render(t_id=training_id, listform="Pflege_Weiterbildungen_QZVerwaltung")
         return markup_s
 
     def createList_px(self, data_opl, listform):
@@ -44,7 +44,7 @@ class View_cl(object):
 
     def create_form_training(self, training_id, training_data):
         template_o = self.lookup_o.get_template('Pflege_Weiterbildung_Add.tpl')
-        markup_s = template_o.render(data_o=training_data, key_s=training_id, listform='Pflege_Weiterbildung_Add')
+        markup_s = template_o.render(data_o=training_data, key_s=training_id, listform='Pflege_Weiterbildung')
         return markup_s
 
     def createAusertungCerts(self, data_o):
@@ -55,6 +55,11 @@ class View_cl(object):
     def create_form_employee(self, employee_id, employee_data):
         template_o = self.lookup_o.get_template("Pflege_Mitarbeiter_Add.tpl")
         markup_s = template_o.render(data_o=employee_data, key_s=employee_id, listform="Pflege_Mitarbeiter")
+        return markup_s
+
+    def create_pflege_weiterbildung_qz_verwaltung(self, training_id, qualifications, certificates):
+        template_o = self.lookup_o.get_template("Pflege_Weiterbuldung_QZ_Verwaltung.tpl")
+        markup_s = template_o.render(data_o=qualifications, data_t=certificates, t_id=training_id, listform="Pflege_Weiterbildung")
         return markup_s
 
     def createDetailPflegeMitarbeiter(self, data_o):
@@ -93,9 +98,9 @@ class View_cl(object):
         markup_s = template_o.render(data_e=data_e, data_t=data_t, data_p=data_p)
         return markup_s
 
-    def createDetail(self, data_opl, data_t, data_p):
+    def create_detail_employee(self, employee, participated_training, non_participated_training):
         template_o = self.lookup_o.get_template('Sichtweise_Mitarbeiter_Detail.tpl')
-        markup_s = template_o.render(data_o=data_opl, data_t=data_t, data_p=data_p)
+        markup_s = template_o.render(data_o=employee, data_t=participated_training, data_p=non_participated_training)
         return markup_s
 
     def createContent_px(self, data_opl, form):

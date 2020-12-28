@@ -118,10 +118,10 @@ class Database:
 
             elif dict_name is self.certificate:
                 if entry_id is not None:
-                    data = data[0:2]
+                    data = data[0:3]
                 else:
                     for certificate in data:
-                        data[certificate] = data[certificate][0:2]
+                        data[certificate] = data[certificate][0:3]
 
             else:
                 raise KeyError
@@ -155,10 +155,15 @@ class Database:
                         data[8][counter].append(employee[1])
 
                 elif dict_name is self.qualification:
-                    pass
+                    for counter, employee_id in enumerate(data[2]):
+                        data[2][counter] = self.get_list(self.employee, entry_id=employee_id)
+                        data[2][counter] = data[3][counter].append(employee_id)
 
                 elif dict_name is self.certificate:
-                    pass
+                    for counter, employee_id in enumerate(data[3]):
+                        data[3][counter] =  self.get_list(self.employee, entry_id=employee_id)
+                        data[3][counter].append(employee_id)
+
 
                 else:
                     raise KeyError
@@ -209,7 +214,7 @@ class Database:
         except (KeyError, ValueError):
             return False
         else:
-            return True
+            return employee_id
 
     def delete_employee(self, employee_id):
         try:
@@ -290,15 +295,21 @@ class Database:
         else:
             return True
 
-    # Cancels an employee trainings participation
+    # Deletes an employee from training but keeps the training in the employee to maintain the status
     def delete_employee_from_training(self, employee_id, training_id):
         try:
+            finished_training_states = ["storniert", "erfolgreich beendet", "nicht erfolgreich beendet", "abgebrochen"]
+            finished_training = False
             employee_list = self.__get_list(self.employee, entry_id=employee_id)
             for training in employee_list[4]:
                 if training_id in training:
-                    employee_list[4].remove(training)
+                    #employee_list[4].remove(training)
+                    for state in finished_training_states:
+                        if training[1].lower() == state:
+                            finished_training = True
+                    if finished_training is not True:
+                        training[1] = "storniert"
                     break
-            #employee_list[4].remove(training_id)
 
             training_list = self.__get_list(self.training, entry_id=training_id)
             for employee in training_list[-1]:
@@ -369,7 +380,7 @@ class Database:
             self.write_json_file()
         except (KeyError, ValueError):
             return False
-        return True
+        return training_id
 
     # Deletes training and all its connections to employees
     def delete_training(self, training_id):
@@ -496,7 +507,7 @@ class Database:
         except (KeyError, ValueError):
             return False
         else:
-            return True
+            return qualification_id
 
     # This method assumes that an employee keeps his qualification even tho it was deleted
     # Not sure if this method is necessary
@@ -578,7 +589,7 @@ class Database:
 
             # Add employee to certificate
             certificate = self.__get_list(self.certificate, entry_id=certificate_id)
-            certificate[2].append(employee_id)
+            certificate[-1].append(employee_id)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -595,7 +606,7 @@ class Database:
 
             # Add employee to qualification
             certificate = self.__get_list(self.certificate, entry_id=certificate_id)
-            certificate[2].remove(employee_id)
+            certificate[-1].remove(employee_id)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -619,7 +630,7 @@ class Database:
         except (KeyError, ValueError):
             return False
         else:
-            return True
+            return certificate_id
 
     # Deletes certificate itself and removes it from all trainings
     def delete_certificate(self, certificate_id):
@@ -627,6 +638,7 @@ class Database:
             certificate_list = self.__get_list(self.certificate)
             certificate_list.pop(certificate_id)
             self.change_count(self.certificate, -1)
+            # TODO BUG wegen löschen
             self.remove_certificate_from_all_trainings(certificate_id)
             self.write_json_file()
         except (KeyError, ValueError):
@@ -640,7 +652,7 @@ class Database:
         try:
             certificate_list = self.__get_list(self.certificate)
             # Only change first two entries of array this way relations stay untouched
-            for i in range(0, 2):
+            for i in range(0, 3):
                 certificate_list[certificate_id][i] = changed_certificate[i]
             self.write_json_file()
         except (KeyError, ValueError):
@@ -679,18 +691,18 @@ if __name__ == '__main__':
     #d = a.remove_employee_from_qualification("2", "1")
     #d = a.add_qualification_to_employee("2", "1")
     #d = a.delete_qualification("3")
-    #d = a.add_certificate(["C Zertifikat", "1 Jahr lang C gelernt"])
+    #b = a.add_certificate(["C Zertifikat", "1 Jahr lang C gelernt", "Kann jetzt C echt gut"])
     #d = a.add_certificate_to_training("5", "20")
     #a.add_certificate_to_training("2", "20")
     #d = a.remove_certificate_from_training("2", "20")
     #d = a.add_certificate_to_employee("2", "19")
     #d = a.remove_employee_from_certificate("2", "19")
     #d = a.remove_employee_from_certificate("19", "1")
-    #d = a.delete_certificate("5")
+    #b = a.delete_certificate("7")
     #d = a.edit_certificate("3", ["C++ Zertifikat", "2 Jahr lang C++ gelerent"])
     #b = a.edit_certificate("6", ["asd", "asd"])
     #b = a.edit_training("21", ["Python class", "20-05-2000", "20-06-2000", "Einfuehrung in Python", "2", "100", "200"])
     #b = a.get_list(a.certificate, relations=True)
     #b = a.get_employee_participation_status("29", "22")
-    b = a.remove_certificate_from_all_trainings("4")
-    print(b)
+    #b = a.remove_certificate_from_all_trainings("4")
+    #print(b)

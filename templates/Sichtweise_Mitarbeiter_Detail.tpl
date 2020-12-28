@@ -64,13 +64,17 @@
                <td>
                   <h4>Bis</h4>
                </td>
+               <td>
+                  <h4>Status</h4>
+               </td>
             </tr>
             <tr>
                <td>${x[0]}</td>
                <td>${x[1]}</td>
                <td>${x[2]}</td>
+               <td>${x[6]}</td>
                <td>
-                  <a href="/canceltraining/${x}/${data_o}">Stornieren</a>
+                  <a href="/cancel_employee_training/${data_o[7]}/${x[7]}">Stornieren</a>
                </td>
             </tr>
             % endfor
@@ -93,6 +97,9 @@
                <td>${x[0]}</td>
                <td>${x[1]}</td>
                <td>${x[2]}</td>
+               <td>
+                  Training teilnehmen
+               </td>
             </tr>
             % endfor
          </table>
