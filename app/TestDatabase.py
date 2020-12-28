@@ -14,6 +14,46 @@ class Database:
         # Variables
         self.json_file_path = database_file_path
         # Complete json file
+        self.empty_database = \
+        {
+            "Mitarbeiter" :
+                {
+                "Max-ID": "0",
+                "Count": "0",
+                "List":
+                    {
+
+                    }
+                },
+            "Weiterbildungen" :
+                {
+                "Max-ID": "0",
+                "Count": "0",
+                "Participation_count": "0",
+                "List":
+                    {
+
+                    }
+                },
+            "Qualifikation":
+                {
+                "Max-ID": "0",
+                "Count": "0",
+                "List":
+                    {
+
+                    }
+                },
+            "Zertifikat":
+                {
+                    "Max-ID": "0",
+                    "Count": "0",
+                    "List":
+                        {
+
+                        }
+                }
+        }
         self.main_data = None
         # Entry names for json file entries
         self.employee = employee
@@ -25,6 +65,20 @@ class Database:
         self.read_json_file()
 
     '''# JSON file methods #'''
+
+    # Method which resets the database marked as private because of 'safety' reasons
+    def __reset_json_file(self):
+        if self.main_data is not None:
+            try:
+                #file = codecs.open(os.path.join('data', self.json_file_path), 'w', 'utf-8')
+                file = codecs.open("F:\web\WEBP2\data\database.json", "w", "utf-8")
+                try:
+                    json.dump(self.empty_database, file, indent=3)
+                finally:
+                    file.close()
+            except (FileNotFoundError, PermissionError):
+                # Raise an error if database file could not be opened
+                raise Exception("[!] JSON DATABASE FILE NOT FOUND")
 
     def read_json_file(self):
         try:
@@ -132,39 +186,83 @@ class Database:
             if relations_true_value is True:
 
                 if dict_name is self.employee:
-                    for counter, training in enumerate(data[4]):
-                        data[4][counter] = self.get_list(self.training, entry_id=training[0])
-                        # Add the participation Status at the end
-                        data[4][counter].append(training[1])
 
-                    for counter, qualification_id in enumerate(data[5]):
-                        data[5][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+                    if entry_id is not None:
 
-                    for counter, certificate_id in enumerate(data[6]):
-                        data[6][counter] = self.get_list(self.certificate, entry_id=certificate_id)
+                        for counter, training in enumerate(data[4]):
+                            data[4][counter] = self.get_list(self.training, entry_id=training[0])
+                            # Add the participation Status at the end
+                            data[4][counter].append(training[1])
+
+                        for counter, qualification_id in enumerate(data[5]):
+                            data[5][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                        for counter, certificate_id in enumerate(data[6]):
+                            data[6][counter] = self.get_list(self.certificate, entry_id=certificate_id)
+
+                    else:
+                        for employee in data:
+                            for counter, training in enumerate(data[employee][4]):
+                                data[employee][4][counter] = self.get_list(self.training, entry_id=training[0])
+                                # Add the participation Status at the end
+                                data[employee][4][counter].append(training[1])
+
+                            for counter, qualification_id in enumerate(data[employee][5]):
+                                data[employee][5][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                            for counter, certificate_id in enumerate(data[employee][6]):
+                                data[employee][6][counter] = self.get_list(self.certificate, entry_id=certificate_id)
 
                 elif dict_name is self.training:
-                    if data[6] is not None:
-                        data[6] = self.get_list(self.certificate, entry_id=data[6])
+                    if entry_id is not None:
 
-                    for counter, qualification_id in enumerate(data[7]):
-                        data[7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+                        if data[6] is not None:
 
-                    for counter, employee in enumerate(data[8]):
-                        data[8][counter] = self.get_list(self.employee, entry_id=employee[0])
-                        data[8][counter].append(employee[1])
+                            data[6] = self.get_list(self.certificate, entry_id=data[6])
+
+                            for counter, qualification_id in enumerate(data[7]):
+                                data[7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                            for counter, employee in enumerate(data[8]):
+                                data[8][counter] = self.get_list(self.employee, entry_id=employee[0])
+                                data[8][counter].append(employee[1])
+
+                    else:
+                        for training in data:
+                            data[training][6] = self.get_list(self.certificate, entry_id=data[training][6])
+
+                            for counter, qualification_id in enumerate(data[training][7]):
+                                data[training][7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                            for counter, employee in enumerate(data[training][8]):
+                                data[training][8][counter] = self.get_list(self.employee, entry_id=employee[0])
+                                data[training][8][counter].append(employee[1])
 
                 elif dict_name is self.qualification:
-                    for counter, employee_id in enumerate(data[2]):
-                        data[2][counter] = self.get_list(self.employee, entry_id=employee_id)
-                        data[2][counter] = data[3][counter].append(employee_id)
+                    if entry_id is not None:
+
+                        for counter, employee_id in enumerate(data[2]):
+                            data[2][counter] = self.get_list(self.employee, entry_id=employee_id)
+                            data[2][counter].append(employee_id)
+
+                    else:
+                        for qualification in data:
+                            for counter, employee_id in enumerate(data[qualification][2]):
+                                data[qualification][2][counter] = self.get_list(self.employee, entry_id=employee_id)
+                                data[qualification][2][counter].append(employee_id)
 
                 elif dict_name is self.certificate:
-                    for counter, employee_id in enumerate(data[3]):
-                        data[3][counter] =  self.get_list(self.employee, entry_id=employee_id)
-                        data[3][counter].append(employee_id)
+                    if entry_id is not None:
 
+                        for counter, employee_id in enumerate(data[3]):
+                            data[3][counter] =  self.get_list(self.employee, entry_id=employee_id)
+                            data[3][counter].append(employee_id)
 
+                    else:
+                        for certificate in data:
+                            for counter, employee_id in enumerate(data[certificate][3]):
+                                data[certificate][3][counter] = self.get_list(self.employee, entry_id=employee_id)
+                                data[certificate][3][counter].append(employee_id)
                 else:
                     raise KeyError
                     #return None
@@ -272,7 +370,6 @@ class Database:
     def add_training_to_employee(self, employee_id, training_id, employee_participation_status):
         try:
             employee = self.__get_list(self.employee, entry_id=employee_id)
-            #employee[4].append(training_id)
             employee[4].append([training_id, employee_participation_status])
 
             training = self.__get_list(self.training, entry_id=training_id)
@@ -280,14 +377,15 @@ class Database:
 
             # Check if participation status is successful
             # If so add qualification and certificate to employee
-            if employee_participation_status.lower() == "erfolgreich beendet":
+            if employee_participation_status.lower() in "erfolgreich beendet":
                 for qualification_id in training[-2]:
                     self.add_qualification_to_employee(qualification_id, employee_id)
                 if training[-3] is not None:
                     self.add_certificate_to_employee(training[-3], employee_id)
 
-            # Add 1 to participation count
-            self.change_participation_count(1)
+            # Add 1 to participation count if employee has not already finished the training
+            if employee_participation_status in self.get_participation_status_array(not_finished=True):
+                self.change_participation_count(1)
 
             self.write_json_file()
         except (KeyError, ValueError):
@@ -412,10 +510,13 @@ class Database:
             array.append('')
         return array
 
-    def get_participation_status_array(self, finished=False):
+    def get_participation_status_array(self, finished=False, not_finished=False):
         if finished is True:
             return ["storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
-        return ["angemeldet", "nimmt teil", "storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
+        elif not_finished is True:
+            return ["angemeldet", "nimmt teil"]
+        else:
+            return ["angemeldet", "nimmt teil", "storniert", "abgebrochen", "nicht erfolgreich beendet", "erfolgreich beendet"]
 
     ''' # Qualification Training methods # '''
 
@@ -674,7 +775,7 @@ if __name__ == '__main__':
     #b = a.add_training(["Bodybuilding", "20-10-2000", "25-02-2010", "Bist ne legende wenn de das schaffst", "1", "1"])
     #b = a.add_qualification_to_training("4", "22")
     #b = a.add_certificate_to_training("6", "22")
-    #b = a.add_training_to_employee("30", "20", "angemeldet")
+    #b = a.add_training_to_employee("34", "20", "erfolgreich beendet")
     #c = a.edit_employee("12", ["Felix", "Koch", "Master", "Prinz", [], [], []])
     #d = a.delete_employee("13")
     #d = a.add_training(["C++ classes", "20-04-2021", "31-04-2021", "Einfuehrung in classes in C++", "50", "1"])
@@ -706,4 +807,6 @@ if __name__ == '__main__':
     #b = a.get_list(a.certificate, relations=True)
     #b = a.get_employee_participation_status("29", "22")
     #b = a.remove_certificate_from_all_trainings("4")
+    #b = a.get_list(a.certificate , relations=True, relations_true_value=True)
+    #a.reset_json_file()
     #print(b)

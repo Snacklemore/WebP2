@@ -558,6 +558,16 @@ class Application_cl(object):
         else:
             pass
 
+    ''' # Auswerung Mitarbeiter # '''
+
+    @cherrypy.expose
+    def Mitarbeiter(self):
+        # TODO alphabetische Mitarbeiter Liste mit chronologischen Teilnahmen an trainings
+        employee = self.database.get_list(self.database.employee, relations=True, relations_true_value=True)
+
+
+        pass
+
     def createContent_p(self, form):
         if form == "Pflege_Weiterbildungen":
             return self.plege_weiterbildung()
@@ -575,7 +585,7 @@ class Application_cl(object):
         return self.view_o.createContent_px(data_o, form)
 
 
-# TODO Sichtweise Weiterbildung detail
+# TODO Auswertung Mitarbeiter
 
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt

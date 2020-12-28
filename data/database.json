@@ -1,419 +1,148 @@
 {
    "Mitarbeiter": {
-      "Max-ID": "34",
-      "Count": "7",
+      "Max-ID": "2",
+      "Count": "2",
       "List": {
          "1": [
             "Weinmann",
             "Leon",
-            "Master",
+            "Abitur",
             "Student",
             [
                [
-                  "22",
-                  "storniert"
+                  "1",
+                  "erfolgreich beendet"
+               ],
+               [
+                  "2",
+                  "erfolgreich beendet"
                ]
             ],
             [
+               "1",
                "2"
             ],
-            []
-         ],
-         "19": [
-            "Gr\u00f6nemeier",
-            "Herbert",
-            "Hauptschule",
-            "S\u00e4nger",
             [
-               [
-                  "22",
-                  "erfolgreich beendet"
-               ]
-            ],
-            [
-               "4",
-               "5"
-            ],
-            [
-               "8"
+               "1",
+               "2"
             ]
          ],
-         "29": [
-            "Markus",
-            "R\u00fchl",
-            "NewYorkChamp",
-            "Rentner",
+         "2": [
+            "Kuerten",
+            "Herik",
+            "Fachabi",
+            "Student",
             [
                [
-                  "22",
-                  "storniert"
-               ],
-               [
-                  "0",
-                  "storniert"
-               ],
-               [
-                  "23",
+                  "1",
                   "erfolgreich beendet"
                ],
                [
-                  "20",
-                  "abgebrochen"
+                  "2",
+                  "nimmt teil"
                ]
             ],
             [
-               "4",
-               "6"
+               "1"
             ],
             [
-               "6",
-               "9"
+               "1"
             ]
-         ],
-         "30": [
-            "Markus",
-            "R\u00fchl",
-            "NewYorkChamp",
-            "Rentner",
-            [
-               [
-                  "22",
-                  "storniert"
-               ]
-            ],
-            [],
-            []
-         ],
-         "31": [
-            "Hoffmann",
-            "Hans",
-            "Hauptschule",
-            "dumm",
-            [
-               [
-                  "20",
-                  "storniert"
-               ],
-               [
-                  "0",
-                  "erfolgreich beendet"
-               ],
-               [
-                  "22",
-                  "storniert"
-               ]
-            ],
-            [
-               "Qualifikations ID"
-            ],
-            [
-               "4"
-            ]
-         ],
-         "33": [
-            "Spasst",
-            "Hans",
-            "EXttrewm dumm",
-            "asdad",
-            [
-               [
-                  "0",
-                  "Erfolgreich Teilgenommen"
-               ],
-               [
-                  "23",
-                  "storniert"
-               ],
-               [
-                  "20",
-                  "storniert"
-               ],
-               [
-                  "22",
-                  "storniert"
-               ],
-               [
-                  "24",
-                  "angemeldet"
-               ]
-            ],
-            [],
-            []
-         ],
-         "34": [
-            "Hurensonn",
-            "Henry",
-            "Islandischer Hammerwerf Champion",
-            "Ziegenmelker",
-            [
-               [
-                  "0",
-                  "angemeldet"
-               ],
-               [
-                  "20",
-                  "angemeldet"
-               ],
-               [
-                  "22",
-                  "storniert"
-               ],
-               [
-                  "23",
-                  "angemeldet"
-               ],
-               [
-                  "24",
-                  "angemeldet"
-               ]
-            ],
-            [],
-            []
          ]
       }
    },
    "Weiterbildungen": {
-      "Max-ID": "25",
-      "Count": "5",
+      "Max-ID": "2",
+      "Count": "2",
       "Participation_count": "1",
       "List": {
-         "0": [
-            "Weiterbildung Bezeichnung",
-            "20-04-2020",
-            "25-04-2020",
-            "Weiterbildung Beschreibung",
-            "Minimale Teilnehmerzahl",
-            "Maximale Teilnehmerzahl",
-            "4",
+         "1": [
+            "C++",
+            "2020-11-30",
+            "2020-12-24",
+            "C++ Anfaenger Kurs",
+            "3000",
+            "20",
+            "1",
             [
-               "Qualifikations ID"
+               "1"
             ],
             [
                [
-                  "Mitarbeiter ID",
-                  "Status von Mitarbeiter mit der ID"
-               ],
-               [
-                  "33",
-                  "Erfolgreich Teilgenommen"
-               ],
-               [
-                  "34",
-                  "angemeldet"
-               ]
-            ]
-         ],
-         "20": [
-            "C++ classes",
-            "20-04-2021",
-            "31-04-2021",
-            "Einfuehrung in classes in C++",
-            "50",
-            "1",
-            "8",
-            [],
-            [
-               [
-                  "33",
-                  "storniert"
-               ],
-               [
-                  "34",
-                  "angemeldet"
-               ]
-            ]
-         ],
-         "22": [
-            "Bodybuilding",
-            "20-10-2000",
-            "25-02-2010",
-            "Bist ne legende wenn de das schaffst",
-            "1",
-            "1",
-            "8",
-            [
-               "4",
-               "5"
-            ],
-            [
-               [
-                  "31",
-                  "storniert"
-               ],
-               [
-                  "19",
+                  "1",
                   "erfolgreich beendet"
                ],
                [
-                  "33",
-                  "storniert"
-               ],
-               [
-                  "34",
-                  "storniert"
+                  "2",
+                  "erfolgreich beendet"
                ]
             ]
          ],
-         "23": [
-            "Drogen Herstellen",
-            "2020-12-02",
-            "2020-12-17",
-            "Ganz viel Geld mit Drogen machen",
+         "2": [
+            "Python",
+            "2020-12-10",
+            "2020-12-25",
+            "Python Anfaenger Kurs",
             "20",
-            "1",
-            "9",
+            "2",
+            "2",
             [
-               "6"
+               "2"
             ],
             [
                [
-                  "33",
-                  "storniert"
+                  "1",
+                  "erfolgreich beendet"
                ],
                [
-                  "34",
-                  "angemeldet"
-               ]
-            ]
-         ],
-         "24": [
-            "Biochemie",
-            "2020-12-09",
-            "2020-12-31",
-            "Mix von Chemie und Bio",
-            "200",
-            "50",
-            "11",
-            [
-               "7"
-            ],
-            [
-               [
-                  "33",
-                  "angemeldet"
-               ],
-               [
-                  "34",
-                  "angemeldet"
+                  "2",
+                  "nimmt teil"
                ]
             ]
          ]
       }
    },
    "Qualifikation": {
-      "Max-ID": "7",
-      "Count": "5",
+      "Max-ID": "2",
+      "Count": "2",
       "List": {
-         "0": [
-            "Bezeichnung Qualifikation",
-            "Beschreibung Qualifikation",
+         "1": [
+            " C++ Anfang",
+            "C++ Anfang teilgenommen",
             [
-               "Mitarbeiter ID"
+               "1",
+               "2"
             ]
          ],
          "2": [
-            "Bodybuilder",
-            "Hat jahrelang schwer und falsch trainiert",
+            "Biochemie",
+            " chemie in bio",
             [
-               "29"
+               "1"
             ]
-         ],
-         "4": [
-            "Bodybuilder",
-            "Hat jahrelang schwer und falsch trainiert",
-            [
-               "29",
-               "19"
-            ]
-         ],
-         "5": [
-            "ThunfischProteinShake",
-            "Kann jetzt Thunfisch in den Mixer machen",
-            [
-               "19"
-            ]
-         ],
-         "6": [
-            "D",
-            "K",
-            [
-               "29"
-            ]
-         ],
-         "7": [
-            " Kann Bio Chemie",
-            "Experte in der BioChemie",
-            []
          ]
       }
    },
    "Zertifikat": {
-      "Max-ID": "11",
-      "Count": "9",
+      "Max-ID": "2",
+      "Count": "2",
       "List": {
-         "0": [
-            "Zertifikat Bezeichnung",
-            "Zertifikat Beschreibung",
-            "Entitled to",
+         "1": [
+            " C++ anfang ",
+            "kann jetzt ein wenig c++",
+            "programmieren",
             [
-               "Besitzer ID"
+               "1",
+               "2"
             ]
          ],
          "2": [
-            "C# Zertifikat",
-            "1 Jahr lang C# gelernt",
-            "Kann C# Programmieren",
-            []
-         ],
-         "3": [
-            "C++ Zertifikat",
-            "2 Jahr lang C++ gelerent",
-            "Kann C++ Programmieren",
-            []
-         ],
-         "6": [
-            "Geiles Zertifikat",
-            "Noch geilere Beschreibung",
-            "Kann ein geiles Zertifikat haben",
+            "Python Zertifikat",
+            "Kann jetzt Python",
+            "programmieren",
             [
-               "29"
+               "1"
             ]
-         ],
-         "4": [
-            "C++ Zertifikat",
-            "2 Jahr lang C++ gelerent",
-            "Kann C++",
-            [
-               "31"
-            ]
-         ],
-         "8": [
-            " Zertifikat_Titlee",
-            "Geiles Zertifikatt",
-            "anzugeben mit Zertifikaten",
-            [
-               "19"
-            ]
-         ],
-         "9": [
-            " a",
-            "asd",
-            " a",
-            [
-               "29"
-            ]
-         ],
-         "10": [
-            " Biochemiker",
-            "Ist nichtt zu gebracuhen",
-            "dumm",
-            []
-         ],
-         "11": [
-            " das",
-            " dads",
-            " sad",
-            []
          ]
       }
    }
