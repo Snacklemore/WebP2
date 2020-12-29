@@ -45,7 +45,7 @@ class Application_cl(object):
             employee = self.database.get_list(self.database.employee, entry_id=employee_id)
             return self.view_o.create_form_employee(employee_id, employee)
         except (KeyError, ValueError) as error:
-            pass
+            return self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def add_employee(self):
@@ -70,14 +70,17 @@ class Application_cl(object):
         if self.database.delete_employee(employee_id) is True:
             raise cherrypy.HTTPRedirect("/Pflege_Mitarbeiterdaten")
         else:
-            pass
+            return self.view_o.create_error_page("delete_employee in application.py failed")
 
     ''' # Pflege Weiterbildungen # '''
 
     @cherrypy.expose
     def pflege_weiterbildungen(self):
-        training = self.database.get_list(self.database.training)
-        return self.view_o.create_pflege_weiterbildung(training)
+        try:
+            training = self.database.get_list(self.database.training)
+            return self.view_o.create_pflege_weiterbildung(training)
+        except(KeyError, ValueError)as error:
+            return self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def edit_training(self, training_id):
@@ -85,7 +88,7 @@ class Application_cl(object):
             training = self.database.get_list(self.database.training, entry_id=training_id)
             return self.view_o.create_form_training(training_id, training)
         except (KeyError, ValueError) as error:
-            pass
+            return self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def add_training(self):
@@ -93,7 +96,7 @@ class Application_cl(object):
         if empty_training_array is not None:
             return self.view_o.create_form_training(None, empty_training_array)
         else:
-            pass
+            return self.view_o.create_error_page("add_training in application.py failed")
 
     @cherrypy.expose
     def save_training(self, training_id, title, date_begin, date_end, description, max_attendees, min_attendees):
@@ -109,7 +112,7 @@ class Application_cl(object):
         if self.database.delete_training(training_id) is True:
             raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
         else:
-            pass
+            return self.view_o.create_error_page("delete_training in application.py failed")
 
     @cherrypy.expose
     def show_detail_training(self, training_id):
@@ -118,7 +121,7 @@ class Application_cl(object):
             return self.view_o.create_detail_pflege_weiterbildungen(training)
 
         except (KeyError, ValueError)as error:
-            print(error)
+            return self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def manage_qualification_and_certificates(self, training_id):
@@ -141,7 +144,7 @@ class Application_cl(object):
             return self.view_o.create_pflege_weiterbildung_qz_verwaltung(training_id, qualification, certificate)
 
         except (KeyError, ValueError)as error:
-            print(error)
+            return self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def add_qualification(self, training_id):
@@ -236,15 +239,15 @@ class Application_cl(object):
             employee.append(employee_id)
             return self.view_o.create_detail_employee(employee, participated_training, not_participated_training)
 
-        except(KeyError, ValueError):
-            pass
+        except(KeyError, ValueError) as error:
+            self.view_o.create_error_page(error)
 
     @cherrypy.expose
     def cancel_employee_training(self, employee_id, training_id):
         if self.database.delete_employee_from_training(employee_id, training_id):
             raise cherrypy.HTTPRedirect("/inspect_employee_detail/" + employee_id)
         else:
-            pass
+            self.view_o.create_error_page("cancel_employee_training in application.py failed")
 
     @cherrypy.expose
     def add_employee_to_training(self, employee_id, training_id):
@@ -255,7 +258,7 @@ class Application_cl(object):
         if self.database.add_training_to_employee(employee_id, training_id, participation_status):
             raise cherrypy.HTTPRedirect("/inspect_employee_detail/" + employee_id)
         else:
-            pass
+            self.view_o.create_error_page("save_employee_to_training in application.py failed")
 
     ''' # Sichtweise Weiterbildungen # '''
 
@@ -266,34 +269,37 @@ class Application_cl(object):
 
     @cherrypy.expose
     def inspect_training_detail(self, training_id):
-        training = self.database.get_list(self.database.training, entry_id=training_id, relations=True, relations_true_value=False)
+        try:
+            training = self.database.get_list(self.database.training, entry_id=training_id, relations=True, relations_true_value=False)
 
-        # Lists for employees who have/not finished the training
-        finished_employees = []
-        not_finished_employees = []
+            # Lists for employees who have/not finished the training
+            finished_employees = []
+            not_finished_employees = []
 
-        # List with all the finished states of a training
-        finished_participation_status = self.database.get_participation_status_array(finished=True)
+            # List with all the finished states of a training
+            finished_participation_status = self.database.get_participation_status_array(finished=True)
 
-        for employee in training[-1]:
-            entry = self.database.get_list(self.database.employee, entry_id=employee[0])
+            for employee in training[-1]:
+                entry = self.database.get_list(self.database.employee, entry_id=employee[0])
 
-            # Add status and id to the entry
-            entry.append(employee[-1])
-            entry.append(employee[0])
+                # Add status and id to the entry
+                entry.append(employee[-1])
+                entry.append(employee[0])
 
-            # If employee has finished the training
-            if employee[-1] in finished_participation_status:
-                finished_employees.append(entry)
+                # If employee has finished the training
+                if employee[-1] in finished_participation_status:
+                    finished_employees.append(entry)
 
-            else:
-                not_finished_employees.append(entry)
+                else:
+                    not_finished_employees.append(entry)
 
-        # Get no relations list and add training id
-        training = self.database.get_list(self.database.training, entry_id=training_id)
-        training.append(training_id)
+            # Get no relations list and add training id
+            training = self.database.get_list(self.database.training, entry_id=training_id)
+            training.append(training_id)
 
-        return self.view_o.create_from_participation_training_detail(training, finished_employees, not_finished_employees)
+            return self.view_o.create_from_participation_training_detail(training, finished_employees, not_finished_employees)
+        except(KeyError, ValueError)as error:
+            return self.view_o.create_error_page(error)
 
     # This function was used previously but is redefined here for different redirect
     @cherrypy.expose
@@ -301,52 +307,63 @@ class Application_cl(object):
         if self.database.delete_employee_from_training(employee_id, training_id):
             raise cherrypy.HTTPRedirect("/inspect_training_detail/" + training_id)
         else:
-            pass
+            return self.view_o.create_error_page("cancel_employee_training_sichtweise_weiterbildung in application.py failed")
 
     ''' # Auswerung Mitarbeiter # '''
 
     @cherrypy.expose
     def Mitarbeiter(self):
-        employee_list = self.database.get_list(self.database.employee, relations=True, relations_true_value=True)
+        try:
+            employee_list = self.database.get_list(self.database.employee, relations=True, relations_true_value=True)
 
-        # Sort the dictionary by its first value(last name) -> note sorted returns a tuple
-        # x = ('1', ['Hoffmann', 'Hans', ...]])
-        #     x[0]  x[1][0]      x[1][1].....
-        employee_list = sorted(employee_list.items(), key=lambda x:x[1][0])
+            # Sort the dictionary by its first value(last name) -> note sorted returns a tuple
+            # x = ('1', ['Hoffmann', 'Hans', ...]])
+            #     x[0]  x[1][0]      x[1][1].....
+            employee_list = sorted(employee_list.items(), key=lambda x:x[1][0])
 
-        for employee in employee_list:
-            # employee[1][4] = training list eg:
-            # ['C++', '2020-11-30', '2020-12-24', 'C++ Anfaenger Kurs', '3000', '20', 'erfolgreich beendet'],
-            # ['Python', '2020-12-10', '2020-12-25', 'Python Anfaenger Kurs', '20', '2', 'nimmt teil']
-            #  x[0]         x[1]            x[2]...
+            for employee in employee_list:
+                # employee[1][4] = training list eg:
+                # ['C++', '2020-11-30', '2020-12-24', 'C++ Anfaenger Kurs', '3000', '20', 'erfolgreich beendet'],
+                # ['Python', '2020-12-10', '2020-12-25', 'Python Anfaenger Kurs', '20', '2', 'nimmt teil']
+                #  x[0]         x[1]            x[2]...
 
-            employee[1][4] = sorted(employee[1][4], key=lambda x:x[1])
+                employee[1][4] = sorted(employee[1][4], key=lambda x:x[1])
 
-        return self.view_o.create_form_auswertung_mitarbeiter(employee_list)
+            return self.view_o.create_form_auswertung_mitarbeiter(employee_list)
+        except (ValueError, KeyError)as error:
+            return self.view_o.create_error_page(error)
 
     ''' # Auswertung Weiterbildungen # '''
 
     @cherrypy.expose
     def Weiterbildungen(self):
-        training_list = self.database.get_list(self.database.training, relations=True, relations_true_value=True)
+        try:
+            training_list = self.database.get_list(self.database.training, relations=True, relations_true_value=True)
 
-        training_list = sorted(training_list.items(), key=lambda x:x[1][0])
+            training_list = sorted(training_list.items(), key=lambda x:x[1][0])
 
-        # Filter out successful participants
-        for training in training_list:
-            training[1][-1] = list(filter(lambda x:x[4] == "erfolgreich beendet", training[1][-1]))
+            # Filter out successful participants
+            for training in training_list:
+                training[1][-1] = list(filter(lambda x:x[4] == "erfolgreich beendet", training[1][-1]))
 
-        return self.view_o.create_form_auswertung_weiterbildung(training_list),
+            return self.view_o.create_form_auswertung_weiterbildung(training_list)
+
+        except (ValueError, KeyError)as error:
+            return self.view_o.create_error_page(error)
 
     ''' # Auswertung Zertifiakte # '''
 
     @cherrypy.expose
     def Zertifikate(self):
-        certificate_list = self.database.get_list(self.database.certificate, relations=True, relations_true_value=True)
+        try:
+            certificate_list = self.database.get_list(self.database.certificate, relations=True, relations_true_value=True)
 
-        certificate_list = sorted(certificate_list.items(), key=lambda x:x[1][0])
+            certificate_list = sorted(certificate_list.items(), key=lambda x:x[1][0])
 
-        return self.view_o.create_form_auswertung_zertifikat(certificate_list)
+            return self.view_o.create_form_auswertung_zertifikat(certificate_list)
+
+        except (ValueError, KeyError)as error:
+            return self.view_o.create_error_page(error)
 
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt

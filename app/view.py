@@ -98,3 +98,8 @@ class View_cl(object):
         template_o = self.lookup_o.get_template('Sichtweise_Weiterbildungen.tpl')
         markup_s = template_o.render(data_o=training)
         return markup_s
+
+    def create_error_page(self, error_msg):
+        template_o = self.lookup_o.get_template('Error.tpl')
+        markup_s = template_o.render(data_o=error_msg)
+        return markup_s
