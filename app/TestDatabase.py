@@ -70,8 +70,8 @@ class Database:
     def __reset_json_file(self):
         if self.main_data is not None:
             try:
-                #file = codecs.open(os.path.join('data', self.json_file_path), 'w', 'utf-8')
-                file = codecs.open("F:\web\WEBP2\data\database.json", "w", "utf-8")
+                file = codecs.open(os.path.join('data', self.json_file_path), 'w', 'utf-8')
+                #file = codecs.open("F:\web\WEBP2\data\database.json", "w", "utf-8")
                 try:
                     json.dump(self.empty_database, file, indent=3)
                 finally:
@@ -82,8 +82,8 @@ class Database:
 
     def read_json_file(self):
         try:
-            #file = codecs.open(os.path.join('data', self.json_file_path), 'r', 'utf-8')
-            file = codecs.open("F:\web\WEBP2\data\database.json", "r", "utf-8")
+            file = codecs.open(os.path.join('data', self.json_file_path), 'r', 'utf-8')
+            #file = codecs.open("F:\web\WEBP2\data\database.json", "r", "utf-8")
             try:
                 self.main_data = json.load(file)
             finally:
@@ -95,8 +95,8 @@ class Database:
     def write_json_file(self):
         if self.main_data is not None:
             try:
-                #file = codecs.open(os.path.join('data', self.json_file_path), 'w', 'utf-8')
-                file = codecs.open("F:\web\WEBP2\data\database.json", "w", "utf-8")
+                file = codecs.open(os.path.join('data', self.json_file_path), 'w', 'utf-8')
+                #file = codecs.open("F:\web\WEBP2\data\database.json", "w", "utf-8")
                 try:
                     json.dump(self.main_data, file, indent=3)
                 finally:

@@ -5,7 +5,7 @@ from .TestDatabase import Database
 class Application_cl(object):
 
     def __init__(self):
-        self.database = Database("placeholder", "Mitarbeiter", "Weiterbildungen", "Qualifikation", "Zertifikat")
+        self.database = Database("database.json", "Mitarbeiter", "Weiterbildungen", "Qualifikation", "Zertifikat")
 
         self.view_o = View_cl()
 
