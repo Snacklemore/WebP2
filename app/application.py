@@ -1,6 +1,6 @@
 import cherrypy
 from .view import View_cl
-from .TestDatabase import Database
+from .Database import Database
 
 class Application_cl(object):
 

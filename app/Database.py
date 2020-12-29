@@ -116,7 +116,7 @@ class Database:
 
         # Raise an exception if function fails -> easier to filter out errors in calling functions
         if data is None:
-            raise KeyError("__get_list -> data was None(TestDatabase.py line 119)")
+            raise KeyError("__get_list -> data was None(Database.py line 119)")
         # Notice that data is a REFERENCE to the dictionary
         return data
 
@@ -136,7 +136,7 @@ class Database:
         # Raise an exception if function fails -> easier to filter out errors in calling functions
         if data is None:
             #return None
-            raise KeyError("get_list -> data was None in first check(Line 139 TestDatabase.py)")
+            raise KeyError("get_list -> data was None in first check(Line 139 Database.py)")
 
         # copy by value
         data = copy.deepcopy(data)
@@ -175,7 +175,7 @@ class Database:
                         data[certificate] = data[certificate][0:3]
 
             else:
-                raise KeyError("dict_name was not a class object(Line 178 TestDatabase.py)")
+                raise KeyError("dict_name was not a class object(Line 178 Database.py)")
 
         # If relations should be returned
         else:
@@ -260,7 +260,7 @@ class Database:
                                 data[certificate][3][counter] = self.get_list(self.employee, entry_id=employee_id)
                                 data[certificate][3][counter].append(employee_id)
                 else:
-                    raise KeyError("dict_name was not a class object(Line 263 TestDatabase.py)")
+                    raise KeyError("dict_name was not a class object(Line 263 Database.py)")
                     #return None
 
         # Notice that a copy by value is returned
