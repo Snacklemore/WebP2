@@ -9,16 +9,16 @@ class Application_cl(object):
 
         self.view_o = View_cl()
 
-    @cherrypy.expose
-    def index(self, **params):
-        form = params.get("index", "Startseite")
-        return self.createContent_p(form)
-
     ''' # NEW FUNCTIONS # '''
+
+    @cherrypy.expose
+    def index(self):
+        return self.Startseite()
 
     # Startseite
 
-    def startseite(self):
+    @cherrypy.expose
+    def Startseite(self):
         employee_count = self.database.change_count(self.database.employee)
         training_count = self.database.change_count(self.database.training)
         participation_count = self.database.change_participation_count()
@@ -26,9 +26,10 @@ class Application_cl(object):
 
     ''' # Pflege Mitarbeiterdaten # '''
 
+    @cherrypy.expose
     def pflege_mitarbeiterdaten(self):
         employees = self.database.get_list(self.database.employee)
-        return self.view_o.createContent_px(employees, "Pflege_Mitarbeiterdaten")
+        return self.view_o.create_pflege_mitarbeiter_daten(employees)
 
     @cherrypy.expose
     def show_detail_employee(self, employee_id):
@@ -61,21 +62,22 @@ class Application_cl(object):
             self.database.add_employee(employee_data)
         else:
             self.database.edit_employee(employee_id, employee_data)
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
+        raise cherrypy.HTTPRedirect("/Pflege_Mitarbeiterdaten")
 
     # TODO javascript fenster kommt nicht
     @cherrypy.expose
     def delete_employee(self, employee_id):
         if self.database.delete_employee(employee_id) is True:
-            raise cherrypy.HTTPRedirect("/?index=Pflege_Mitarbeiterdaten")
+            raise cherrypy.HTTPRedirect("/Pflege_Mitarbeiterdaten")
         else:
             pass
 
     ''' # Pflege Weiterbildungen # '''
 
-    def plege_weiterbildung(self):
+    @cherrypy.expose
+    def pflege_weiterbildungen(self):
         training = self.database.get_list(self.database.training)
-        return self.view_o.createContent_px(training, "Pflege_Weiterbildungen")
+        return self.view_o.create_pflege_weiterbildung(training)
 
     @cherrypy.expose
     def edit_training(self, training_id):
@@ -100,12 +102,12 @@ class Application_cl(object):
             self.database.add_training(training_data)
         else:
             self.database.edit_training(training_id, training_data)
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
 
     @cherrypy.expose
     def delete_training(self, training_id):
         if self.database.delete_training(training_id) is True:
-            raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+            raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
         else:
             pass
 
@@ -179,7 +181,7 @@ class Application_cl(object):
         if qualification_id is not False:
             self.database.add_qualification_to_training(qualification_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
 
     @cherrypy.expose
     def save_certificate(self, training_id, title, description, entitled_to):
@@ -189,15 +191,16 @@ class Application_cl(object):
         if certificate_id is not False:
             self.database.add_certificate_to_training(certificate_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
 
     ''' # Teilnahme # '''
 
     ''' # Sichtweise Mitarbeiter #'''
 
+    @cherrypy.expose
     def sichtweise_mitarbeiter(self):
         employee = self.database.get_list(self.database.employee)
-        return self.view_o.createContent_px(employee, "Sichtweise_Mitarbeiter")
+        return self.view_o.create_sichweise_mitarbeiter(employee)
 
     @cherrypy.expose
     def inspect_employee_detail(self, employee_id):
@@ -256,9 +259,10 @@ class Application_cl(object):
 
     ''' # Sichtweise Weiterbildungen # '''
 
+    @cherrypy.expose
     def sichtweise_weiterbildungen(self):
         training = self.database.get_list(self.database.training)
-        return self.view_o.createContent_px(training, "Sichtweise_Weiterbildungen")
+        return self.view_o.create_sichtweise_weiterbildungen(training)
 
     @cherrypy.expose
     def inspect_training_detail(self, training_id):
@@ -342,25 +346,7 @@ class Application_cl(object):
 
         certificate_list = sorted(certificate_list.items(), key=lambda x:x[1][0])
 
-
-
         return self.view_o.create_form_auswertung_zertifikat(certificate_list)
-
-    def createContent_p(self, form):
-        if form == "Pflege_Weiterbildungen":
-            return self.plege_weiterbildung()
-        elif form == "Pflege_Mitarbeiterdaten":
-            return self.pflege_mitarbeiterdaten()
-        elif form == "Sichtweise_Mitarbeiter":
-            return self.sichtweise_mitarbeiter()
-        elif form == "Sichtweise_Weiterbildungen":
-            return self.sichtweise_weiterbildungen()
-        elif form == "Startseite":
-            return self.startseite()
-        else:
-            data_o = self.db_employee.getDefault_px()
-
-        return self.view_o.createContent_px(data_o, form)
 
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt

@@ -12,7 +12,7 @@
       <span style="float:left;">  Mitarbeiterqualifizierung</span>
       <br>
       <span style="float:right;">Leon Weinmann | 1288414</span>
-      <span style="float:left;">  Version 1.0 / 17.12.2020</span>
+      <span style="float:left;">Version 2.0 / 29.12.2020</span>
       <br>
       <span style="float:right;">Hendrik Högden | 1308109</span>
       <br>
@@ -20,17 +20,17 @@
    <section>
       <nav>
          <dl>
-         <dt><a href="/?index=Startseite">Startseite</a></dt>
+         <dt><a href="/Startseite">Startseite</a></dt>
          <dl>
             <hr>
-            <dt><a href="/?index=Pflege_Mitarbeiterdaten">Pflege Mitarbeiterdaten</a></dt>
-            <dt><a href="?index=Pflege_Weiterbildungen">Pflege Weiterbildungen</a></dt>
+            <dt><a href="/pflege_mitarbeiterdaten">Pflege Mitarbeiterdaten</a></dt>
+            <dt><a href="/pflege_weiterbildungen">Pflege Weiterbildungen</a></dt>
          </dl>
          <hr>
          <dl>
             <dt>Teilnahme</dt>
-            <dd><a href="/?index=Sichtweise_Mitarbeiter">- Sichtweise Mitarbeiter</a></dd>
-            <dd><a href="/?index=Sichtweise_Weiterbildungen">- Sichtweise Weiterbildungen</a></dd>
+            <dd><a href="/sichtweise_mitarbeiter">- Sichtweise Mitarbeiter</a></dd>
+            <dd><a href="sichtweise_weiterbildungen">- Sichtweise Weiterbildungen</a></dd>
          </dl>
          <hr>
          <dl>

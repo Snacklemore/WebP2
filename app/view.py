@@ -79,33 +79,22 @@ class View_cl(object):
         markup_s = template_o.render(training=training_id, finished_employees=finished_employees, not_finished_employees=not_finished_employees)
         return markup_s
 
-    def createContent_px(self, data_opl, form):
-        if form == "Startseite":
-            template_o = self.lookup_o.get_template('Startseite.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-            return markup_s
-        elif form == "Pflege_Mitarbeiterdaten":
-            template_o = self.lookup_o.get_template('Pflege_Mitarbeiterdaten.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Pflege_Weiterbildungen":
-            template_o = self.lookup_o.get_template('Pflege_Weiterbildungen.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Sichtweise_Mitarbeiter":
-            template_o = self.lookup_o.get_template('Sichtweise_Mitarbeiter.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Sichtweise_Weiterbildungen":
-            template_o = self.lookup_o.get_template('Sichtweise_Weiterbildungen.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Mitarbeiter":
-            template_o = self.lookup_o.get_template('Mitarbeiter.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Weiterbildungen":
-            template_o = self.lookup_o.get_template('Weiterbildungen.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        elif form == "Zertifikate":
-            template_o = self.lookup_o.get_template('Zertifikate.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
-        else:
-            template_o = self.lookup_o.get_template('Startseite.tpl')
-            markup_s = template_o.render(data_o=data_opl, listform=form)
+    def create_pflege_mitarbeiter_daten(self, employees):
+        template_o = self.lookup_o.get_template('Pflege_Mitarbeiterdaten.tpl')
+        markup_s = template_o.render(data_o=employees)
+        return markup_s
+
+    def create_pflege_weiterbildung(self, trainings):
+        template_o = self.lookup_o.get_template('Pflege_Weiterbildungen.tpl')
+        markup_s = template_o.render(data_o=trainings)
+        return markup_s
+
+    def create_sichweise_mitarbeiter(self, employee):
+        template_o = self.lookup_o.get_template('Sichtweise_Mitarbeiter.tpl')
+        markup_s = template_o.render(data_o=employee)
+        return markup_s
+
+    def create_sichtweise_weiterbildungen(self, training):
+        template_o = self.lookup_o.get_template('Sichtweise_Weiterbildungen.tpl')
+        markup_s = template_o.render(data_o=training)
         return markup_s
