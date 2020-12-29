@@ -153,6 +153,7 @@ class Application_cl(object):
     @cherrypy.expose
     def save_qualification_and_certificate(self, **kwargs):
         qualification_ids = kwargs.get("id_qualification")
+        training_id = kwargs.get("t_id", "")
         title = kwargs.get("qualification_title")
         description = kwargs.get("qualification_description")
 
@@ -168,7 +169,7 @@ class Application_cl(object):
         if certificate_id and title and description and entitled_to:
             self.database.edit_certificate(certificate_id, [title, description, entitled_to])
 
-        raise cherrypy.HTTPRedirect("/?index=Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/manage_qualification_and_certificates/" + training_id)
 
     @cherrypy.expose
     def save_qualification(self, training_id, title, description):
