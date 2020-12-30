@@ -62,13 +62,13 @@ class Application_cl(object):
             self.database.add_employee(employee_data)
         else:
             self.database.edit_employee(employee_id, employee_data)
-        raise cherrypy.HTTPRedirect("/Pflege_Mitarbeiterdaten")
+        raise cherrypy.HTTPRedirect("/pflege_mitarbeiterdaten")
 
     # TODO javascript fenster kommt nicht
     @cherrypy.expose
     def delete_employee(self, employee_id):
         if self.database.delete_employee(employee_id) is True:
-            raise cherrypy.HTTPRedirect("/Pflege_Mitarbeiterdaten")
+            raise cherrypy.HTTPRedirect("/pflege_mitarbeiterdaten")
         else:
             return self.view_o.create_error_page("delete_employee in application.py failed")
 
@@ -105,12 +105,12 @@ class Application_cl(object):
             self.database.add_training(training_data)
         else:
             self.database.edit_training(training_id, training_data)
-        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
 
     @cherrypy.expose
     def delete_training(self, training_id):
         if self.database.delete_training(training_id) is True:
-            raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
+            raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
         else:
             return self.view_o.create_error_page("delete_training in application.py failed")
 
@@ -184,7 +184,7 @@ class Application_cl(object):
         if qualification_id is not False:
             self.database.add_qualification_to_training(qualification_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
 
     @cherrypy.expose
     def save_certificate(self, training_id, title, description, entitled_to):
@@ -194,7 +194,7 @@ class Application_cl(object):
         if certificate_id is not False:
             self.database.add_certificate_to_training(certificate_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/Pflege_Weiterbildungen")
+        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
 
     ''' # Teilnahme # '''
 
