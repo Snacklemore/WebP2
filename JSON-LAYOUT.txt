@@ -1,0 +1,73 @@
+{
+    - Mitarbeiter [ID]
+        [
+            [
+            - Vorname
+            - Nachname
+            - akademische Grade
+            - Tätigkeit
+            - Weiterbildungen 
+                [
+                    - Weiterbildung ID (Key im Dictonary)
+                ]
+            - Qualifikation 
+                [   
+                    - ID (Key im Dictonary)
+                ]
+            - Zertifikat 
+                [
+                    - ID (Key im Dictonary)
+                ]
+            ]
+            - MAX-ID
+        ]
+    - Weiterbildungen
+        [
+            [
+                - Bezeichnung
+                - Von (Date)
+                - Bis (Date)
+                - Beschreibung
+                - maximale Teilnehmerzahl
+                - minimale Teilnehmerzahl
+                - Qualifikation ID (Key im Dictonary)
+                - Zertifikat (Wenn nicht vorhanden None setzen)
+                - Teilnahme 
+                    [
+                        - ID
+                        - 'Vorname' vlt nur ID benötigt
+                        - 'Nachname' vlt nur ID benötigt 
+                        - Status (angemeldet, nimmt teil, storniert, abgebrochen, nicht erfolgreich beendet, erfolgreich beendet)
+                    ]
+            ]
+            - MAX-ID
+        ]
+    - Qualifikation
+        [
+            [
+                - Bezeichnung
+                - Beschreibung
+                - Besitzer
+                    [
+                        - ID
+                        - 'Vorname' vlt nur ID benötigt
+                        - 'Nachname' vlt nur ID benötigt
+                    ]
+            ]
+            - MAX-ID
+        ]
+    - Zertifikat
+        [
+            [
+                - Bezeichnung
+                - Beschreibung
+                - Besitzer
+                    [
+                        - ID
+                        - 'Vorname' vlt nur ID benötigt
+                        - 'Nachname' vlt nur ID benötigt
+                    ]
+            ]
+            - MAX-ID
+        ]
+}

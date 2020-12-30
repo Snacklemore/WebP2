@@ -1,6 +1,3 @@
-import codecs
-import os.path
-
 from mako.lookup import TemplateLookup
 
 
