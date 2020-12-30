@@ -408,10 +408,9 @@ class Database:
                 if employee_id in employee:
                     employee[-1] = "storniert"
 
-            # Subtract 1 from participation count
+            # Subtract 1 from participation count if employee has not finished the training
             if has_not_finished_training is True:
                 self.change_participation_count(-1)
-                pass
 
             self.write_json_file()
         except (KeyError, ValueError):
