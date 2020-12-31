@@ -2,7 +2,6 @@ import json
 import codecs
 import os
 import copy
-import string
 
 class Database:
 

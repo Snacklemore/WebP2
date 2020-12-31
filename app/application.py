@@ -53,7 +53,7 @@ class Application_cl(object):
         if empty_employee_array is not None:
             return self.view_o.create_form_employee(None, empty_employee_array)
         else:
-            pass
+            return self.view_o.create_error_page("add_employe failed(application.py)")
 
     @cherrypy.expose
     def save_employee(self, employee_id, second_name, first_name, academic_degree, occupation):
