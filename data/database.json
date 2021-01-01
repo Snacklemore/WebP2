@@ -109,8 +109,8 @@
       }
    },
    "Weiterbildungen": {
-      "Max-ID": "3",
-      "Count": "3",
+      "Max-ID": "4",
+      "Count": "4",
       "Participation_count": "1",
       "List": {
          "1": [
@@ -202,12 +202,26 @@
                   "angemeldet"
                ]
             ]
+         ],
+         "4": [
+            "Java",
+            "55520-06-09",
+            "2021-01-22",
+            "Java Einsteigerkurs",
+            "500",
+            "50",
+            "4",
+            [
+               "5",
+               "6"
+            ],
+            []
          ]
       }
    },
    "Qualifikation": {
-      "Max-ID": "4",
-      "Count": "4",
+      "Max-ID": "6",
+      "Count": "6",
       "List": {
          "1": [
             " C++ Anfang",
@@ -234,12 +248,22 @@
             " C++ integer",
             "integer sind toll",
             []
+         ],
+         "5": [
+            " Java entry level",
+            "Basic java",
+            []
+         ],
+         "6": [
+            "First java course",
+            "java first course participation",
+            []
          ]
       }
    },
    "Zertifikat": {
-      "Max-ID": "3",
-      "Count": "3",
+      "Max-ID": "4",
+      "Count": "4",
       "List": {
          "1": [
             "C++ Anfaenger Zertifikat",
@@ -266,6 +290,12 @@
             [
                "4"
             ]
+         ],
+         "4": [
+            " Java entry level certificate",
+            "Java entry level",
+            "programmers",
+            []
          ]
       }
    }

@@ -174,7 +174,7 @@ class Application_cl(object):
         if certificate_id and title and description and entitled_to:
             self.database.edit_certificate(certificate_id, [title, description, entitled_to])
 
-        raise cherrypy.HTTPRedirect("/manage_qualification_and_certificates/" + training_id)
+        raise cherrypy.HTTPRedirect("/sichtweise_weiterbildungen")
 
     @cherrypy.expose
     def save_qualification(self, training_id, title, description):
@@ -184,7 +184,7 @@ class Application_cl(object):
         if qualification_id is not False:
             self.database.add_qualification_to_training(qualification_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
+        raise cherrypy.HTTPRedirect("/manage_qualification_and_certificates/" + training_id)
 
     @cherrypy.expose
     def save_certificate(self, training_id, title, description, entitled_to):
@@ -194,7 +194,7 @@ class Application_cl(object):
         if certificate_id is not False:
             self.database.add_certificate_to_training(certificate_id, training_id)
 
-        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
+        raise cherrypy.HTTPRedirect("/manage_qualification_and_certificates/" + training_id)
 
     ''' # Teilnahme # '''
 

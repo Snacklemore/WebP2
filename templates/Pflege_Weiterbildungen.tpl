@@ -31,7 +31,7 @@
          <dl>
             <dt>Teilnahme</dt>
             <dd><a href="/sichtweise_mitarbeiter">- Sichtweise Mitarbeiter</a></dd>
-            <dd><a href="sichtweise_weiterbildungen">- Sichtweise Weiterbildungen</a></dd>
+            <dd><a href="/sichtweise_weiterbildungen">- Sichtweise Weiterbildungen</a></dd>
          </dl>
          <hr>
          <dl>
