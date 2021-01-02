@@ -158,7 +158,6 @@ class Application_cl(object):
     @cherrypy.expose
     def save_qualification_and_certificate(self, **kwargs):
         qualification_ids = kwargs.get("id_qualification")
-        training_id = kwargs.get("t_id", "")
         title = kwargs.get("qualification_title")
         description = kwargs.get("qualification_description")
 
@@ -174,7 +173,7 @@ class Application_cl(object):
         if certificate_id and title and description and entitled_to:
             self.database.edit_certificate(certificate_id, [title, description, entitled_to])
 
-        raise cherrypy.HTTPRedirect("/sichtweise_weiterbildungen")
+        raise cherrypy.HTTPRedirect("/pflege_weiterbildungen")
 
     @cherrypy.expose
     def save_qualification(self, training_id, title, description):
@@ -367,11 +366,3 @@ class Application_cl(object):
 
 # TODO richtige redirects mit arbeiter oder training id machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt
-
-
-
-
-
-
-
-

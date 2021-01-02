@@ -49,21 +49,18 @@
             <div>
                <label for="title">Bezeichnung</label>
                <input type="text"
-                  value=" "
                   id="title"
                   name="title" required />
             </div>
             <div>
                <label for="description">Beschreibung</label>
                <input type="text"
-                  value=" "
                   id="description"
                   name="description" required />
             </div>
 	    <div>
                <label for="entitled_to">Berechtigt zu</label>
                <input type="text"
-                  value=" "
                   id="entitled_to"
                   name="entitled_to" required />
             </div>

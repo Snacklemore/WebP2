@@ -1,5 +1,3 @@
-
-
 ##coding: utf-8
 <!DOCTYPE html>
 <head>
@@ -51,14 +49,12 @@
             <div>
                <label for="title">Bezeichnung</label>
                <input type="text"
-                  value=" "
                   id="title"
                   name="title" required />
             </div>
             <div>
                <label for="description">Beschreibung</label>
                <input type="text"
-                  value=" "
                   id="description"
                   name="description" required />
             </div>
