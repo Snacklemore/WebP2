@@ -161,9 +161,17 @@ class Application_cl(object):
         title = kwargs.get("qualification_title")
         description = kwargs.get("qualification_description")
 
-        if qualification_ids and title and description:
-            for counter, id_ in enumerate(qualification_ids):
-                self.database.edit_qualification(id_, [title[counter], description[counter]])
+        # If there is more than 1 qualification qualification_ids will be of type list
+        if title and description:
+            if type(qualification_ids) == list:
+                for counter, id_ in enumerate(qualification_ids):
+                    self.database.edit_qualification(id_, [title[counter], description[counter]])
+
+            # Else if there is only one or less qualification -> qualification_ids type string
+            else:
+                self.database.edit_qualification(qualification_ids, [title, description])
+
+
 
         certificate_id = kwargs.get("certificate_id")
         title = kwargs.get("certificate_title")
@@ -231,7 +239,6 @@ class Application_cl(object):
                     entry = trainings_list[training_id][0:6]
                     entry.append(training_id)
                     not_participated_training.append(entry)
-
 
 
             # Add employee id to the of the employee array
@@ -364,5 +371,5 @@ class Application_cl(object):
         except (ValueError, KeyError)as error:
             return self.view_o.create_error_page(error)
 
-# TODO richtige redirects mit arbeiter oder training id machen
+# TODO training Zertifikate als array machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt

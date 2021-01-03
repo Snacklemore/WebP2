@@ -98,10 +98,14 @@
                <td>
                   <h4>Beschreibung</h4>
                </td>
+               <td>
+                  <h4>Berechtigt zu</h4>
+               </td>
             </tr>
             <tr>
-               <td>${data_o[6][0]}</td>
-               <td>${data_o[6][1]}</td>
+               % for x in data_o[6]:
+               <td>${x}</td>
+               % endfor
             </tr>
          </table>
       </article>

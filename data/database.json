@@ -32,9 +32,9 @@
             ]
          ],
          "2": [
-            "Henrik",
             "Kuerten",
-            "Fachabi",
+            "Henrik",
+            "Hauptschule",
             "Student",
             [
                [
@@ -47,6 +47,10 @@
                ],
                [
                   "3",
+                  "storniert"
+               ],
+               [
+                  "4",
                   "angemeldet"
                ]
             ],
@@ -109,8 +113,8 @@
       }
    },
    "Weiterbildungen": {
-      "Max-ID": "4",
-      "Count": "4",
+      "Max-ID": "7",
+      "Count": "6",
       "Participation_count": "1",
       "List": {
          "1": [
@@ -199,7 +203,7 @@
                ],
                [
                   "2",
-                  "angemeldet"
+                  "storniert"
                ]
             ]
          ],
@@ -215,13 +219,44 @@
                "5",
                "6"
             ],
+            [
+               [
+                  "2",
+                  "angemeldet"
+               ]
+            ]
+         ],
+         "6": [
+            "Java script",
+            "2021-01-15",
+            "2021-01-23",
+            "asd",
+            "444",
+            "1",
+            null,
+            [
+               "7",
+               "8",
+               "9"
+            ],
+            []
+         ],
+         "7": [
+            "HTML",
+            "2021-01-07",
+            "2021-01-22",
+            "HTML anf\u00e4nger",
+            "22222",
+            "22",
+            null,
+            [],
             []
          ]
       }
    },
    "Qualifikation": {
-      "Max-ID": "6",
-      "Count": "6",
+      "Max-ID": "9",
+      "Count": "9",
       "List": {
          "1": [
             "C++ Anfang",
@@ -257,6 +292,21 @@
          "6": [
             "First java course",
             "java first course participation",
+            []
+         ],
+         "7": [
+            "java script",
+            "Kann bisschen java script",
+            []
+         ],
+         "8": [
+            "Java script beginner",
+            "Kann jetzt gut mit java script anfangen",
+            []
+         ],
+         "9": [
+            "test",
+            "test",
             []
          ]
       }

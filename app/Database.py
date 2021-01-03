@@ -212,19 +212,26 @@ class Database:
                     if entry_id is not None:
 
                         if data[6] is not None:
-
                             data[6] = self.get_list(self.certificate, entry_id=data[6])
 
-                            for counter, qualification_id in enumerate(data[7]):
-                                data[7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+                        else:
+                            data[6] = []
 
-                            for counter, employee in enumerate(data[8]):
-                                data[8][counter] = self.get_list(self.employee, entry_id=employee[0])
-                                data[8][counter].append(employee[1])
+                        for counter, qualification_id in enumerate(data[7]):
+                            data[7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
+
+                        for counter, employee in enumerate(data[8]):
+                            data[8][counter] = self.get_list(self.employee, entry_id=employee[0])
+                            data[8][counter].append(employee[1])
 
                     else:
                         for training in data:
-                            data[training][6] = self.get_list(self.certificate, entry_id=data[training][6])
+
+                            if data[training][6] is not None:
+                                data[training][6] = self.get_list(self.certificate, entry_id=data[training][6])
+
+                            else:
+                                data[6] = []
 
                             for counter, qualification_id in enumerate(data[training][7]):
                                 data[training][7][counter] = self.get_list(self.qualification, entry_id=qualification_id)
