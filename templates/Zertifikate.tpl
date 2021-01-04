@@ -66,6 +66,7 @@
                   <td>${i[1]}</td>
                </tr>
                % endfor
+               <br>
             % endfor
          </table>
       </article>

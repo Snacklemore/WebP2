@@ -231,7 +231,7 @@ class Database:
                                 data[training][6] = self.get_list(self.certificate, entry_id=data[training][6])
 
                             else:
-                                data[6] = []
+                                data[training][6] = []
 
                             for counter, qualification_id in enumerate(data[training][7]):
                                 data[training][7][counter] = self.get_list(self.qualification, entry_id=qualification_id)

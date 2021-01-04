@@ -63,8 +63,8 @@
                   <th>Vorname</th>
                   <th>akademische Grade</th>
                   <th>Status</th>
-               </tr>   
-               % for i in x[1][8]:
+               </tr> 
+               % for i in x[1][8]:  
                <tr>
                   <td>${i[0]}</td>
                   <td>${i[1]}</td>
@@ -72,6 +72,7 @@
                   <td>${i[4]}</td>
                </tr>
                % endfor
+               <br>
             % endfor
          </table>
       </article>

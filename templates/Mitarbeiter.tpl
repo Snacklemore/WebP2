@@ -71,7 +71,8 @@
                   <td>${i[2]}</td>
                   <td>${i[6]}</td>
                </tr>
-               % endfor                       
+               % endfor 
+               <br>                      
             % endfor
          </table>
       </article>
