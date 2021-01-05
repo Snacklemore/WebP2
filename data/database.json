@@ -1,40 +1,8 @@
 {
    "Mitarbeiter": {
       "Max-ID": "5",
-      "Count": "5",
+      "Count": "4",
       "List": {
-         "1": [
-            "Leon",
-            "Weinmann",
-            "Abitur",
-            "Student",
-            [
-               [
-                  "1",
-                  "storniert"
-               ],
-               [
-                  "2",
-                  "erfolgreich beendet"
-               ],
-               [
-                  "3",
-                  "storniert"
-               ],
-               [
-                  "7",
-                  "nimmt teil"
-               ]
-            ],
-            [
-               "1",
-               "2"
-            ],
-            [
-               "1",
-               "2"
-            ]
-         ],
          "2": [
             "Kuerten",
             "Henrik",
@@ -136,7 +104,7 @@
    "Weiterbildungen": {
       "Max-ID": "7",
       "Count": "6",
-      "Participation_count": "2",
+      "Participation_count": "1",
       "List": {
          "1": [
             "C++",
@@ -274,7 +242,7 @@
             [
                [
                   "1",
-                  "nimmt teil"
+                  "storniert"
                ],
                [
                   "4",
@@ -296,7 +264,6 @@
             "C++ Anfang",
             "C++ Anfang teilgenommen",
             [
-               "1",
                "2",
                "4"
             ]
@@ -304,9 +271,7 @@
          "2": [
             "Teppichbodenlegeexperte",
             "Kann jetzt Teppichb\u00f6den verlgen",
-            [
-               "1"
-            ]
+            []
          ],
          "3": [
             "Tierern\u00e4hrungsexperte",
@@ -354,7 +319,6 @@
             "kann jetzt ein wenig c++",
             "programmieren",
             [
-               "1",
                "2",
                "4"
             ]
@@ -363,9 +327,7 @@
             "Python Zertifikat",
             "Kann jetzt Python",
             "programmieren",
-            [
-               "1"
-            ]
+            []
          ],
          "3": [
             "Affengeschichten",

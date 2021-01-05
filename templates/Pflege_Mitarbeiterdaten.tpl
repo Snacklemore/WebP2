@@ -5,6 +5,7 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="\hauptansicht.css"/>
+   <script type="text/javascript" src="/webteams.js"></script>
 </head>
 <body>
    <header>
