@@ -1,14 +1,10 @@
-# coding: utf-8
-
 import sys
 import os
 import cherrypy
 from app import application
 
 
-# --------------------------------------
 def main():
-    # --------------------------------------
     # Get current directory
     try:
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -33,8 +29,5 @@ def main():
     cherrypy.engine.block()
 
 
-# --------------------------------------
 if __name__ == '__main__':
-    # --------------------------------------
     main()
-# EOF
