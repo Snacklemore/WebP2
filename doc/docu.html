@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bfm</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<span style="font-family:Arial ">
+<h1 id="webanwendung---mitarbeiterqualifizierung">Webanwendung - Mitarbeiterqualifizierung</h1>
+<blockquote>
+<p>Dieses Projekt wurde bearbeitet von</p>
+<ul>
+<li>Nicholas Kroh | 1108804</li>
+<li>Leon Weinmann | 1288414</li>
+<li>Hendrik Högden | 1308109</li>
+</ul>
+<p>Projektstand vom 04.01.2020</p>
+</blockquote>
+<h2 id="einleitung">Einleitung</h2>
+<p>Die Webanwendung Mitarbeiterqualifizierung soll dazu dienen die Weiterbildungen innerhalb einer Firma möglichst strukturiert zu organisieren und übersichtlich darzustellen. Zudem können neue Qualifikationen von Mitarbeitern sowie Weiterbildungen an sich im System neu erfasst werden. Die Anwendung berücksichtigt außerdem neben freiwilligen Weiterbildungen auch Weiterbildungen mit Abschlüssen und Zertifikaten.</p>
+<hr />
+<hr />
+<h2 id="aufgabenstellung">Aufgabenstellung</h2>
+<p>Um die Aufgabenstellung und Anforderungen an die Webanwendung zu beschrieben, werden wir zuerst auf die Datenstruktur hinter der Anwendung eingehen, danach gehen wir auf den Aufbau der Benutzerschnittstelle ein.</p>
+<h3 id="aufbau-der-datenstruktur">Aufbau der Datenstruktur</h3>
+<p>Aufgebaut soll die Anwendung so sein, dass ein Mitarbeiter an Weiterbildungen teilnehmen kann. Diese Teilnahme gibt dem Mitarbeiter Verfügung über Zertifikate und Qualifikationen, sofern die Teilnahme an einer Weiterbildung diese ausstellt. Weiterbildungen sollen nach erfolgreicher Teilnahme mindestens eine Qualifikation ausstellen, wohingegen Zertifikate nicht unbedingt erworben werden. Eine bessere Übersicht über die Vorgabe bietet hier ein Datenmodell (Abb.1).</p>
+<figure>
+<img src="p2_datenmodell.png" alt="(Abb.1)" /><figcaption aria-hidden="true">(Abb.1)</figcaption>
+</figure>
+<p>Die einzelnen Bestandteile der Anwendung soll mit verschiedenen Attributen gespeichert werden. Die wie folgt aussehen</p>
+<ul>
+<li><strong>Mitarbeiter</strong>
+<ul>
+<li>Name</li>
+<li>Vorname</li>
+<li>akademische Grade</li>
+<li>Tätigkeit</li>
+</ul></li>
+<li><strong>Weiterbildung</strong>
+<ul>
+<li>Bezeichnung</li>
+<li>VonBis</li>
+<li>Beschreibung</li>
+<li>maximale und minimale Teilnehmerzahl</li>
+</ul></li>
+<li><strong>Zertifikat</strong>
+<ul>
+<li>Bezeichnung</li>
+<li>Beschreibung</li>
+<li>Berechtigungen durch das Zertifikat</li>
+</ul></li>
+<li><strong>Qualifikation</strong>
+<ul>
+<li>Bezeichnung</li>
+<li>Beschreibung</li>
+</ul></li>
+</ul>
+<h3 id="aufbau-der-benutzeroberfläche">Aufbau der Benutzeroberfläche</h3>
+<p>Die Benutzeroberfläche soll wie in Abb.2 dargestellt, aufgebaut werden.</p>
+<figure>
+<img src="p2_wireframe.png" alt="(Abb.2)" /><figcaption aria-hidden="true">(Abb.2)</figcaption>
+</figure>
+<p>Der Kopfbereich stellt die Namen und Version der Webanwendung, sowie die Namen unserer Gruppe da. Darunter befindet sich link die Sidebar, welche als Navigationsbereich für die Anwendung benutzt wird. Diese beiden Bereiche verändern sich bei der Benutzung der Webseite nicht. Rechts neben der Sidebar befindet sich der Inhaltsbereich in die aufgerufenen Seiten angezeigt werden. Die in der Navigation bedienbaren Einträge und somit einen neuen Inhalt aufrufen sind folgende</p>
+<ul>
+<li><strong>[Startseite]</strong>
+<ul>
+<li>Die Startseite zeigt die Anzahl aller Mitarbeiter, Weiterbildungen und Teilnahmen</li>
+</ul></li>
+<li><strong>[Pflege Mitarbeiterdaten]</strong>
+<ul>
+<li>dieser Bereich ist dazu da neue Mitarbeiter anzulegen oder bestehende Einträge von Mitarbeiter zu bearbeiten, außerdem soll sich von jedem Mitarbeiter eine Detailansicht anzeigen lassen</li>
+</ul></li>
+<li><strong>[Pflege Weiterbildungen]</strong>
+<ul>
+<li>dieser Bereich ist dazu da neue Weiterbildungen anzulegen oder bestehende Weiterbildungen zu bearbeiten, auch hier gibt es zu jedem Eintrag die Möglichkeit sich eine Detailansicht anzeigen zu lassen</li>
+</ul></li>
+<li><strong>Teilnahme - [Sichtweise Mitarbeiter]</strong>
+<ul>
+<li>hier kann man die Daten zu einem Mitarbeiter noch detaillierter angezeigt bekommen, bspw. an welche Teilnahmen er hat und an welchen Weiterbildungen er teilnehmen könnte</li>
+</ul></li>
+<li><strong>Teilnahme - [Sichtweise Weiterbildungen]</strong>
+<ul>
+<li>hier gelangt man durch die Auswahl einer bestimmten Weiterbildung zu einer detaillierteren Ansicht, die unter anderem die Teilnehmer angezeigt werden, deren Teilnahme auch unterbrochen werden kann</li>
+</ul></li>
+<li><strong>Auswertungen - [Mitarbeiter]</strong>
+<ul>
+<li>hier befindet sich eine alphabetisch sortierte Liste der Mitarbeiter, mit allen Teilnahmen des Mitarbeiters</li>
+</ul></li>
+<li><strong>Auswertungen [Weiterbildungen]</strong>
+<ul>
+<li>hierbefindet sich eine alphabetische Liste der Weiterbildungen, mit deren erfolgreichen Teilnehmern</li>
+</ul></li>
+<li><strong>Auswertungen [Zertifikate]</strong>
+<ul>
+<li>alphabetische Anzeige der vergebenen Zertifikate aller Mitarbeiter</li>
+</ul></li>
+</ul>
+<hr />
+<hr />
+<h2 id="unsere-lösung">Unsere Lösung</h2>
+<p>Bei der Beschreibung unserer Lösung werden wir zuerst die serverseitige Umsetzung erläutern, in dem wir alle Komponenten des Servers einzeln beschreiben, diese befinden sich in <strong><code>../MarbtrQualifizierung/app</code></strong>. Anschließend werden wir auf die Datenablage eingehen, die sich in <strong><code>../MarbtrQualifizierung/data</code></strong>.</p>
+<hr />
+<h3 id="application.py"><strong><code>application.py</code></strong></h3>
+<p>Die <strong><code>application.py</code></strong> dient als Controller der Anwendung. Er liefert die gerenderten Templates an den Browser, welche er vorher mit Daten befüllt, die er sich aus den JSON-Dateien holt. Zudem leitet er ÄnderungenLöschung in den Daten, wenn sie vom Browser angefordert werden.</p>
+<p>Die Bestandteile sind folgende:</p>
+<ul>
+<li><p><strong><code>index()</code></strong>: ruft die Funktion Startsseite() auf</p></li>
+<li><p><strong><code>Startseite():</code></strong> :</p>
+<p>gibt den HTML-Code für die Startseite der Webanwendung zurück, auf der die aktuelle Anzahl aller Mitarbeiter, Weiterbildungen und Teilnahmen angezeigt wird</p></li>
+<li><p><strong><code>pflege_mitarbeiterdaten()</code></strong>, <strong><code>show_detail_employee()</code></strong>, <strong><code>edit_employee()</code></strong>,<strong><code>add_employee()</code></strong>, <strong><code>save_employee()</code></strong> und <strong><code>delete_employee(self, employee_id)</code></strong>:</p>
+<p>diese Funktionen stellen die Operationen rund um den Menüpunkt [Pflege Mitarbeiterdaten] zur Verfügung, zum einen die generelle Übersicht aller Mitarbeiter aber auch die detailansicht jedes einzelnen sowie die Formulare um neue Mitarbeiter einzupflegen oder bestehende Mitarbeiterdaten zu ändern</p></li>
+<li><p><strong><code>pflege_weiterbildungen()</code></strong>, <strong><code>edit_training()</code></strong>, <strong><code>add_training()</code></strong>, <strong><code>save_training()</code></strong>, <strong><code>delete_training()</code></strong> und <strong><code>show_detail_training()</code></strong>:</p>
+<p>diese Funktionen realsieren das gleiche wie im letzen Abschnitt beschrieben allerdings für den Bereich [Pflege Weiterbildungen]. Die Funktionen ermöglichen einen das Löschen, Erfassen und Bearbeiten von Weiterbildungen sowie das Anzeigen einer Detailansicht für jede Weiterbildunge</p></li>
+<li><p><strong><code>manage_qualification_and_certificates()</code></strong>, <strong><code>add_qualification()</code></strong>, <strong><code>add_certificate()</code></strong>, <strong><code>save_qualification_and_certificate()</code></strong>, <strong><code>save_qualification()</code></strong> und <strong><code>save_certificate()</code></strong>:</p>
+<p>diese Funktionen sind ebenfalls Teil des Bereichs [Pflege Weiterbildungen]. Sie stellen die benötigten Formulare um die Qualifikationen und Zertifikate der einzelnen Weiterbildungen zu verwalten</p></li>
+<li><p><strong><code>sichtweise_mitarbeiter()</code></strong>, <strong><code>inspect_employee_detail()</code></strong>, <strong><code>cancel_employee_training()</code></strong>, <strong><code>add_employee_to_training()</code></strong> und <strong><code>save_employee_to_training()</code></strong>:</p>
+<p>diese Funktionen stellen die Operationen des Bereichs [Sichtweise Mitarbeiter] zur Verfügung. Zum einen die Überischt über aller Mitabrbeiter zm anderen aber auch die Detailansicht für jeden einzelnen Mitarbeiter in der es die Möglichkeit gibt Teilnahmen des entsprechenden Mitarbeiter abzubrechen</p></li>
+<li><p><strong><code>sichtweise_weiterbildungen()</code></strong>, <strong><code>inspect_training_detail()</code></strong> und <strong><code>cancel_employee_training_sichtweise_weiterbildung()</code></strong>:</p>
+<p>diese Funktionen stellen genau das gleiche wie im letzten Abschnitt zur Verfügung allerdings für den Teil [Sichtweise Weiterbildungen]. Dementsprechend gibt es hier eine Übersicht über alle Weiterbildungen und zusätzlich zu jedem eine Detailansicht in der Teilnahmen storniert werden können</p></li>
+<li><p>**<code>Mitarbeiter()</code><em>t</em>:</p>
+<p>Mitarbeiter() gib den HTML-Code für den Bereich [Auswertung Mitarbeiter] zurück der eine detaillierte Komplettansicht aller Mitarbeiter anzeigt</p></li>
+<li><p><strong><code>Weiterbildungen()</code></strong>:</p>
+<p>Weiterbildungen() gib den HTML-Code für den Bereich [Auswertung Weiterbildungen] zurück der eine detaillierte Komplettansicht aller Weiterbildungen anzeigt</p></li>
+<li><p><strong><code>Zertifikate()</code></strong>:</p>
+<p>Zertifikate() gib den HTML-Code für den Bereich [Auswertung Zertifikate] zurück der eine detaillierte Komplettansicht aller Zertifikate anzeigt</p></li>
+</ul>
+<p>Die Komponenten, mit der die <strong><code>application.py</code></strong> zusammenwirkt, ist zum einen der Browser. Von Ihm kommen die Anfragen an den Server an. Nachdem die <strong><code>application.py</code></strong> diese Anfragen bearbeitet hat gibt sie den gerenderten HTML-Code an den Browser zurück. Bei dieser Umsetzung kommen die zwei weiteren Komponenten dazu, mit denen der Controller zusammen arbeitet. Zum einen die <strong><code>database.py</code></strong>, die er nutzt um auf die Datenablage zuzugreifen und zum anderen die <strong><code>view.py</code></strong>, die aus dem Template den HTML-Code rendert. Die Antworten der beiden Komponenten werden zusammen gelegt. Also das gerenderte Template der <strong><code>view.py</code></strong> wird mit den Daten der <strong><code>database.py</code></strong> gefüllt und dann an den Browser zurückgegeben.</p>
+<hr />
+<h3 id="database.py"><strong><code>database.py</code></strong></h3>
+<p>Die <strong><code>database.py</code></strong> bietet Zugang zu den Daten, der Webanwendung. Die Daten, die in JSON-Dateien gesichert sind können mithilfe von verschiedenen Operationen verändert/bearbeitet werden. Die <strong><code>database.py</code></strong> wird dafür von der <strong><code>application.py</code></strong>, genutzt um an die benötigten Daten zu gelangen und um diese zu verändern. Die Bestandteile sind folgende:</p>
+<ul>
+<li><p><strong><code>__reset_json_file()</code></strong>, <strong><code>read_json_file()</code></strong> und <strong><code>write_json_file()</code></strong>:</p>
+<p>diese drei Funktionen ermöglichen den anderen folgenden Funktionen den Zugriff auf die <code>.json</code>-Datei in der alle Daten gespeichert sind. Zum einen um Daten nur auszulesen (read) zum anderen um Daten zu ergänzen oder zu bearbeiten (write)</p></li>
+<li><p><strong><code>get_list()</code></strong>:</p>
+<p>diese Funktion ist das dazu da die richtigen Einträge aus der Datenablage bekommt sie fragt ab welcher dictionary-name übergeben wurde um so die zum Aufruf passenden Daten zurück zu geben. Bspw wenn der Name “employee” übergeben wurde such die Funktionen den Teil der <code>.json</code>.Datei heraus in der die Mitarbetier gespeichert sind und gibt diese zurück</p></li>
+<li><p><strong><code>raise_max_id()</code></strong>:</p>
+<p>wird aufgerufen wenn ein neuer Eintrag hinzugefügt wurde und erhöht dann die MaxID um 1 und gibt den neuen Wert zurück</p></li>
+<li><p><strong><code>change_count()</code></strong>:</p>
+<p>diese Funktion erhöht die allgmeine Anzahl des entsprechenden Eintrags zurück</p></li>
+<li><p><strong><code>add_employee()</code></strong>, <strong><code>delete_employee()</code></strong>, <strong><code>edit_employee()</code></strong> und <strong><code>get_empty_employee_array()</code></strong>:</p>
+<p>diese Funktion ermöglichen die Datenzugriffe bei der Pflege der Mitarbeiter unter dem Bereich [Pflege Mitarbeiter]</p></li>
+<li><p><strong><code>add_training_to_employee()</code></strong>, <strong><code>delete_employee_from_training()</code></strong>, <strong><code>delete_training_from_employees()</code></strong>, <strong><code>change_participation_count()</code></strong> und <strong><code>get_employee_participation_status()</code></strong>:</p>
+<p>diese Funktionen führen die benötigten Datenzugriffe durch, wenn Teilnahmen von Mitarbeitern and Weiterbildungen hinzugefügt oder storniert werden sollen</p></li>
+<li><p><strong><code>add_training()</code></strong>, <strong><code>delete_training()</code></strong>, <strong><code>edit_training()</code></strong>, <strong><code>get_empty_training_array()</code></strong> und <strong><code>get_participation_status_array()</code></strong>:</p>
+<p>diese Funktion ermöglichen die Datenzugriffe bei der Pflege der Weiterbildungen unter dem Bereich [Pflege Weiterbildungen]</p></li>
+<li><p><strong><code>add_qualification_to_training()</code></strong>, <strong><code>remove_qualification_from_training()</code></strong> und <strong><code>remove_qualification_from_all_trainings()</code></strong>:</p>
+<p>diese Funktionen führen die benötigten Datenzugriffe durch, wenn Qualifikationen von Weiterbildungen hinzugefügt oder storniert werden sollen</p></li>
+<li><p><strong><code>add_qualification_to_employee()</code></strong> und <strong><code>remove_employee_from_qualification()</code></strong>:</p>
+<p>diese Funktionen führen die benötigten Datenzugriffe durch, wenn Qualifikationen von Mitarbeitern hinzugefügt oder entfernt werden sollen</p></li>
+<li><p><strong><code>add_qualification()</code></strong>, <strong><code>delete_qualification()</code></strong> und <strong><code>edit_qualification()</code></strong>:</p>
+<p>diese Funktionen dienen zur Pflege der Qualfikationen, wenn sie gelöscht, bearbeitet oder neu hinzugefügt werden sollen. Diese Funktione ist Teil des Bereichs [Pflege Weiterbildungen]</p></li>
+<li><p><strong><code>add_certificate_to_training()</code></strong>, <strong><code>remove_certificate_from_training()</code></strong> und <strong><code>remove_certificate_from_all_trainings()</code></strong>:</p></li>
+</ul>
+<p>diese Funktionen führen die benötigten Datenzugriffe durch, wenn Zertifikate zu Weiterbildungen hinzugefügt oder entfernt werden sollen</p>
+<ul>
+<li><p><strong><code>add_certificate_to_employee()</code></strong> und <strong><code>remove_employee_from_certificate()</code></strong>:</p>
+<p>diese Funktionen führen die benötigten Datenzugriffe durch, wenn Zertifikate zu Mitabreitern hinzugefügt oder entfernt werden sollen</p></li>
+<li><p><strong><code>add_certificate()</code></strong>, <strong><code>delete_certificate()</code></strong> und <strong><code>edit_certificate()</code></strong>:</p>
+<p>diese Funktionen dienen zur Pflege der Zertifikate, wenn sie gelöscht, bearbeitet oder neu hinzugefügt werden sollen. Diese Funktione ist Teil des Bereichs [Pflege Weiterbildungen]</p></li>
+</ul>
+<p>Wie bereits beschrieben wird die <strong><code>database.py</code></strong> ausschließlich von der <strong><code>application.py</code></strong> aufgerufen. Zum einen wenn der Browser Daten aus der Datenablage abrufen will und sie deshalb in das gerenderte Template geschrieben müssen. Zum anderen aber auch wenn der Browser Daten ändern möchte und diese in der Datenablage angepasst werden müssen. Die Funktionen und Bestandteile des Scripts greifen auf die Daten, die in der <strong><code>databsae.json</code></strong> gespeichert sind ab und geben sie an den Controller zurück.</p>
+<hr />
+<h3 id="view.py"><strong><code>view.py</code></strong></h3>
+<p>Die <strong><code>view.py</code></strong> ist dazu da, das zum Aufruf des Browsers passende Template zu rendern.</p>
+<p>Sie besteht daher aus 19 Funktionen die alle einen verschiedene Inahlt im Inhaltbereich darstellen. Je nachdem was der User aufruft, wird in der <strong><code>application.py</code></strong> die entsprechende Funktion aufgerufen.</p>
+<p>Die <strong><code>application.py</code></strong> ist die erste Komponente, die mit der <strong><code>view.py</code></strong> zusammen arbeitet, da sie die <strong><code>view.py</code></strong> aufruft um an den gerenderten HTML-Code zu kommen. Um diese “Aufgabe” zu erfüllen, greift die <strong><code>view.yp</code></strong> auf die <strong><code>.tpl</code></strong>-Files zu und rendert mit diesen den passenden HTML-Code.</p>
+<h3 id="templates">Templates</h3>
+<p>Damit die <strong><code>view.py</code></strong> den HTML-Code für die einzelnen Routen rendern kann, benötigt sie Templates. Diese sind in <strong><code>../MarbtrQualifizierung/templates</code></strong> als <strong><code>.tpl</code></strong>-Dateien gespeichert:</p>
+<ul>
+<li><strong><code>Startseite.tpl</code></strong>: Startseite</li>
+<li><strong><code>Pflege_Mitarbeiterdaten.tpl</code></strong>: Liste aller Mitarbeiter</li>
+<li><strong><code>Pflege_Mitarbeiter_Add.tpl</code></strong>: Formular zum Erfassen eines neuen Mitarbeiters</li>
+<li><strong><code>Pflege_Mitarbeiter_Detail.tpl</code></strong>: Detailansicht einen Mitarbeiter</li>
+<li><strong><code>Pflege_Weiterbildungen.tpl</code></strong>: Liste aller Weiterbildungen</li>
+<li><strong><code>Pflege_Weiterbildungen_Add.tpl</code></strong>: Formular zum Erfassen einer neuen Weiterbildung</li>
+<li><strong><code>Pflege_Weiterbildung_Detail.tpl</code></strong>: Detailansicht einer Weiterbildung</li>
+<li><strong><code>Sichtweise_Mitarbeiter.tpl</code></strong>: Liste aller Mitarbeiter</li>
+<li><strong><code>Sichtweise_Mitarbiter_Detail.tpl</code></strong>: Detailansicht eines Mitarbeiter</li>
+<li><strong><code>Sichtweise_Weiterbildungen.tpl</code></strong>: Liste aller Weiterbildungen</li>
+<li><strong><code>Sichtweise_Weiterbildungen_Detail.tpl</code></strong>: Detailansicht einer Weiterbildung</li>
+<li><strong><code>Weiterbildungen.tpl</code></strong>: Auswertung der Weiterbildungen</li>
+<li><strong><code>Zertifikate.tpl</code></strong>: Auswertung der Zertifikate</li>
+<li><strong><code>Mitarbeiter.tpl</code></strong>: Auswertung der Mitarbeiter</li>
+<li><strong><code>Error.tpl</code></strong>: Fehleranzeige falls ein Fehker auftritt</li>
+<li><strong><code>Pflege_Weiterbildung_Qualification_Add.tpl</code></strong>: Formular für neue Quali</li>
+<li><strong><code>Pflege_Weiterbildungen_Certificate_Add.tpl</code></strong>: Formular für neues Zertifikat</li>
+<li><strong><code>Pflege_Weiterbildungen_QZ_Verwalten.tpl</code></strong>: Verwaltung der Quali’s</li>
+<li><strong><code>Sichtweise_Mitarbeiter_Add_Training.tpl</code></strong>: Auswahl um Mitarbeiter an Training anzumelden</li>
+</ul>
+<h3 id="content">Content</h3>
+<p>Zusätzlich benutzen wird ein <strong><code>.css</code></strong>-Stylsheet (<strong><code>../content/hauptansicht.css</code></strong>) um unsere <strong><code>.tpl</code></strong>-Dateien zu formatieren. Dazu kommt noch ein <strong><code>.js</code></strong>-Skript, dass eine Bestätigungsabfrage beim Löschen eines Eintrages ermöglicht. (<strong><code>../content/hauptansicht.js</code></strong>)</p>
+<hr />
+<hr />
+<h2 id="datenablage">Datenablage</h2>
+<p>Die Datenablage für die Webanwendung haben wir im Gegensatz zum ersten Praktikum etas anders umgesetzt. Statt mehrerer <strong><code>.json</code></strong>-Dateien benutzen wir für diese Webanwendung nur eine einzige: <strong><code>database.json</code></strong>.</p>
+<p>Diese ist in 4 Dictionaries aufgeteilt: Mitarbeiter, Weiterbildungen, Zertifikate und Qualifikationen. In allen Dictionaries sind neben dem Count, MaxID und Informationen zum jeweiligen Eintrag auch noch alle weiteren Informationen gespeichert, die bei Operationen der Webanwendung benötigt werden</p>
+<p>In den einzelnen Dictionaries werden die einzelnen Einträgen mit einer indivduellen ID versehen über die man sie immer wieder genau identifizieren kann.</p>
+<hr />
+<hr />
+<h2 id="durchführung-und-ergebnis-der-geforderten-prüfungen">Durchführung und Ergebnis der geforderten Prüfungen</h2>
+<h3 id="überprüfung-markup">Überprüfung markup</h3>
+<blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>Anzahl Fehler</th>
+<th>Anzahl Warnings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>/Startseite</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/Pflege_Mitarbeiterdaten</td>
+<td>10</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>/add_employee</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>/edit_employee/1</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>/show_detail_employee/1</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/Pflege_Weiterbildungen</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>/add_training</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>/edit_training/1</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>/show_detail_training/1</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/manage_qualification_and_certificates/1</td>
+<td>15</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>/add_certificate/1</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>/sichtweise_mitarbeiter</td>
+<td>10</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>/inspect_employee_detail/1</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/sichtweise_weiterbildungen</td>
+<td>10</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>/inspect_training_detail/1</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/Mitarbeiter</td>
+<td>28</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>/Weiterbildungen</td>
+<td>13</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>/Zertifikate</td>
+<td>13</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="überprüfung-css">Überprüfung css</h3>
+<blockquote>
+<p><code>hauptansicht.css</code> - 0 Fehler</p>
+</blockquote>
+</span>
+</body>
+</html>
