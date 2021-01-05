@@ -409,10 +409,12 @@ class Database:
                         has_not_finished_training = True
                         training[1] = "storniert"
 
+            # TODO Temporary solution for employee delete -> deletes employee completely from the database instead of setting it to "storniert"
             training_list = self.__get_list(self.training, entry_id=training_id)
             for employee in training_list[-1]:
                 if employee_id in employee:
-                    employee[-1] = "storniert"
+                    #employee[-1] = "storniert"
+                    training_list[-1].remove(employee)
 
             # Subtract 1 from participation count if employee has not finished the training
             if has_not_finished_training is True:

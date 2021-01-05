@@ -120,10 +120,6 @@
             ],
             [
                [
-                  "1",
-                  "storniert"
-               ],
-               [
                   "2",
                   "storniert"
                ],
@@ -150,10 +146,6 @@
                "3"
             ],
             [
-               [
-                  "1",
-                  "storniert"
-               ],
                [
                   "2",
                   "storniert"
@@ -185,10 +177,6 @@
                [
                   "4",
                   "erfolgreich beendet"
-               ],
-               [
-                  "1",
-                  "storniert"
                ],
                [
                   "2",
@@ -240,10 +228,6 @@
             null,
             [],
             [
-               [
-                  "1",
-                  "storniert"
-               ],
                [
                   "4",
                   "erfolgreich beendet"

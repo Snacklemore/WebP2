@@ -64,7 +64,6 @@ class Application_cl(object):
             self.database.edit_employee(employee_id, employee_data)
         raise cherrypy.HTTPRedirect("/pflege_mitarbeiterdaten")
 
-    # TODO javascript fenster kommt nicht
     @cherrypy.expose
     def delete_employee(self, employee_id):
         if self.database.delete_employee(employee_id) is True:
