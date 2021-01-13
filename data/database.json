@@ -95,7 +95,12 @@
             "Hans",
             "Realschule",
             "Klemptner",
-            [],
+            [
+               [
+                  "7",
+                  "erfolgreich beendet"
+               ]
+            ],
             [],
             []
          ]
@@ -234,6 +239,10 @@
                ],
                [
                   "2",
+                  "erfolgreich beendet"
+               ],
+               [
+                  "5",
                   "erfolgreich beendet"
                ]
             ]

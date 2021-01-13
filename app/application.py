@@ -372,3 +372,8 @@ class Application_cl(object):
 
 # TODO training Zertifikate als array machen
 # TODO Wenn quali oder zert gelöscht bleibt nur noch die Id übrig wodurch früher oder später in get_list nen error kommt
+
+
+
+a = Child()
+a.show()
